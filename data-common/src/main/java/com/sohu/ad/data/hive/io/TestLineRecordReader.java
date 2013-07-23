@@ -132,7 +132,8 @@ public class TestLineRecordReader implements
 			}
 			
 			String line = value.toString();
-			if(!line.contains("abc")) return false;
+			value.set(Integer.toString(newSize));
+//			if(!line.contains("abc")) return false;
 			
 			pos += newSize;
 			if (newSize < maxLineLength) {
