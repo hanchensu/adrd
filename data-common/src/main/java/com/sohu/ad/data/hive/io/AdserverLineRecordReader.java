@@ -141,7 +141,7 @@ public class AdserverLineRecordReader implements
 				value.set(attrs+"\001"+fs.errorcode);
 				value.set(attrs);
 			} else {
-				return false;
+				value.set("");
 			}
 			
 			pos += newSize;
