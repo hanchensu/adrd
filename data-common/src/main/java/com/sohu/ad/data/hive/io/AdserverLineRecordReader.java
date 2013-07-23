@@ -139,10 +139,11 @@ public class AdserverLineRecordReader implements
 				String attrs = "";
 				for(String attr:fs.strs) {
 					if(attr == null) {
-						attrs+=null+"\001";
+						attrs+="NULL"+"\001";
 					} else {
 						attrs+=attr+"\001";
 					}
+//					attrs+=attr+"\001";
 					
 				}
 				value.set(attrs+fs.errorcode+"\001"+line);
@@ -150,7 +151,7 @@ public class AdserverLineRecordReader implements
 			} else {
 				String attrs="";
 				for(int i=0; i < schema.length; i++) {
-					attrs+=null+"\001";
+					attrs+="\\N"+"\001";
 				}
 				value.set(attrs+fs.errorcode+"\001"+line);
 			}
