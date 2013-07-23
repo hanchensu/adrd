@@ -138,8 +138,7 @@ public class AdserverLineRecordReader implements
 				for(String attr:fs.strs) {
 					attrs+=attr+"\001";
 				}
-				value.set(attrs+"\001"+fs.errorcode);
-				value.set(attrs);
+				value.set(attrs+"\001"+fs.errorcode+"\001"+line);
 			} else {
 				value.set("");
 			}

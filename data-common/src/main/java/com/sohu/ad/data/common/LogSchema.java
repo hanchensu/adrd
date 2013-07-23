@@ -37,7 +37,7 @@ public class LogSchema {
 
 	public static void main(String args[]) {
 		for (String attr : COUNTINFO_SCHEMA) {
-			System.out.println(attr);
+			System.out.println(attr.toLowerCase()+"\t\tSTRING,");
 		}
 	}
 
