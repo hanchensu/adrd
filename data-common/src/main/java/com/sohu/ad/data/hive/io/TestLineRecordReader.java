@@ -132,7 +132,7 @@ public class TestLineRecordReader implements
 			}
 			
 			String line = value.toString();
-			value.set(Integer.toString(newSize));
+			value.set(line+"___"+Integer.toString(newSize)+"___"+line.length());
 //			if(!line.contains("abc")) return false;
 			
 			pos += newSize;
