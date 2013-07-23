@@ -138,7 +138,12 @@ public class AdserverLineRecordReader implements
 //				value.set(line);
 				String attrs = "";
 				for(String attr:fs.strs) {
-					attrs+=attr+"\001";
+					if(attr == null) {
+						attrs+=null+"\001";
+					} else {
+						attrs+=attr+"\001";
+					}
+					
 				}
 				value.set(attrs+fs.errorcode+"\001"+line);
 				
