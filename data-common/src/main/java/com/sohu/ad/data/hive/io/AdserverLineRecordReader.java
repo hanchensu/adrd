@@ -15,6 +15,7 @@ import org.apache.hadoop.io.compress.CompressionCodecFactory;
 import org.apache.hadoop.mapred.FileSplit;
 import org.apache.hadoop.mapred.RecordReader;
 import org.apache.pig.parser.QueryParser.add_expr_return;
+import org.apache.commons.lang.math.Fraction;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 
@@ -134,14 +135,22 @@ public class AdserverLineRecordReader implements
 			String line = value.toString();
 			FormatResult fs = AdinfoFormator.format(line, schema);
 			if(fs.strs!=null) {
+//				value.set(line);
 				String attrs = "";
 				for(String attr:fs.strs) {
 					attrs+=attr+"\001";
 				}
-				value.set(attrs+"\001"+fs.errorcode+"\001"+line);
+				value.set(attrs+fs.errorcode+"\001"+line);
+				
 			} else {
-				value.set("");
+				String attrs="";
+				for(int i=0; i < schema.length; i++) {
+					attrs+=null+"\001";
+				}
+				value.set(attrs+fs.errorcode+"\001"+line);
 			}
+			
+			
 			
 			pos += newSize;
 			if (newSize < maxLineLength) {

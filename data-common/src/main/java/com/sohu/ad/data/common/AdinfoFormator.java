@@ -1,7 +1,12 @@
 package com.sohu.ad.data.common;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class AdinfoFormator {
 	
@@ -30,6 +35,25 @@ public class AdinfoFormator {
 		}
 
 		return Util.jsonFormat(schema, result, str);
+	}
+	
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(new File(
+				"D:/worktmp/countinfo.txt")));
+		String str;
+		
+		
+		while ((str = br.readLine()) != null) {
+			System.out.println(str);
+			
+			FormatResult fr = AdinfoFormator.format(str,LogSchema.COUNTINFO_SCHEMA);
+			System.out.println(fr.errorcode);
+			int index = 0;
+			for(String attr:fr.strs) {
+				System.out.println((index++)+":"+attr);
+			}
+		}
+		br.close();
 	}
 
 }
