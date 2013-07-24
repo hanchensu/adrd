@@ -14,9 +14,9 @@ import org.apache.pig.data.DataByteArray;
 import org.apache.pig.data.Tuple;
 import org.apache.pig.data.TupleFactory;
 
-import com.sohu.ad.data.sessionlog.util.InputPathFilter;
-import com.sohu.ad.data.sessionlog.util.SessionLogInputFormat;
-import com.sohu.ad.data.sessionlog.util.Util;
+import com.sohu.ad.data.common.Util;
+import com.sohu.ad.data.sessionlog.io.InputPathFilter;
+import com.sohu.ad.data.sessionlog.io.SessionLogInputFormat;
 
 public abstract class RawLogLoader extends LoadFunc {
 
@@ -61,7 +61,6 @@ public abstract class RawLogLoader extends LoadFunc {
 	public void setLocation(String location, Job job) throws IOException {
 		FileInputFormat.setInputPathFilter(job, InputPathFilter.class);
 		FileInputFormat.setInputPaths(job, location);
-
 	}
 
 }
