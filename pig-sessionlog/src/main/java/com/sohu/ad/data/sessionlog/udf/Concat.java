@@ -11,7 +11,7 @@ import org.apache.pig.data.Tuple;
 import org.apache.pig.data.TupleFactory;
 
 
-public class MergeOps extends EvalFunc<Tuple> {
+public class Concat extends EvalFunc<Tuple> {
 	
 	private static TupleFactory tupleFactory = TupleFactory.getInstance();
 	

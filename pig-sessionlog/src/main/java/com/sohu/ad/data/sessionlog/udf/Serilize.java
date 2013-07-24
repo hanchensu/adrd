@@ -10,7 +10,7 @@ import org.apache.pig.data.TupleFactory;
 import org.apache.thrift.TSerializer;
 import org.apache.thrift.protocol.TBinaryProtocol;
 
-import com.sohu.ad.data.common.AdrdUtil;
+import com.sohu.ad.data.common.AdrdDataUtil;
 import com.sohu.ad.data.common.CountinfoMaker;
 import com.sohu.ad.data.common.FormatResult;
 import com.sohu.ad.data.common.LogSchema;
@@ -23,34 +23,41 @@ public class Serilize extends EvalFunc<Tuple> {
 	private static TupleFactory tupleFactory = TupleFactory.getInstance();
 	
 	public Tuple exec(Tuple input) throws IOException {
-		if (input == null || input.size() < 2) {
+		if (input == null || input.size() < 3) {
             return null;
         }
 		String rawLog = (String) input.get(0);
 		if(Util.isBlank(rawLog)) return null;
 		int dupliNum = (Integer) input.get(1); 
+		String logTag = (String) input.get(2);
 		
 		try {
-			FormatResult fr = AdrdUtil.format(rawLog,LogSchema.COUNTINFO_SCHEMA);
+			FormatResult fr = AdrdDataUtil.format(rawLog,LogSchema.COUNTINFO_SCHEMA);
 			
 			if(fr.strs != null) {
 				
-				CountinfoOperation countinfo = CountinfoMaker.makeCountinfo(fr);
-				countinfo.setRepeat(dupliNum);
+				if("countinfo".equals(logTag)) {
+					CountinfoOperation countinfo = CountinfoMaker.makeCountinfo(fr);
+					countinfo.setRepeat(dupliNum);
+					
+					String userId = AdrdDataUtil.makeUserId(countinfo.yyId,countinfo.suv,countinfo.userIp,countinfo.userAgent);
+					String logType = AdrdDataUtil.getOpType(countinfo);
+					long timestamp = countinfo.getTimestamp();
+					DataByteArray serilized = new DataByteArray(AdrdDataUtil.serilize(countinfo));
+					
+					Tuple tuple = tupleFactory.newTuple(4);
+					
+					tuple.set(0, userId);
+					tuple.set(1, logType);
+					tuple.set(2, timestamp);
+					tuple.set(3, serilized);
+					
+					return tuple;
 				
-				String userId = AdrdUtil.makeUserId(countinfo.yyId,countinfo.suv,countinfo.userIp,countinfo.userAgent);
-				String logType = AdrdUtil.getOpType(countinfo);
-				long timestamp = countinfo.getTimestamp();
-				DataByteArray serilized = new DataByteArray(AdrdUtil.serilize(countinfo));
+				} else {
+					return null;
+				}
 				
-				Tuple tuple = tupleFactory.newTuple(4);
-				
-				tuple.set(0, userId);
-				tuple.set(1, logType);
-				tuple.set(2, timestamp);
-				tuple.set(3, serilized);
-				
-				return tuple;
 			
 			} else {
 				

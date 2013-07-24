@@ -11,7 +11,7 @@ import org.apache.thrift.protocol.TBinaryProtocol;
 import com.sohu.ad.data.thrift.operation.CountinfoOperation;
 
 
-public class AdrdUtil {
+public class AdrdDataUtil {
 	
 	public static String makeUserId(String yyid, String suv, String ip, String agent) {
 		
