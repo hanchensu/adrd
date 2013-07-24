@@ -1,23 +1,30 @@
 package com.sohu.ad.data.common;
 
+import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.List;
+
+import org.apache.pig.LoadPushDown.RequiredField;
 
 import com.sohu.ad.data.thrift.operation.CountinfoOperation;
 
 public class CountinfoMaker {
-	private Object[] defaults = {null,null};
-	private boolean[] required = {};
-	private 
-	
+	private static Object[] defaults = new Object[LogSchema.COUNTINFO_SCHEMA.length];
+	private static boolean[] required = new boolean[LogSchema.COUNTINFO_SCHEMA.length];
+	static {
+		
+		required[Arrays.asList(LogSchema.COUNTINFO_SCHEMA).indexOf("")] = false;
+		
+	}
+
 	public static CountinfoOperation makeCountinfo(FormatResult formatResult) {
 		return new CountinfoOperation();
 	}
-	
-	public static void main(String[] args){
-		CountinfoOperation countinfo = new CountinfoOperation();
-		countinfo.setC(1);
-		System.out.println(countinfo.isSetC());
-		System.out.println(countinfo.c);
+
+	public static void main(String[] args) {
+		for (String attr : LogSchema.COUNTINFO_SCHEMA) {
+			System.out.print("false,");
+		}
 	}
 
 }
