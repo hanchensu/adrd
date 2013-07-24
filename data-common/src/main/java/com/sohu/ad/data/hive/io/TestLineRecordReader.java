@@ -18,7 +18,6 @@ import org.apache.pig.parser.QueryParser.add_expr_return;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 
-import com.sohu.ad.data.common.AdLogFormator;
 import com.sohu.ad.data.common.FormatResult;
 
 public class TestLineRecordReader implements
