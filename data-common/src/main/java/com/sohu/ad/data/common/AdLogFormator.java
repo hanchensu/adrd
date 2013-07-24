@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class AdinfoFormator {
+public class AdLogFormator {
 	
 	public static FormatResult format(String str,String[] schema) {
 		List<String> result = new ArrayList<String>();
@@ -46,7 +46,7 @@ public class AdinfoFormator {
 		while ((str = br.readLine()) != null) {
 			System.out.println(str);
 			
-			FormatResult fr = AdinfoFormator.format(str,LogSchema.COUNTINFO_SCHEMA);
+			FormatResult fr = AdLogFormator.format(str,LogSchema.COUNTINFO_SCHEMA);
 			System.out.println(fr.errorcode);
 			int index = 0;
 			for(String attr:fr.strs) {

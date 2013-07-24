@@ -19,7 +19,7 @@ import org.apache.commons.lang.math.Fraction;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 
-import com.sohu.ad.data.common.AdinfoFormator;
+import com.sohu.ad.data.common.AdLogFormator;
 import com.sohu.ad.data.common.FormatResult;
 
 public class AdserverLineRecordReader implements
@@ -133,7 +133,7 @@ public class AdserverLineRecordReader implements
 			}
 			
 			String line = value.toString();
-			FormatResult fs = AdinfoFormator.format(line, schema);
+			FormatResult fs = AdLogFormator.format(line, schema);
 			if(fs.strs!=null) {
 //				value.set(line);
 				String attrs = "";

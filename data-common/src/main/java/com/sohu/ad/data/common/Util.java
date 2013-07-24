@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.security.MessageDigest;
+import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
@@ -12,8 +13,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.hadoop.io.BytesWritable;
-
-
 
 public class Util {
 	private static ThreadLocal<SimpleDateFormat> Usformaters = new ThreadLocal<SimpleDateFormat>();

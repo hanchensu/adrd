@@ -81,4 +81,5 @@
   		<url>http://10.11.156.138:8081/nexus/content/repositories/snapshots/</url>
   	</snapshotRepository>
   </distributionManagement>
+  <name>Data-Common</name>
 </project>
