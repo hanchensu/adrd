@@ -21,11 +21,11 @@ import com.sohu.ad.data.sessionlog.CountinfoMaker;
 import com.sohu.ad.data.thrift.operation.CountinfoOperation;
 
 
-public class Serilize extends EvalFunc<Tuple> {
+public class Serilize extends EvalFunc<DataByteArray> {
 	
 	private static TupleFactory tupleFactory = TupleFactory.getInstance();
 	
-	public Tuple exec(Tuple input) throws IOException {
+	public DataByteArray exec(Tuple input) throws IOException {
 		if (input == null || input.size() < 3) {
             return null;
         }
@@ -43,19 +43,18 @@ public class Serilize extends EvalFunc<Tuple> {
 					CountinfoOperation countinfo = CountinfoMaker.makeCountinfo(fr);
 					countinfo.setRepeat(dupliNum);
 					
-					String userId = AdrdDataUtil.makeUserId(countinfo.yyId,countinfo.suv,countinfo.userIp,countinfo.userAgent);
-					String logType = AdrdDataUtil.getOpType(countinfo);
-					long timestamp = countinfo.getTimestamp();
+//					String userId = AdrdDataUtil.makeUserId(countinfo.yyId,countinfo.suv,countinfo.userIp,countinfo.userAgent);
+//					String logType = AdrdDataUtil.getOpType(countinfo);
+//					long timestamp = countinfo.getTimestamp();
 					DataByteArray serilized = new DataByteArray(AdrdDataUtil.serilize(countinfo));
 					
-					Tuple tuple = tupleFactory.newTuple(4);
+//					Tuple tuple = tupleFactory.newTuple(4);
+//					tuple.set(0, userId);
+//					tuple.set(1, logType);
+//					tuple.set(2, timestamp);
+//					tuple.set(3, serilized);
 					
-					tuple.set(0, userId);
-					tuple.set(1, logType);
-					tuple.set(2, timestamp);
-					tuple.set(3, serilized);
-					
-					return tuple;
+					return serilized;
 				
 				} else {
 					return null;
@@ -75,26 +74,26 @@ public class Serilize extends EvalFunc<Tuple> {
 		
 	}
 	
-	public Schema outputSchema(Schema input) {
-		try {
-			List<Schema.FieldSchema> fieldSchemas = new ArrayList<Schema.FieldSchema>();
-			
-			Schema.FieldSchema fieldSchema = new Schema.FieldSchema("user",DataType.CHARARRAY);
-			fieldSchemas.add(fieldSchema);
-		    
-			fieldSchema = new Schema.FieldSchema("type",DataType.CHARARRAY);
-		    fieldSchemas.add(fieldSchema);
-		    
-		    fieldSchema = new Schema.FieldSchema("timestamp",DataType.LONG);
-		    fieldSchemas.add(fieldSchema);
-		    
-		    fieldSchema = new Schema.FieldSchema("serilizeOp",DataType.BYTEARRAY);
-		    fieldSchemas.add(fieldSchema);
-		    
-			return new Schema(fieldSchemas);
-		} catch (Exception e) {
-			return null;
-		}
-	}
+//	public Schema outputSchema(Schema input) {
+//		try {
+//			List<Schema.FieldSchema> fieldSchemas = new ArrayList<Schema.FieldSchema>();
+//			
+//			Schema.FieldSchema fieldSchema = new Schema.FieldSchema("user",DataType.CHARARRAY);
+//			fieldSchemas.add(fieldSchema);
+//		    
+//			fieldSchema = new Schema.FieldSchema("type",DataType.CHARARRAY);
+//		    fieldSchemas.add(fieldSchema);
+//		    
+//		    fieldSchema = new Schema.FieldSchema("timestamp",DataType.LONG);
+//		    fieldSchemas.add(fieldSchema);
+//		    
+//		    fieldSchema = new Schema.FieldSchema("serilizeOp",DataType.BYTEARRAY);
+//		    fieldSchemas.add(fieldSchema);
+//		    
+//			return new Schema(fieldSchemas);
+//		} catch (Exception e) {
+//			return null;
+//		}
+//	}
 	
 }
