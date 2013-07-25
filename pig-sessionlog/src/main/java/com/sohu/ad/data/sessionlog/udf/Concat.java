@@ -34,7 +34,7 @@ public class Concat extends EvalFunc<Tuple> {
 				buffer.write(serilized);
 			}
 			
-			Tuple tuple = tupleFactory.newTuple(4);
+			Tuple tuple = tupleFactory.newTuple(3);
 			tuple.set(0, userId);
 			tuple.set(1, logType);
 			tuple.set(2, new DataByteArray(buffer.toByteArray()));

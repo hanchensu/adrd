@@ -1,12 +1,15 @@
 package com.sohu.ad.data.sessionlog;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-
 import org.apache.thrift.protocol.TType;
 
+import com.sohu.ad.data.common.AdrdDataUtil;
 import com.sohu.ad.data.common.FormatResult;
 import com.sohu.ad.data.common.LogSchema;
 import com.sohu.ad.data.common.Util;
@@ -16,16 +19,16 @@ import com.sohu.ad.data.thrift.operation.CountinfoOperation._Fields;
 public class CountinfoMaker {
 	private static Object[] defaults = new Object[LogSchema.COUNTINFO_SCHEMA.length];
 	private static boolean[] required = new boolean[LogSchema.COUNTINFO_SCHEMA.length];
-	private static String[] thriftName = { "logTime", "logLevel", "adId", "adpId",
-			"adPos", "adpX", "adpY", "adType", "browser", "clickX", "clickY",
-			"contentUrl", "ext", "freq", "getUrl", "impressionId", "latency",
-			"monitorKey", "os", "refer", "region", "reqType", "resolution",
-			"suv", "timestamp", "turn", "userAgent", "userIp", "yyId",
-			"supportFlash", "e", "c", "pageId", "advertiserId", "jsVersion",
-			"bidPrice", "bidType", "bidPrice2", "bidType2", "ctr", "ctr2",
-			"eCPM", "eCPM2", "adgroupMK", "advertiserIdMK", "adScore",
+	private static String[] thriftName = { "logTime", "logLevel", "adId",
+			"adpId", "adPos", "adpX", "adpY", "adType", "browser", "clickX",
+			"clickY", "contentUrl", "ext", "freq", "getUrl", "impressionId",
+			"latency", "monitorKey", "os", "refer", "region", "reqType",
+			"resolution", "suv", "timestamp", "turn", "userAgent", "userIp",
+			"yyId", "supportFlash", "e", "c", "pageId", "advertiserId",
+			"jsVersion", "bidPrice", "bidType", "bidPrice2", "bidType2", "ctr",
+			"ctr2", "eCPM", "eCPM2", "adgroupMK", "advertiserIdMK", "adScore",
 			"campaignIdMK", "edContent", "edStatus", "lineIdMK", "materialMK" };
-	
+
 	private static Verifier[] verifiers = {};
 	static {
 		defaults[indexOf("ADPOS")] = 0;
@@ -57,13 +60,19 @@ public class CountinfoMaker {
 		return Arrays.asList(LogSchema.COUNTINFO_SCHEMA).indexOf(key);
 	}
 
+	public static CountinfoOperation makeCountinfo(String log) {
+		FormatResult fr = AdrdDataUtil.format(log, LogSchema.COUNTINFO_SCHEMA);
+		return makeCountinfo(fr);
+	}
+
 	public static CountinfoOperation makeCountinfo(FormatResult formatResult) {
 
 		CountinfoOperation countinfo = new CountinfoOperation();
 
 		List<String> strs = formatResult.strs;
 		if (strs != null) {
-			for (int i = 0; i < LogSchema.CI_SEND_SCHEMA.length; i++) {
+			for (int i = 0; i < LogSchema.COUNTINFO_SCHEMA.length; i++) {
+				
 				_Fields field = CountinfoOperation._Fields
 						.findByName(thriftName[i]);
 
@@ -107,22 +116,22 @@ public class CountinfoMaker {
 	}
 
 	public static void main(String[] args) throws IOException {
-		// BufferedReader br = new BufferedReader(new FileReader(new File(
-		// "D:/worktmp/attr.txt")));
-		// String str;
-		// while ((str = br.readLine()) != null) {
-		// String[] attrs = str.split(",");
-		// for (String attr : attrs) {
-		// System.out.print("\"" + attr.trim() + "\",");
-		// }
-		// }
-		// br.close();
+		BufferedReader br = new BufferedReader(new FileReader(new File(
+				"D:/worktmp/countinfo.txt")));
+		String str;
+		while ((str = br.readLine()) != null) {
+			System.out.println(str);
+			System.out.println(makeCountinfo(str).latency);
+		}
+		br.close();
 //		for (int i = 0; i < LogSchema.COUNTINFO_SCHEMA.length; i++) {
 //			System.out.println(LogSchema.COUNTINFO_SCHEMA[i] + ":"
 //					+ thriftName[i]);
 //		}
-		int i = 2;
-		System.out.println(CountinfoOperation._Fields.findByName(thriftName[i])+" "+LogSchema.COUNTINFO_SCHEMA[i]);
+//		int i = 2;
+//		System.out.println(CountinfoOperation._Fields.findByName(thriftName[i])
+//				+ " " + LogSchema.COUNTINFO_SCHEMA[i]);
+
 	}
 
 }
