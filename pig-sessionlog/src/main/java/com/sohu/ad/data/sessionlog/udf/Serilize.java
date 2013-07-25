@@ -23,7 +23,6 @@ import com.sohu.ad.data.thrift.operation.CountinfoOperation;
 
 public class Serilize extends EvalFunc<DataByteArray> {
 	
-	private static TupleFactory tupleFactory = TupleFactory.getInstance();
 	
 	public DataByteArray exec(Tuple input) throws IOException {
 		if (input == null || input.size() < 3) {
@@ -31,7 +30,7 @@ public class Serilize extends EvalFunc<DataByteArray> {
         }
 		String rawLog = (String) input.get(0);
 		if(Util.isBlank(rawLog)) return null;
-		int dupliNum = (Integer) input.get(1); 
+		long dupliNum = (Long) input.get(1); 
 		String logTag = (String) input.get(2);
 		
 		try {
@@ -41,7 +40,7 @@ public class Serilize extends EvalFunc<DataByteArray> {
 				
 				if("countinfo".equals(logTag)) {
 					CountinfoOperation countinfo = CountinfoMaker.makeCountinfo(fr);
-					countinfo.setRepeat(dupliNum);
+					countinfo.setRepeat((int) dupliNum);
 					
 //					String userId = AdrdDataUtil.makeUserId(countinfo.yyId,countinfo.suv,countinfo.userIp,countinfo.userAgent);
 //					String logType = AdrdDataUtil.getOpType(countinfo);

@@ -55,7 +55,8 @@ public class AdrdDataUtil {
 		return Util.jsonFormat(schema, result, str);
 	}
 	
-	public static String getOpType(CountinfoOperation countinfo) {
+	public static String getOpType(String reqType, String adType, String suv) {
+		
 		String CLICK_FLAG = "click";
 		String DISPLAY_FLAG = "view";
 		String NEWS_TYPE = "2";
@@ -64,9 +65,6 @@ public class AdrdDataUtil {
 		String ARRIVE_FLAG = "arrive";
 		String ERR_FLAG = "err";
 		
-		String reqType = countinfo.getReqType();
-		String adType = countinfo.getReqType();
-		String suv = countinfo.getSuv();
 		
 		if (DISPLAY_FLAG.equals(reqType) && TEST_SUV.equals(suv)) {
 			
@@ -108,6 +106,11 @@ public class AdrdDataUtil {
 			
 			return "unknownLogType";
 		}
+	}
+	
+	public static String getOpType(CountinfoOperation countinfo) {
+		
+		return getOpType(countinfo.reqType, countinfo.adType, countinfo.suv);
 	}
 	
 	public static byte[] serilize(CountinfoOperation adinfo) throws IOException {
