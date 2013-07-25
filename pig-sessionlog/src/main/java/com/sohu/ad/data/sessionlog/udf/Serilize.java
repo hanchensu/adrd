@@ -1,12 +1,15 @@
 package com.sohu.ad.data.sessionlog.udf;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.pig.EvalFunc;
 import org.apache.pig.data.DataByteArray;
+import org.apache.pig.data.DataType;
 import org.apache.pig.data.Tuple;
 import org.apache.pig.data.TupleFactory;
+import org.apache.pig.impl.logicalLayer.schema.Schema;
 import org.apache.thrift.TSerializer;
 import org.apache.thrift.protocol.TBinaryProtocol;
 
@@ -70,6 +73,28 @@ public class Serilize extends EvalFunc<Tuple> {
 			return null;			
 		}
 		
+	}
+	
+	public Schema outputSchema(Schema input) {
+		try {
+			List<Schema.FieldSchema> fieldSchemas = new ArrayList<Schema.FieldSchema>();
+			
+			Schema.FieldSchema fieldSchema = new Schema.FieldSchema("user",DataType.CHARARRAY);
+			fieldSchemas.add(fieldSchema);
+		    
+			fieldSchema = new Schema.FieldSchema("type",DataType.CHARARRAY);
+		    fieldSchemas.add(fieldSchema);
+		    
+		    fieldSchema = new Schema.FieldSchema("timestamp",DataType.LONG);
+		    fieldSchemas.add(fieldSchema);
+		    
+		    fieldSchema = new Schema.FieldSchema("serilizeOp",DataType.BYTEARRAY);
+		    fieldSchemas.add(fieldSchema);
+		    
+			return new Schema(fieldSchemas);
+		} catch (Exception e) {
+			return null;
+		}
 	}
 	
 }
