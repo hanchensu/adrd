@@ -28,7 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOperation, CountinfoOperation._Fields>, java.io.Serializable, Cloneable {
-  private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("AdInfoOperation");
+  private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("CountinfoOperation");
 
   private static final org.apache.thrift.protocol.TField AD_ID_FIELD_DESC = new org.apache.thrift.protocol.TField("adId", org.apache.thrift.protocol.TType.STRING, (short)1);
   private static final org.apache.thrift.protocol.TField ADP_ID_FIELD_DESC = new org.apache.thrift.protocol.TField("adpId", org.apache.thrift.protocol.TType.STRING, (short)2);
@@ -73,11 +73,21 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
   private static final org.apache.thrift.protocol.TField CTR2_FIELD_DESC = new org.apache.thrift.protocol.TField("ctr2", org.apache.thrift.protocol.TType.DOUBLE, (short)41);
   private static final org.apache.thrift.protocol.TField E_CPM_FIELD_DESC = new org.apache.thrift.protocol.TField("eCPM", org.apache.thrift.protocol.TType.DOUBLE, (short)42);
   private static final org.apache.thrift.protocol.TField E_CPM2_FIELD_DESC = new org.apache.thrift.protocol.TField("eCPM2", org.apache.thrift.protocol.TType.DOUBLE, (short)43);
+  private static final org.apache.thrift.protocol.TField ADGROUP_MK_FIELD_DESC = new org.apache.thrift.protocol.TField("adgroupMK", org.apache.thrift.protocol.TType.STRING, (short)44);
+  private static final org.apache.thrift.protocol.TField ADVERTISER_ID_MK_FIELD_DESC = new org.apache.thrift.protocol.TField("advertiserIdMK", org.apache.thrift.protocol.TType.STRING, (short)45);
+  private static final org.apache.thrift.protocol.TField AD_SCORE_FIELD_DESC = new org.apache.thrift.protocol.TField("adScore", org.apache.thrift.protocol.TType.STRING, (short)46);
+  private static final org.apache.thrift.protocol.TField CAMPAIGN_ID_MK_FIELD_DESC = new org.apache.thrift.protocol.TField("campaignIdMK", org.apache.thrift.protocol.TType.STRING, (short)47);
+  private static final org.apache.thrift.protocol.TField ED_CONTENT_FIELD_DESC = new org.apache.thrift.protocol.TField("edContent", org.apache.thrift.protocol.TType.STRING, (short)48);
+  private static final org.apache.thrift.protocol.TField ED_STATUS_FIELD_DESC = new org.apache.thrift.protocol.TField("edStatus", org.apache.thrift.protocol.TType.STRING, (short)49);
+  private static final org.apache.thrift.protocol.TField LINE_ID_MK_FIELD_DESC = new org.apache.thrift.protocol.TField("lineIdMK", org.apache.thrift.protocol.TType.STRING, (short)50);
+  private static final org.apache.thrift.protocol.TField MATERIAL_MK_FIELD_DESC = new org.apache.thrift.protocol.TField("materialMK", org.apache.thrift.protocol.TType.STRING, (short)51);
+  private static final org.apache.thrift.protocol.TField LOG_TIME_FIELD_DESC = new org.apache.thrift.protocol.TField("logTime", org.apache.thrift.protocol.TType.STRING, (short)52);
+  private static final org.apache.thrift.protocol.TField LOG_LEVEL_FIELD_DESC = new org.apache.thrift.protocol.TField("logLevel", org.apache.thrift.protocol.TType.STRING, (short)53);
 
   private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
   static {
-    schemes.put(StandardScheme.class, new AdInfoOperationStandardSchemeFactory());
-    schemes.put(TupleScheme.class, new AdInfoOperationTupleSchemeFactory());
+    schemes.put(StandardScheme.class, new CountinfoOperationStandardSchemeFactory());
+    schemes.put(TupleScheme.class, new CountinfoOperationTupleSchemeFactory());
   }
 
   public String adId; // optional
@@ -123,6 +133,16 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
   public double ctr2; // optional
   public double eCPM; // optional
   public double eCPM2; // optional
+  public String adgroupMK; // optional
+  public String advertiserIdMK; // optional
+  public String adScore; // optional
+  public String campaignIdMK; // optional
+  public String edContent; // optional
+  public String edStatus; // optional
+  public String lineIdMK; // optional
+  public String materialMK; // optional
+  public String logTime; // optional
+  public String logLevel; // optional
 
   /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
   public enum _Fields implements org.apache.thrift.TFieldIdEnum {
@@ -168,7 +188,17 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
     CTR((short)40, "ctr"),
     CTR2((short)41, "ctr2"),
     E_CPM((short)42, "eCPM"),
-    E_CPM2((short)43, "eCPM2");
+    E_CPM2((short)43, "eCPM2"),
+    ADGROUP_MK((short)44, "adgroupMK"),
+    ADVERTISER_ID_MK((short)45, "advertiserIdMK"),
+    AD_SCORE((short)46, "adScore"),
+    CAMPAIGN_ID_MK((short)47, "campaignIdMK"),
+    ED_CONTENT((short)48, "edContent"),
+    ED_STATUS((short)49, "edStatus"),
+    LINE_ID_MK((short)50, "lineIdMK"),
+    MATERIAL_MK((short)51, "materialMK"),
+    LOG_TIME((short)52, "logTime"),
+    LOG_LEVEL((short)53, "logLevel");
 
     private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
@@ -269,6 +299,26 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
           return E_CPM;
         case 43: // E_CPM2
           return E_CPM2;
+        case 44: // ADGROUP_MK
+          return ADGROUP_MK;
+        case 45: // ADVERTISER_ID_MK
+          return ADVERTISER_ID_MK;
+        case 46: // AD_SCORE
+          return AD_SCORE;
+        case 47: // CAMPAIGN_ID_MK
+          return CAMPAIGN_ID_MK;
+        case 48: // ED_CONTENT
+          return ED_CONTENT;
+        case 49: // ED_STATUS
+          return ED_STATUS;
+        case 50: // LINE_ID_MK
+          return LINE_ID_MK;
+        case 51: // MATERIAL_MK
+          return MATERIAL_MK;
+        case 52: // LOG_TIME
+          return LOG_TIME;
+        case 53: // LOG_LEVEL
+          return LOG_LEVEL;
         default:
           return null;
       }
@@ -326,7 +376,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
   private static final int __ECPM_ISSET_ID = 14;
   private static final int __ECPM2_ISSET_ID = 15;
   private BitSet __isset_bit_vector = new BitSet(16);
-  private _Fields optionals[] = {_Fields.AD_ID,_Fields.ADP_ID,_Fields.AD_POS,_Fields.ADP_X,_Fields.ADP_Y,_Fields.AD_TYPE,_Fields.BROWSER,_Fields.CLICK_X,_Fields.CLICK_Y,_Fields.CONTENT_URL,_Fields.EXT,_Fields.FREQ,_Fields.GET_URL,_Fields.IMPRESSION_ID,_Fields.LATENCY,_Fields.MONITOR_KEY,_Fields.OS,_Fields.REFER,_Fields.REGION,_Fields.REQ_TYPE,_Fields.RESOLUTION,_Fields.SUV,_Fields.TIMESTAMP,_Fields.TURN,_Fields.USER_AGENT,_Fields.USER_IP,_Fields.YY_ID,_Fields.REPEAT,_Fields.SUPPORT_FLASH,_Fields.E,_Fields.C,_Fields.PAGE_ID,_Fields.STATUS_CODE,_Fields.ADVERTISER_ID,_Fields.BID_PRICE,_Fields.BID_TYPE,_Fields.BID_PRICE2,_Fields.BID_TYPE2,_Fields.JS_VERSION,_Fields.CTR,_Fields.CTR2,_Fields.E_CPM,_Fields.E_CPM2};
+  private _Fields optionals[] = {_Fields.AD_ID,_Fields.ADP_ID,_Fields.AD_POS,_Fields.ADP_X,_Fields.ADP_Y,_Fields.AD_TYPE,_Fields.BROWSER,_Fields.CLICK_X,_Fields.CLICK_Y,_Fields.CONTENT_URL,_Fields.EXT,_Fields.FREQ,_Fields.GET_URL,_Fields.IMPRESSION_ID,_Fields.LATENCY,_Fields.MONITOR_KEY,_Fields.OS,_Fields.REFER,_Fields.REGION,_Fields.REQ_TYPE,_Fields.RESOLUTION,_Fields.SUV,_Fields.TIMESTAMP,_Fields.TURN,_Fields.USER_AGENT,_Fields.USER_IP,_Fields.YY_ID,_Fields.REPEAT,_Fields.SUPPORT_FLASH,_Fields.E,_Fields.C,_Fields.PAGE_ID,_Fields.STATUS_CODE,_Fields.ADVERTISER_ID,_Fields.BID_PRICE,_Fields.BID_TYPE,_Fields.BID_PRICE2,_Fields.BID_TYPE2,_Fields.JS_VERSION,_Fields.CTR,_Fields.CTR2,_Fields.E_CPM,_Fields.E_CPM2,_Fields.ADGROUP_MK,_Fields.ADVERTISER_ID_MK,_Fields.AD_SCORE,_Fields.CAMPAIGN_ID_MK,_Fields.ED_CONTENT,_Fields.ED_STATUS,_Fields.LINE_ID_MK,_Fields.MATERIAL_MK,_Fields.LOG_TIME,_Fields.LOG_LEVEL};
   public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
   static {
     Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
@@ -416,6 +466,26 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.DOUBLE)));
     tmpMap.put(_Fields.E_CPM2, new org.apache.thrift.meta_data.FieldMetaData("eCPM2", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.DOUBLE)));
+    tmpMap.put(_Fields.ADGROUP_MK, new org.apache.thrift.meta_data.FieldMetaData("adgroupMK", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+    tmpMap.put(_Fields.ADVERTISER_ID_MK, new org.apache.thrift.meta_data.FieldMetaData("advertiserIdMK", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+    tmpMap.put(_Fields.AD_SCORE, new org.apache.thrift.meta_data.FieldMetaData("adScore", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+    tmpMap.put(_Fields.CAMPAIGN_ID_MK, new org.apache.thrift.meta_data.FieldMetaData("campaignIdMK", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+    tmpMap.put(_Fields.ED_CONTENT, new org.apache.thrift.meta_data.FieldMetaData("edContent", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+    tmpMap.put(_Fields.ED_STATUS, new org.apache.thrift.meta_data.FieldMetaData("edStatus", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+    tmpMap.put(_Fields.LINE_ID_MK, new org.apache.thrift.meta_data.FieldMetaData("lineIdMK", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+    tmpMap.put(_Fields.MATERIAL_MK, new org.apache.thrift.meta_data.FieldMetaData("materialMK", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+    tmpMap.put(_Fields.LOG_TIME, new org.apache.thrift.meta_data.FieldMetaData("logTime", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+    tmpMap.put(_Fields.LOG_LEVEL, new org.apache.thrift.meta_data.FieldMetaData("logLevel", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
     metaDataMap = Collections.unmodifiableMap(tmpMap);
     org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(CountinfoOperation.class, metaDataMap);
   }
@@ -526,6 +596,36 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
     this.ctr2 = other.ctr2;
     this.eCPM = other.eCPM;
     this.eCPM2 = other.eCPM2;
+    if (other.isSetAdgroupMK()) {
+      this.adgroupMK = other.adgroupMK;
+    }
+    if (other.isSetAdvertiserIdMK()) {
+      this.advertiserIdMK = other.advertiserIdMK;
+    }
+    if (other.isSetAdScore()) {
+      this.adScore = other.adScore;
+    }
+    if (other.isSetCampaignIdMK()) {
+      this.campaignIdMK = other.campaignIdMK;
+    }
+    if (other.isSetEdContent()) {
+      this.edContent = other.edContent;
+    }
+    if (other.isSetEdStatus()) {
+      this.edStatus = other.edStatus;
+    }
+    if (other.isSetLineIdMK()) {
+      this.lineIdMK = other.lineIdMK;
+    }
+    if (other.isSetMaterialMK()) {
+      this.materialMK = other.materialMK;
+    }
+    if (other.isSetLogTime()) {
+      this.logTime = other.logTime;
+    }
+    if (other.isSetLogLevel()) {
+      this.logLevel = other.logLevel;
+    }
   }
 
   public CountinfoOperation deepCopy() {
@@ -593,6 +693,16 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
     this.eCPM = 0.0;
     setECPM2IsSet(false);
     this.eCPM2 = 0.0;
+    this.adgroupMK = null;
+    this.advertiserIdMK = null;
+    this.adScore = null;
+    this.campaignIdMK = null;
+    this.edContent = null;
+    this.edStatus = null;
+    this.lineIdMK = null;
+    this.materialMK = null;
+    this.logTime = null;
+    this.logLevel = null;
   }
 
   public String getAdId() {
@@ -1611,6 +1721,246 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
     __isset_bit_vector.set(__ECPM2_ISSET_ID, value);
   }
 
+  public String getAdgroupMK() {
+    return this.adgroupMK;
+  }
+
+  public CountinfoOperation setAdgroupMK(String adgroupMK) {
+    this.adgroupMK = adgroupMK;
+    return this;
+  }
+
+  public void unsetAdgroupMK() {
+    this.adgroupMK = null;
+  }
+
+  /** Returns true if field adgroupMK is set (has been assigned a value) and false otherwise */
+  public boolean isSetAdgroupMK() {
+    return this.adgroupMK != null;
+  }
+
+  public void setAdgroupMKIsSet(boolean value) {
+    if (!value) {
+      this.adgroupMK = null;
+    }
+  }
+
+  public String getAdvertiserIdMK() {
+    return this.advertiserIdMK;
+  }
+
+  public CountinfoOperation setAdvertiserIdMK(String advertiserIdMK) {
+    this.advertiserIdMK = advertiserIdMK;
+    return this;
+  }
+
+  public void unsetAdvertiserIdMK() {
+    this.advertiserIdMK = null;
+  }
+
+  /** Returns true if field advertiserIdMK is set (has been assigned a value) and false otherwise */
+  public boolean isSetAdvertiserIdMK() {
+    return this.advertiserIdMK != null;
+  }
+
+  public void setAdvertiserIdMKIsSet(boolean value) {
+    if (!value) {
+      this.advertiserIdMK = null;
+    }
+  }
+
+  public String getAdScore() {
+    return this.adScore;
+  }
+
+  public CountinfoOperation setAdScore(String adScore) {
+    this.adScore = adScore;
+    return this;
+  }
+
+  public void unsetAdScore() {
+    this.adScore = null;
+  }
+
+  /** Returns true if field adScore is set (has been assigned a value) and false otherwise */
+  public boolean isSetAdScore() {
+    return this.adScore != null;
+  }
+
+  public void setAdScoreIsSet(boolean value) {
+    if (!value) {
+      this.adScore = null;
+    }
+  }
+
+  public String getCampaignIdMK() {
+    return this.campaignIdMK;
+  }
+
+  public CountinfoOperation setCampaignIdMK(String campaignIdMK) {
+    this.campaignIdMK = campaignIdMK;
+    return this;
+  }
+
+  public void unsetCampaignIdMK() {
+    this.campaignIdMK = null;
+  }
+
+  /** Returns true if field campaignIdMK is set (has been assigned a value) and false otherwise */
+  public boolean isSetCampaignIdMK() {
+    return this.campaignIdMK != null;
+  }
+
+  public void setCampaignIdMKIsSet(boolean value) {
+    if (!value) {
+      this.campaignIdMK = null;
+    }
+  }
+
+  public String getEdContent() {
+    return this.edContent;
+  }
+
+  public CountinfoOperation setEdContent(String edContent) {
+    this.edContent = edContent;
+    return this;
+  }
+
+  public void unsetEdContent() {
+    this.edContent = null;
+  }
+
+  /** Returns true if field edContent is set (has been assigned a value) and false otherwise */
+  public boolean isSetEdContent() {
+    return this.edContent != null;
+  }
+
+  public void setEdContentIsSet(boolean value) {
+    if (!value) {
+      this.edContent = null;
+    }
+  }
+
+  public String getEdStatus() {
+    return this.edStatus;
+  }
+
+  public CountinfoOperation setEdStatus(String edStatus) {
+    this.edStatus = edStatus;
+    return this;
+  }
+
+  public void unsetEdStatus() {
+    this.edStatus = null;
+  }
+
+  /** Returns true if field edStatus is set (has been assigned a value) and false otherwise */
+  public boolean isSetEdStatus() {
+    return this.edStatus != null;
+  }
+
+  public void setEdStatusIsSet(boolean value) {
+    if (!value) {
+      this.edStatus = null;
+    }
+  }
+
+  public String getLineIdMK() {
+    return this.lineIdMK;
+  }
+
+  public CountinfoOperation setLineIdMK(String lineIdMK) {
+    this.lineIdMK = lineIdMK;
+    return this;
+  }
+
+  public void unsetLineIdMK() {
+    this.lineIdMK = null;
+  }
+
+  /** Returns true if field lineIdMK is set (has been assigned a value) and false otherwise */
+  public boolean isSetLineIdMK() {
+    return this.lineIdMK != null;
+  }
+
+  public void setLineIdMKIsSet(boolean value) {
+    if (!value) {
+      this.lineIdMK = null;
+    }
+  }
+
+  public String getMaterialMK() {
+    return this.materialMK;
+  }
+
+  public CountinfoOperation setMaterialMK(String materialMK) {
+    this.materialMK = materialMK;
+    return this;
+  }
+
+  public void unsetMaterialMK() {
+    this.materialMK = null;
+  }
+
+  /** Returns true if field materialMK is set (has been assigned a value) and false otherwise */
+  public boolean isSetMaterialMK() {
+    return this.materialMK != null;
+  }
+
+  public void setMaterialMKIsSet(boolean value) {
+    if (!value) {
+      this.materialMK = null;
+    }
+  }
+
+  public String getLogTime() {
+    return this.logTime;
+  }
+
+  public CountinfoOperation setLogTime(String logTime) {
+    this.logTime = logTime;
+    return this;
+  }
+
+  public void unsetLogTime() {
+    this.logTime = null;
+  }
+
+  /** Returns true if field logTime is set (has been assigned a value) and false otherwise */
+  public boolean isSetLogTime() {
+    return this.logTime != null;
+  }
+
+  public void setLogTimeIsSet(boolean value) {
+    if (!value) {
+      this.logTime = null;
+    }
+  }
+
+  public String getLogLevel() {
+    return this.logLevel;
+  }
+
+  public CountinfoOperation setLogLevel(String logLevel) {
+    this.logLevel = logLevel;
+    return this;
+  }
+
+  public void unsetLogLevel() {
+    this.logLevel = null;
+  }
+
+  /** Returns true if field logLevel is set (has been assigned a value) and false otherwise */
+  public boolean isSetLogLevel() {
+    return this.logLevel != null;
+  }
+
+  public void setLogLevelIsSet(boolean value) {
+    if (!value) {
+      this.logLevel = null;
+    }
+  }
+
   public void setFieldValue(_Fields field, Object value) {
     switch (field) {
     case AD_ID:
@@ -1957,6 +2307,86 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
       }
       break;
 
+    case ADGROUP_MK:
+      if (value == null) {
+        unsetAdgroupMK();
+      } else {
+        setAdgroupMK((String)value);
+      }
+      break;
+
+    case ADVERTISER_ID_MK:
+      if (value == null) {
+        unsetAdvertiserIdMK();
+      } else {
+        setAdvertiserIdMK((String)value);
+      }
+      break;
+
+    case AD_SCORE:
+      if (value == null) {
+        unsetAdScore();
+      } else {
+        setAdScore((String)value);
+      }
+      break;
+
+    case CAMPAIGN_ID_MK:
+      if (value == null) {
+        unsetCampaignIdMK();
+      } else {
+        setCampaignIdMK((String)value);
+      }
+      break;
+
+    case ED_CONTENT:
+      if (value == null) {
+        unsetEdContent();
+      } else {
+        setEdContent((String)value);
+      }
+      break;
+
+    case ED_STATUS:
+      if (value == null) {
+        unsetEdStatus();
+      } else {
+        setEdStatus((String)value);
+      }
+      break;
+
+    case LINE_ID_MK:
+      if (value == null) {
+        unsetLineIdMK();
+      } else {
+        setLineIdMK((String)value);
+      }
+      break;
+
+    case MATERIAL_MK:
+      if (value == null) {
+        unsetMaterialMK();
+      } else {
+        setMaterialMK((String)value);
+      }
+      break;
+
+    case LOG_TIME:
+      if (value == null) {
+        unsetLogTime();
+      } else {
+        setLogTime((String)value);
+      }
+      break;
+
+    case LOG_LEVEL:
+      if (value == null) {
+        unsetLogLevel();
+      } else {
+        setLogLevel((String)value);
+      }
+      break;
+
     }
   }
 
@@ -2091,6 +2521,36 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
     case E_CPM2:
       return Double.valueOf(getECPM2());
 
+    case ADGROUP_MK:
+      return getAdgroupMK();
+
+    case ADVERTISER_ID_MK:
+      return getAdvertiserIdMK();
+
+    case AD_SCORE:
+      return getAdScore();
+
+    case CAMPAIGN_ID_MK:
+      return getCampaignIdMK();
+
+    case ED_CONTENT:
+      return getEdContent();
+
+    case ED_STATUS:
+      return getEdStatus();
+
+    case LINE_ID_MK:
+      return getLineIdMK();
+
+    case MATERIAL_MK:
+      return getMaterialMK();
+
+    case LOG_TIME:
+      return getLogTime();
+
+    case LOG_LEVEL:
+      return getLogLevel();
+
     }
     throw new IllegalStateException();
   }
@@ -2188,6 +2648,26 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
       return isSetECPM();
     case E_CPM2:
       return isSetECPM2();
+    case ADGROUP_MK:
+      return isSetAdgroupMK();
+    case ADVERTISER_ID_MK:
+      return isSetAdvertiserIdMK();
+    case AD_SCORE:
+      return isSetAdScore();
+    case CAMPAIGN_ID_MK:
+      return isSetCampaignIdMK();
+    case ED_CONTENT:
+      return isSetEdContent();
+    case ED_STATUS:
+      return isSetEdStatus();
+    case LINE_ID_MK:
+      return isSetLineIdMK();
+    case MATERIAL_MK:
+      return isSetMaterialMK();
+    case LOG_TIME:
+      return isSetLogTime();
+    case LOG_LEVEL:
+      return isSetLogLevel();
     }
     throw new IllegalStateException();
   }
@@ -2589,6 +3069,96 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
       if (!(this_present_eCPM2 && that_present_eCPM2))
         return false;
       if (this.eCPM2 != that.eCPM2)
+        return false;
+    }
+
+    boolean this_present_adgroupMK = true && this.isSetAdgroupMK();
+    boolean that_present_adgroupMK = true && that.isSetAdgroupMK();
+    if (this_present_adgroupMK || that_present_adgroupMK) {
+      if (!(this_present_adgroupMK && that_present_adgroupMK))
+        return false;
+      if (!this.adgroupMK.equals(that.adgroupMK))
+        return false;
+    }
+
+    boolean this_present_advertiserIdMK = true && this.isSetAdvertiserIdMK();
+    boolean that_present_advertiserIdMK = true && that.isSetAdvertiserIdMK();
+    if (this_present_advertiserIdMK || that_present_advertiserIdMK) {
+      if (!(this_present_advertiserIdMK && that_present_advertiserIdMK))
+        return false;
+      if (!this.advertiserIdMK.equals(that.advertiserIdMK))
+        return false;
+    }
+
+    boolean this_present_adScore = true && this.isSetAdScore();
+    boolean that_present_adScore = true && that.isSetAdScore();
+    if (this_present_adScore || that_present_adScore) {
+      if (!(this_present_adScore && that_present_adScore))
+        return false;
+      if (!this.adScore.equals(that.adScore))
+        return false;
+    }
+
+    boolean this_present_campaignIdMK = true && this.isSetCampaignIdMK();
+    boolean that_present_campaignIdMK = true && that.isSetCampaignIdMK();
+    if (this_present_campaignIdMK || that_present_campaignIdMK) {
+      if (!(this_present_campaignIdMK && that_present_campaignIdMK))
+        return false;
+      if (!this.campaignIdMK.equals(that.campaignIdMK))
+        return false;
+    }
+
+    boolean this_present_edContent = true && this.isSetEdContent();
+    boolean that_present_edContent = true && that.isSetEdContent();
+    if (this_present_edContent || that_present_edContent) {
+      if (!(this_present_edContent && that_present_edContent))
+        return false;
+      if (!this.edContent.equals(that.edContent))
+        return false;
+    }
+
+    boolean this_present_edStatus = true && this.isSetEdStatus();
+    boolean that_present_edStatus = true && that.isSetEdStatus();
+    if (this_present_edStatus || that_present_edStatus) {
+      if (!(this_present_edStatus && that_present_edStatus))
+        return false;
+      if (!this.edStatus.equals(that.edStatus))
+        return false;
+    }
+
+    boolean this_present_lineIdMK = true && this.isSetLineIdMK();
+    boolean that_present_lineIdMK = true && that.isSetLineIdMK();
+    if (this_present_lineIdMK || that_present_lineIdMK) {
+      if (!(this_present_lineIdMK && that_present_lineIdMK))
+        return false;
+      if (!this.lineIdMK.equals(that.lineIdMK))
+        return false;
+    }
+
+    boolean this_present_materialMK = true && this.isSetMaterialMK();
+    boolean that_present_materialMK = true && that.isSetMaterialMK();
+    if (this_present_materialMK || that_present_materialMK) {
+      if (!(this_present_materialMK && that_present_materialMK))
+        return false;
+      if (!this.materialMK.equals(that.materialMK))
+        return false;
+    }
+
+    boolean this_present_logTime = true && this.isSetLogTime();
+    boolean that_present_logTime = true && that.isSetLogTime();
+    if (this_present_logTime || that_present_logTime) {
+      if (!(this_present_logTime && that_present_logTime))
+        return false;
+      if (!this.logTime.equals(that.logTime))
+        return false;
+    }
+
+    boolean this_present_logLevel = true && this.isSetLogLevel();
+    boolean that_present_logLevel = true && that.isSetLogLevel();
+    if (this_present_logLevel || that_present_logLevel) {
+      if (!(this_present_logLevel && that_present_logLevel))
+        return false;
+      if (!this.logLevel.equals(that.logLevel))
         return false;
     }
 
@@ -3038,6 +3608,106 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
         return lastComparison;
       }
     }
+    lastComparison = Boolean.valueOf(isSetAdgroupMK()).compareTo(typedOther.isSetAdgroupMK());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetAdgroupMK()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.adgroupMK, typedOther.adgroupMK);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
+    lastComparison = Boolean.valueOf(isSetAdvertiserIdMK()).compareTo(typedOther.isSetAdvertiserIdMK());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetAdvertiserIdMK()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.advertiserIdMK, typedOther.advertiserIdMK);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
+    lastComparison = Boolean.valueOf(isSetAdScore()).compareTo(typedOther.isSetAdScore());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetAdScore()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.adScore, typedOther.adScore);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
+    lastComparison = Boolean.valueOf(isSetCampaignIdMK()).compareTo(typedOther.isSetCampaignIdMK());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetCampaignIdMK()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.campaignIdMK, typedOther.campaignIdMK);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
+    lastComparison = Boolean.valueOf(isSetEdContent()).compareTo(typedOther.isSetEdContent());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetEdContent()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.edContent, typedOther.edContent);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
+    lastComparison = Boolean.valueOf(isSetEdStatus()).compareTo(typedOther.isSetEdStatus());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetEdStatus()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.edStatus, typedOther.edStatus);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
+    lastComparison = Boolean.valueOf(isSetLineIdMK()).compareTo(typedOther.isSetLineIdMK());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetLineIdMK()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.lineIdMK, typedOther.lineIdMK);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
+    lastComparison = Boolean.valueOf(isSetMaterialMK()).compareTo(typedOther.isSetMaterialMK());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetMaterialMK()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.materialMK, typedOther.materialMK);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
+    lastComparison = Boolean.valueOf(isSetLogTime()).compareTo(typedOther.isSetLogTime());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetLogTime()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.logTime, typedOther.logTime);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
+    lastComparison = Boolean.valueOf(isSetLogLevel()).compareTo(typedOther.isSetLogLevel());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetLogLevel()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.logLevel, typedOther.logLevel);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
     return 0;
   }
 
@@ -3055,7 +3725,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder("AdInfoOperation(");
+    StringBuilder sb = new StringBuilder("CountinfoOperation(");
     boolean first = true;
 
     if (isSetAdId()) {
@@ -3423,6 +4093,106 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
       sb.append(this.eCPM2);
       first = false;
     }
+    if (isSetAdgroupMK()) {
+      if (!first) sb.append(", ");
+      sb.append("adgroupMK:");
+      if (this.adgroupMK == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.adgroupMK);
+      }
+      first = false;
+    }
+    if (isSetAdvertiserIdMK()) {
+      if (!first) sb.append(", ");
+      sb.append("advertiserIdMK:");
+      if (this.advertiserIdMK == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.advertiserIdMK);
+      }
+      first = false;
+    }
+    if (isSetAdScore()) {
+      if (!first) sb.append(", ");
+      sb.append("adScore:");
+      if (this.adScore == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.adScore);
+      }
+      first = false;
+    }
+    if (isSetCampaignIdMK()) {
+      if (!first) sb.append(", ");
+      sb.append("campaignIdMK:");
+      if (this.campaignIdMK == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.campaignIdMK);
+      }
+      first = false;
+    }
+    if (isSetEdContent()) {
+      if (!first) sb.append(", ");
+      sb.append("edContent:");
+      if (this.edContent == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.edContent);
+      }
+      first = false;
+    }
+    if (isSetEdStatus()) {
+      if (!first) sb.append(", ");
+      sb.append("edStatus:");
+      if (this.edStatus == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.edStatus);
+      }
+      first = false;
+    }
+    if (isSetLineIdMK()) {
+      if (!first) sb.append(", ");
+      sb.append("lineIdMK:");
+      if (this.lineIdMK == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.lineIdMK);
+      }
+      first = false;
+    }
+    if (isSetMaterialMK()) {
+      if (!first) sb.append(", ");
+      sb.append("materialMK:");
+      if (this.materialMK == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.materialMK);
+      }
+      first = false;
+    }
+    if (isSetLogTime()) {
+      if (!first) sb.append(", ");
+      sb.append("logTime:");
+      if (this.logTime == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.logTime);
+      }
+      first = false;
+    }
+    if (isSetLogLevel()) {
+      if (!first) sb.append(", ");
+      sb.append("logLevel:");
+      if (this.logLevel == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.logLevel);
+      }
+      first = false;
+    }
     sb.append(")");
     return sb.toString();
   }
@@ -3449,13 +4219,13 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
     }
   }
 
-  private static class AdInfoOperationStandardSchemeFactory implements SchemeFactory {
-    public AdInfoOperationStandardScheme getScheme() {
-      return new AdInfoOperationStandardScheme();
+  private static class CountinfoOperationStandardSchemeFactory implements SchemeFactory {
+    public CountinfoOperationStandardScheme getScheme() {
+      return new CountinfoOperationStandardScheme();
     }
   }
 
-  private static class AdInfoOperationStandardScheme extends StandardScheme<CountinfoOperation> {
+  private static class CountinfoOperationStandardScheme extends StandardScheme<CountinfoOperation> {
 
     public void read(org.apache.thrift.protocol.TProtocol iprot, CountinfoOperation struct) throws org.apache.thrift.TException {
       org.apache.thrift.protocol.TField schemeField;
@@ -3811,6 +4581,86 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
+          case 44: // ADGROUP_MK
+            if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+              struct.adgroupMK = iprot.readString();
+              struct.setAdgroupMKIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
+          case 45: // ADVERTISER_ID_MK
+            if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+              struct.advertiserIdMK = iprot.readString();
+              struct.setAdvertiserIdMKIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
+          case 46: // AD_SCORE
+            if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+              struct.adScore = iprot.readString();
+              struct.setAdScoreIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
+          case 47: // CAMPAIGN_ID_MK
+            if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+              struct.campaignIdMK = iprot.readString();
+              struct.setCampaignIdMKIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
+          case 48: // ED_CONTENT
+            if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+              struct.edContent = iprot.readString();
+              struct.setEdContentIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
+          case 49: // ED_STATUS
+            if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+              struct.edStatus = iprot.readString();
+              struct.setEdStatusIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
+          case 50: // LINE_ID_MK
+            if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+              struct.lineIdMK = iprot.readString();
+              struct.setLineIdMKIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
+          case 51: // MATERIAL_MK
+            if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+              struct.materialMK = iprot.readString();
+              struct.setMaterialMKIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
+          case 52: // LOG_TIME
+            if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+              struct.logTime = iprot.readString();
+              struct.setLogTimeIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
+          case 53: // LOG_LEVEL
+            if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+              struct.logLevel = iprot.readString();
+              struct.setLogLevelIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
           default:
             org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
         }
@@ -4095,19 +4945,89 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
         oprot.writeDouble(struct.eCPM2);
         oprot.writeFieldEnd();
       }
+      if (struct.adgroupMK != null) {
+        if (struct.isSetAdgroupMK()) {
+          oprot.writeFieldBegin(ADGROUP_MK_FIELD_DESC);
+          oprot.writeString(struct.adgroupMK);
+          oprot.writeFieldEnd();
+        }
+      }
+      if (struct.advertiserIdMK != null) {
+        if (struct.isSetAdvertiserIdMK()) {
+          oprot.writeFieldBegin(ADVERTISER_ID_MK_FIELD_DESC);
+          oprot.writeString(struct.advertiserIdMK);
+          oprot.writeFieldEnd();
+        }
+      }
+      if (struct.adScore != null) {
+        if (struct.isSetAdScore()) {
+          oprot.writeFieldBegin(AD_SCORE_FIELD_DESC);
+          oprot.writeString(struct.adScore);
+          oprot.writeFieldEnd();
+        }
+      }
+      if (struct.campaignIdMK != null) {
+        if (struct.isSetCampaignIdMK()) {
+          oprot.writeFieldBegin(CAMPAIGN_ID_MK_FIELD_DESC);
+          oprot.writeString(struct.campaignIdMK);
+          oprot.writeFieldEnd();
+        }
+      }
+      if (struct.edContent != null) {
+        if (struct.isSetEdContent()) {
+          oprot.writeFieldBegin(ED_CONTENT_FIELD_DESC);
+          oprot.writeString(struct.edContent);
+          oprot.writeFieldEnd();
+        }
+      }
+      if (struct.edStatus != null) {
+        if (struct.isSetEdStatus()) {
+          oprot.writeFieldBegin(ED_STATUS_FIELD_DESC);
+          oprot.writeString(struct.edStatus);
+          oprot.writeFieldEnd();
+        }
+      }
+      if (struct.lineIdMK != null) {
+        if (struct.isSetLineIdMK()) {
+          oprot.writeFieldBegin(LINE_ID_MK_FIELD_DESC);
+          oprot.writeString(struct.lineIdMK);
+          oprot.writeFieldEnd();
+        }
+      }
+      if (struct.materialMK != null) {
+        if (struct.isSetMaterialMK()) {
+          oprot.writeFieldBegin(MATERIAL_MK_FIELD_DESC);
+          oprot.writeString(struct.materialMK);
+          oprot.writeFieldEnd();
+        }
+      }
+      if (struct.logTime != null) {
+        if (struct.isSetLogTime()) {
+          oprot.writeFieldBegin(LOG_TIME_FIELD_DESC);
+          oprot.writeString(struct.logTime);
+          oprot.writeFieldEnd();
+        }
+      }
+      if (struct.logLevel != null) {
+        if (struct.isSetLogLevel()) {
+          oprot.writeFieldBegin(LOG_LEVEL_FIELD_DESC);
+          oprot.writeString(struct.logLevel);
+          oprot.writeFieldEnd();
+        }
+      }
       oprot.writeFieldStop();
       oprot.writeStructEnd();
     }
 
   }
 
-  private static class AdInfoOperationTupleSchemeFactory implements SchemeFactory {
-    public AdInfoOperationTupleScheme getScheme() {
-      return new AdInfoOperationTupleScheme();
+  private static class CountinfoOperationTupleSchemeFactory implements SchemeFactory {
+    public CountinfoOperationTupleScheme getScheme() {
+      return new CountinfoOperationTupleScheme();
     }
   }
 
-  private static class AdInfoOperationTupleScheme extends TupleScheme<CountinfoOperation> {
+  private static class CountinfoOperationTupleScheme extends TupleScheme<CountinfoOperation> {
 
     @Override
     public void write(org.apache.thrift.protocol.TProtocol prot, CountinfoOperation struct) throws org.apache.thrift.TException {
@@ -4242,7 +5162,37 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
       if (struct.isSetECPM2()) {
         optionals.set(42);
       }
-      oprot.writeBitSet(optionals, 43);
+      if (struct.isSetAdgroupMK()) {
+        optionals.set(43);
+      }
+      if (struct.isSetAdvertiserIdMK()) {
+        optionals.set(44);
+      }
+      if (struct.isSetAdScore()) {
+        optionals.set(45);
+      }
+      if (struct.isSetCampaignIdMK()) {
+        optionals.set(46);
+      }
+      if (struct.isSetEdContent()) {
+        optionals.set(47);
+      }
+      if (struct.isSetEdStatus()) {
+        optionals.set(48);
+      }
+      if (struct.isSetLineIdMK()) {
+        optionals.set(49);
+      }
+      if (struct.isSetMaterialMK()) {
+        optionals.set(50);
+      }
+      if (struct.isSetLogTime()) {
+        optionals.set(51);
+      }
+      if (struct.isSetLogLevel()) {
+        optionals.set(52);
+      }
+      oprot.writeBitSet(optionals, 53);
       if (struct.isSetAdId()) {
         oprot.writeString(struct.adId);
       }
@@ -4372,12 +5322,42 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
       if (struct.isSetECPM2()) {
         oprot.writeDouble(struct.eCPM2);
       }
+      if (struct.isSetAdgroupMK()) {
+        oprot.writeString(struct.adgroupMK);
+      }
+      if (struct.isSetAdvertiserIdMK()) {
+        oprot.writeString(struct.advertiserIdMK);
+      }
+      if (struct.isSetAdScore()) {
+        oprot.writeString(struct.adScore);
+      }
+      if (struct.isSetCampaignIdMK()) {
+        oprot.writeString(struct.campaignIdMK);
+      }
+      if (struct.isSetEdContent()) {
+        oprot.writeString(struct.edContent);
+      }
+      if (struct.isSetEdStatus()) {
+        oprot.writeString(struct.edStatus);
+      }
+      if (struct.isSetLineIdMK()) {
+        oprot.writeString(struct.lineIdMK);
+      }
+      if (struct.isSetMaterialMK()) {
+        oprot.writeString(struct.materialMK);
+      }
+      if (struct.isSetLogTime()) {
+        oprot.writeString(struct.logTime);
+      }
+      if (struct.isSetLogLevel()) {
+        oprot.writeString(struct.logLevel);
+      }
     }
 
     @Override
     public void read(org.apache.thrift.protocol.TProtocol prot, CountinfoOperation struct) throws org.apache.thrift.TException {
       TTupleProtocol iprot = (TTupleProtocol) prot;
-      BitSet incoming = iprot.readBitSet(43);
+      BitSet incoming = iprot.readBitSet(53);
       if (incoming.get(0)) {
         struct.adId = iprot.readString();
         struct.setAdIdIsSet(true);
@@ -4549,6 +5529,46 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
       if (incoming.get(42)) {
         struct.eCPM2 = iprot.readDouble();
         struct.setECPM2IsSet(true);
+      }
+      if (incoming.get(43)) {
+        struct.adgroupMK = iprot.readString();
+        struct.setAdgroupMKIsSet(true);
+      }
+      if (incoming.get(44)) {
+        struct.advertiserIdMK = iprot.readString();
+        struct.setAdvertiserIdMKIsSet(true);
+      }
+      if (incoming.get(45)) {
+        struct.adScore = iprot.readString();
+        struct.setAdScoreIsSet(true);
+      }
+      if (incoming.get(46)) {
+        struct.campaignIdMK = iprot.readString();
+        struct.setCampaignIdMKIsSet(true);
+      }
+      if (incoming.get(47)) {
+        struct.edContent = iprot.readString();
+        struct.setEdContentIsSet(true);
+      }
+      if (incoming.get(48)) {
+        struct.edStatus = iprot.readString();
+        struct.setEdStatusIsSet(true);
+      }
+      if (incoming.get(49)) {
+        struct.lineIdMK = iprot.readString();
+        struct.setLineIdMKIsSet(true);
+      }
+      if (incoming.get(50)) {
+        struct.materialMK = iprot.readString();
+        struct.setMaterialMKIsSet(true);
+      }
+      if (incoming.get(51)) {
+        struct.logTime = iprot.readString();
+        struct.setLogTimeIsSet(true);
+      }
+      if (incoming.get(52)) {
+        struct.logLevel = iprot.readString();
+        struct.setLogLevelIsSet(true);
       }
     }
   }

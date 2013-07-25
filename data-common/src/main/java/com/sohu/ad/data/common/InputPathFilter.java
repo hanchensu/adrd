@@ -3,6 +3,8 @@ package com.sohu.ad.data.common;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.fs.PathFilter;
 
+import com.sohu.ad.data.common.Util;
+
 
 public class InputPathFilter implements PathFilter {
 

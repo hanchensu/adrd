@@ -11,10 +11,10 @@ import org.apache.thrift.TSerializer;
 import org.apache.thrift.protocol.TBinaryProtocol;
 
 import com.sohu.ad.data.common.AdrdDataUtil;
-import com.sohu.ad.data.common.CountinfoMaker;
 import com.sohu.ad.data.common.FormatResult;
 import com.sohu.ad.data.common.LogSchema;
 import com.sohu.ad.data.common.Util;
+import com.sohu.ad.data.sessionlog.CountinfoMaker;
 import com.sohu.ad.data.thrift.operation.CountinfoOperation;
 
 

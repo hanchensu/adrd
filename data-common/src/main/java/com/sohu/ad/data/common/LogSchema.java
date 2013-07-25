@@ -2,7 +2,7 @@ package com.sohu.ad.data.common;
 
 public class LogSchema {
 
-	public static final String[] COUNTINFO_SCHEMA = { "LOGTIME", "MARK",
+	public static final String[] COUNTINFO_SCHEMA = { "LogTime", "LogLevel",
 			"ADID", "ADPID", "ADPOS", "ADP_X", "ADP_Y", "ADTYPE", "BROWSER",
 			"CLICK_X", "CLICK_Y", "CONTENT_URL", "EXT", "FREQ", "GETURL",
 			"IMPRESSIONID", "LATENCY", "MONITORKEY", "OS", "REFFER", "REGION",
@@ -13,7 +13,7 @@ public class LogSchema {
 			"AdScore", "CAMPAIGNID_MK", "ED_CONTENT", "ED_STATUS", "LINEID_MK",
 			"MATERIAL_MK" };
 
-	public static final String[] GTR_SCHEMA = { "LOGTIME", "MARK", "AD_ID",
+	public static final String[] GTR_SCHEMA = { "LogTime", "LogLevel", "AD_ID",
 			"AD_SERVER_VERSION", "AdScore", "BROWSER", "BUCKET", "BidPrice",
 			"BidPrice2", "BidType", "BidType2", "COLOR_BG", "COLOR_BORDER",
 			"COLOR_FG_LINK", "COLOR_FG_TEXT", "COLOR_FG_TITLE",
