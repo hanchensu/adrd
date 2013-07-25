@@ -10,6 +10,7 @@ from thrift.TSerialization import serialize
 x = AdInfoOperation()
 x.adId='122'
 x.yyId='123'
+//test
 
 trans = TMemoryBuffer()
 prot = TBinaryProtocol(trans)
