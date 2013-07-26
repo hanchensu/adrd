@@ -4,7 +4,7 @@
  * DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
  *  @generated
  */
-package com.sohu.ad.data.thrift.operation;
+package com.sohu.ad.data.sessionlog.thrift.operation;
 
 import org.apache.thrift.scheme.IScheme;
 import org.apache.thrift.scheme.SchemeFactory;
@@ -32,7 +32,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
 
   private static final org.apache.thrift.protocol.TField AD_ID_FIELD_DESC = new org.apache.thrift.protocol.TField("adId", org.apache.thrift.protocol.TType.STRING, (short)1);
   private static final org.apache.thrift.protocol.TField ADP_ID_FIELD_DESC = new org.apache.thrift.protocol.TField("adpId", org.apache.thrift.protocol.TType.STRING, (short)2);
-  private static final org.apache.thrift.protocol.TField AD_POS_FIELD_DESC = new org.apache.thrift.protocol.TField("adPos", org.apache.thrift.protocol.TType.STRING, (short)3);
+  private static final org.apache.thrift.protocol.TField AD_POS_FIELD_DESC = new org.apache.thrift.protocol.TField("adPos", org.apache.thrift.protocol.TType.I32, (short)3);
   private static final org.apache.thrift.protocol.TField ADP_X_FIELD_DESC = new org.apache.thrift.protocol.TField("adpX", org.apache.thrift.protocol.TType.I32, (short)4);
   private static final org.apache.thrift.protocol.TField ADP_Y_FIELD_DESC = new org.apache.thrift.protocol.TField("adpY", org.apache.thrift.protocol.TType.I32, (short)5);
   private static final org.apache.thrift.protocol.TField AD_TYPE_FIELD_DESC = new org.apache.thrift.protocol.TField("adType", org.apache.thrift.protocol.TType.STRING, (short)6);
@@ -41,7 +41,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
   private static final org.apache.thrift.protocol.TField CLICK_Y_FIELD_DESC = new org.apache.thrift.protocol.TField("clickY", org.apache.thrift.protocol.TType.I32, (short)9);
   private static final org.apache.thrift.protocol.TField CONTENT_URL_FIELD_DESC = new org.apache.thrift.protocol.TField("contentUrl", org.apache.thrift.protocol.TType.STRING, (short)10);
   private static final org.apache.thrift.protocol.TField EXT_FIELD_DESC = new org.apache.thrift.protocol.TField("ext", org.apache.thrift.protocol.TType.STRING, (short)11);
-  private static final org.apache.thrift.protocol.TField FREQ_FIELD_DESC = new org.apache.thrift.protocol.TField("freq", org.apache.thrift.protocol.TType.STRING, (short)12);
+  private static final org.apache.thrift.protocol.TField FREQ_FIELD_DESC = new org.apache.thrift.protocol.TField("freq", org.apache.thrift.protocol.TType.I32, (short)12);
   private static final org.apache.thrift.protocol.TField GET_URL_FIELD_DESC = new org.apache.thrift.protocol.TField("getUrl", org.apache.thrift.protocol.TType.STRING, (short)13);
   private static final org.apache.thrift.protocol.TField IMPRESSION_ID_FIELD_DESC = new org.apache.thrift.protocol.TField("impressionId", org.apache.thrift.protocol.TType.STRING, (short)14);
   private static final org.apache.thrift.protocol.TField LATENCY_FIELD_DESC = new org.apache.thrift.protocol.TField("latency", org.apache.thrift.protocol.TType.I64, (short)15);
@@ -62,12 +62,12 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
   private static final org.apache.thrift.protocol.TField E_FIELD_DESC = new org.apache.thrift.protocol.TField("e", org.apache.thrift.protocol.TType.DOUBLE, (short)30);
   private static final org.apache.thrift.protocol.TField C_FIELD_DESC = new org.apache.thrift.protocol.TField("c", org.apache.thrift.protocol.TType.DOUBLE, (short)31);
   private static final org.apache.thrift.protocol.TField PAGE_ID_FIELD_DESC = new org.apache.thrift.protocol.TField("pageId", org.apache.thrift.protocol.TType.STRING, (short)32);
-  private static final org.apache.thrift.protocol.TField STATUS_CODE_FIELD_DESC = new org.apache.thrift.protocol.TField("statusCode", org.apache.thrift.protocol.TType.I32, (short)33);
+  private static final org.apache.thrift.protocol.TField STATUS_CODE_FIELD_DESC = new org.apache.thrift.protocol.TField("statusCode", org.apache.thrift.protocol.TType.I64, (short)33);
   private static final org.apache.thrift.protocol.TField ADVERTISER_ID_FIELD_DESC = new org.apache.thrift.protocol.TField("advertiserId", org.apache.thrift.protocol.TType.STRING, (short)34);
   private static final org.apache.thrift.protocol.TField BID_PRICE_FIELD_DESC = new org.apache.thrift.protocol.TField("bidPrice", org.apache.thrift.protocol.TType.DOUBLE, (short)35);
-  private static final org.apache.thrift.protocol.TField BID_TYPE_FIELD_DESC = new org.apache.thrift.protocol.TField("bidType", org.apache.thrift.protocol.TType.STRING, (short)36);
+  private static final org.apache.thrift.protocol.TField BID_TYPE_FIELD_DESC = new org.apache.thrift.protocol.TField("bidType", org.apache.thrift.protocol.TType.I32, (short)36);
   private static final org.apache.thrift.protocol.TField BID_PRICE2_FIELD_DESC = new org.apache.thrift.protocol.TField("bidPrice2", org.apache.thrift.protocol.TType.DOUBLE, (short)37);
-  private static final org.apache.thrift.protocol.TField BID_TYPE2_FIELD_DESC = new org.apache.thrift.protocol.TField("bidType2", org.apache.thrift.protocol.TType.STRING, (short)38);
+  private static final org.apache.thrift.protocol.TField BID_TYPE2_FIELD_DESC = new org.apache.thrift.protocol.TField("bidType2", org.apache.thrift.protocol.TType.I32, (short)38);
   private static final org.apache.thrift.protocol.TField JS_VERSION_FIELD_DESC = new org.apache.thrift.protocol.TField("jsVersion", org.apache.thrift.protocol.TType.STRING, (short)39);
   private static final org.apache.thrift.protocol.TField CTR_FIELD_DESC = new org.apache.thrift.protocol.TField("ctr", org.apache.thrift.protocol.TType.DOUBLE, (short)40);
   private static final org.apache.thrift.protocol.TField CTR2_FIELD_DESC = new org.apache.thrift.protocol.TField("ctr2", org.apache.thrift.protocol.TType.DOUBLE, (short)41);
@@ -92,7 +92,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
 
   public String adId; // optional
   public String adpId; // optional
-  public String adPos; // optional
+  public int adPos; // optional
   public int adpX; // optional
   public int adpY; // optional
   public String adType; // optional
@@ -101,7 +101,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
   public int clickY; // optional
   public String contentUrl; // optional
   public String ext; // optional
-  public String freq; // optional
+  public int freq; // optional
   public String getUrl; // optional
   public String impressionId; // optional
   public long latency; // optional
@@ -122,12 +122,12 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
   public double e; // optional
   public double c; // optional
   public String pageId; // optional
-  public int statusCode; // optional
+  public long statusCode; // optional
   public String advertiserId; // optional
   public double bidPrice; // optional
-  public String bidType; // optional
+  public int bidType; // optional
   public double bidPrice2; // optional
-  public String bidType2; // optional
+  public int bidType2; // optional
   public String jsVersion; // optional
   public double ctr; // optional
   public double ctr2; // optional
@@ -359,23 +359,27 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
   }
 
   // isset id assignments
-  private static final int __ADPX_ISSET_ID = 0;
-  private static final int __ADPY_ISSET_ID = 1;
-  private static final int __CLICKX_ISSET_ID = 2;
-  private static final int __CLICKY_ISSET_ID = 3;
-  private static final int __LATENCY_ISSET_ID = 4;
-  private static final int __TIMESTAMP_ISSET_ID = 5;
-  private static final int __REPEAT_ISSET_ID = 6;
-  private static final int __E_ISSET_ID = 7;
-  private static final int __C_ISSET_ID = 8;
-  private static final int __STATUSCODE_ISSET_ID = 9;
-  private static final int __BIDPRICE_ISSET_ID = 10;
-  private static final int __BIDPRICE2_ISSET_ID = 11;
-  private static final int __CTR_ISSET_ID = 12;
-  private static final int __CTR2_ISSET_ID = 13;
-  private static final int __ECPM_ISSET_ID = 14;
-  private static final int __ECPM2_ISSET_ID = 15;
-  private BitSet __isset_bit_vector = new BitSet(16);
+  private static final int __ADPOS_ISSET_ID = 0;
+  private static final int __ADPX_ISSET_ID = 1;
+  private static final int __ADPY_ISSET_ID = 2;
+  private static final int __CLICKX_ISSET_ID = 3;
+  private static final int __CLICKY_ISSET_ID = 4;
+  private static final int __FREQ_ISSET_ID = 5;
+  private static final int __LATENCY_ISSET_ID = 6;
+  private static final int __TIMESTAMP_ISSET_ID = 7;
+  private static final int __REPEAT_ISSET_ID = 8;
+  private static final int __E_ISSET_ID = 9;
+  private static final int __C_ISSET_ID = 10;
+  private static final int __STATUSCODE_ISSET_ID = 11;
+  private static final int __BIDPRICE_ISSET_ID = 12;
+  private static final int __BIDTYPE_ISSET_ID = 13;
+  private static final int __BIDPRICE2_ISSET_ID = 14;
+  private static final int __BIDTYPE2_ISSET_ID = 15;
+  private static final int __CTR_ISSET_ID = 16;
+  private static final int __CTR2_ISSET_ID = 17;
+  private static final int __ECPM_ISSET_ID = 18;
+  private static final int __ECPM2_ISSET_ID = 19;
+  private BitSet __isset_bit_vector = new BitSet(20);
   private _Fields optionals[] = {_Fields.AD_ID,_Fields.ADP_ID,_Fields.AD_POS,_Fields.ADP_X,_Fields.ADP_Y,_Fields.AD_TYPE,_Fields.BROWSER,_Fields.CLICK_X,_Fields.CLICK_Y,_Fields.CONTENT_URL,_Fields.EXT,_Fields.FREQ,_Fields.GET_URL,_Fields.IMPRESSION_ID,_Fields.LATENCY,_Fields.MONITOR_KEY,_Fields.OS,_Fields.REFER,_Fields.REGION,_Fields.REQ_TYPE,_Fields.RESOLUTION,_Fields.SUV,_Fields.TIMESTAMP,_Fields.TURN,_Fields.USER_AGENT,_Fields.USER_IP,_Fields.YY_ID,_Fields.REPEAT,_Fields.SUPPORT_FLASH,_Fields.E,_Fields.C,_Fields.PAGE_ID,_Fields.STATUS_CODE,_Fields.ADVERTISER_ID,_Fields.BID_PRICE,_Fields.BID_TYPE,_Fields.BID_PRICE2,_Fields.BID_TYPE2,_Fields.JS_VERSION,_Fields.CTR,_Fields.CTR2,_Fields.E_CPM,_Fields.E_CPM2,_Fields.ADGROUP_MK,_Fields.ADVERTISER_ID_MK,_Fields.AD_SCORE,_Fields.CAMPAIGN_ID_MK,_Fields.ED_CONTENT,_Fields.ED_STATUS,_Fields.LINE_ID_MK,_Fields.MATERIAL_MK,_Fields.LOG_TIME,_Fields.LOG_LEVEL};
   public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
   static {
@@ -385,7 +389,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
     tmpMap.put(_Fields.ADP_ID, new org.apache.thrift.meta_data.FieldMetaData("adpId", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
     tmpMap.put(_Fields.AD_POS, new org.apache.thrift.meta_data.FieldMetaData("adPos", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
-        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
     tmpMap.put(_Fields.ADP_X, new org.apache.thrift.meta_data.FieldMetaData("adpX", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
     tmpMap.put(_Fields.ADP_Y, new org.apache.thrift.meta_data.FieldMetaData("adpY", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
@@ -403,7 +407,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
     tmpMap.put(_Fields.EXT, new org.apache.thrift.meta_data.FieldMetaData("ext", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
     tmpMap.put(_Fields.FREQ, new org.apache.thrift.meta_data.FieldMetaData("freq", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
-        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
     tmpMap.put(_Fields.GET_URL, new org.apache.thrift.meta_data.FieldMetaData("getUrl", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
     tmpMap.put(_Fields.IMPRESSION_ID, new org.apache.thrift.meta_data.FieldMetaData("impressionId", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
@@ -445,17 +449,17 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
     tmpMap.put(_Fields.PAGE_ID, new org.apache.thrift.meta_data.FieldMetaData("pageId", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
     tmpMap.put(_Fields.STATUS_CODE, new org.apache.thrift.meta_data.FieldMetaData("statusCode", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
-        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I64)));
     tmpMap.put(_Fields.ADVERTISER_ID, new org.apache.thrift.meta_data.FieldMetaData("advertiserId", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
     tmpMap.put(_Fields.BID_PRICE, new org.apache.thrift.meta_data.FieldMetaData("bidPrice", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.DOUBLE)));
     tmpMap.put(_Fields.BID_TYPE, new org.apache.thrift.meta_data.FieldMetaData("bidType", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
-        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
     tmpMap.put(_Fields.BID_PRICE2, new org.apache.thrift.meta_data.FieldMetaData("bidPrice2", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.DOUBLE)));
     tmpMap.put(_Fields.BID_TYPE2, new org.apache.thrift.meta_data.FieldMetaData("bidType2", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
-        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
     tmpMap.put(_Fields.JS_VERSION, new org.apache.thrift.meta_data.FieldMetaData("jsVersion", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
     tmpMap.put(_Fields.CTR, new org.apache.thrift.meta_data.FieldMetaData("ctr", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
@@ -505,9 +509,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
     if (other.isSetAdpId()) {
       this.adpId = other.adpId;
     }
-    if (other.isSetAdPos()) {
-      this.adPos = other.adPos;
-    }
+    this.adPos = other.adPos;
     this.adpX = other.adpX;
     this.adpY = other.adpY;
     if (other.isSetAdType()) {
@@ -524,9 +526,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
     if (other.isSetExt()) {
       this.ext = other.ext;
     }
-    if (other.isSetFreq()) {
-      this.freq = other.freq;
-    }
+    this.freq = other.freq;
     if (other.isSetGetUrl()) {
       this.getUrl = other.getUrl;
     }
@@ -582,13 +582,9 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
       this.advertiserId = other.advertiserId;
     }
     this.bidPrice = other.bidPrice;
-    if (other.isSetBidType()) {
-      this.bidType = other.bidType;
-    }
+    this.bidType = other.bidType;
     this.bidPrice2 = other.bidPrice2;
-    if (other.isSetBidType2()) {
-      this.bidType2 = other.bidType2;
-    }
+    this.bidType2 = other.bidType2;
     if (other.isSetJsVersion()) {
       this.jsVersion = other.jsVersion;
     }
@@ -636,7 +632,8 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
   public void clear() {
     this.adId = null;
     this.adpId = null;
-    this.adPos = null;
+    setAdPosIsSet(false);
+    this.adPos = 0;
     setAdpXIsSet(false);
     this.adpX = 0;
     setAdpYIsSet(false);
@@ -649,7 +646,8 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
     this.clickY = 0;
     this.contentUrl = null;
     this.ext = null;
-    this.freq = null;
+    setFreqIsSet(false);
+    this.freq = 0;
     this.getUrl = null;
     this.impressionId = null;
     setLatencyIsSet(false);
@@ -680,10 +678,12 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
     this.advertiserId = null;
     setBidPriceIsSet(false);
     this.bidPrice = 0.0;
-    this.bidType = null;
+    setBidTypeIsSet(false);
+    this.bidType = 0;
     setBidPrice2IsSet(false);
     this.bidPrice2 = 0.0;
-    this.bidType2 = null;
+    setBidType2IsSet(false);
+    this.bidType2 = 0;
     this.jsVersion = null;
     setCtrIsSet(false);
     this.ctr = 0.0;
@@ -753,28 +753,27 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
     }
   }
 
-  public String getAdPos() {
+  public int getAdPos() {
     return this.adPos;
   }
 
-  public CountinfoOperation setAdPos(String adPos) {
+  public CountinfoOperation setAdPos(int adPos) {
     this.adPos = adPos;
+    setAdPosIsSet(true);
     return this;
   }
 
   public void unsetAdPos() {
-    this.adPos = null;
+    __isset_bit_vector.clear(__ADPOS_ISSET_ID);
   }
 
   /** Returns true if field adPos is set (has been assigned a value) and false otherwise */
   public boolean isSetAdPos() {
-    return this.adPos != null;
+    return __isset_bit_vector.get(__ADPOS_ISSET_ID);
   }
 
   public void setAdPosIsSet(boolean value) {
-    if (!value) {
-      this.adPos = null;
-    }
+    __isset_bit_vector.set(__ADPOS_ISSET_ID, value);
   }
 
   public int getAdpX() {
@@ -965,28 +964,27 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
     }
   }
 
-  public String getFreq() {
+  public int getFreq() {
     return this.freq;
   }
 
-  public CountinfoOperation setFreq(String freq) {
+  public CountinfoOperation setFreq(int freq) {
     this.freq = freq;
+    setFreqIsSet(true);
     return this;
   }
 
   public void unsetFreq() {
-    this.freq = null;
+    __isset_bit_vector.clear(__FREQ_ISSET_ID);
   }
 
   /** Returns true if field freq is set (has been assigned a value) and false otherwise */
   public boolean isSetFreq() {
-    return this.freq != null;
+    return __isset_bit_vector.get(__FREQ_ISSET_ID);
   }
 
   public void setFreqIsSet(boolean value) {
-    if (!value) {
-      this.freq = null;
-    }
+    __isset_bit_vector.set(__FREQ_ISSET_ID, value);
   }
 
   public String getGetUrl() {
@@ -1464,11 +1462,11 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
     }
   }
 
-  public int getStatusCode() {
+  public long getStatusCode() {
     return this.statusCode;
   }
 
-  public CountinfoOperation setStatusCode(int statusCode) {
+  public CountinfoOperation setStatusCode(long statusCode) {
     this.statusCode = statusCode;
     setStatusCodeIsSet(true);
     return this;
@@ -1534,28 +1532,27 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
     __isset_bit_vector.set(__BIDPRICE_ISSET_ID, value);
   }
 
-  public String getBidType() {
+  public int getBidType() {
     return this.bidType;
   }
 
-  public CountinfoOperation setBidType(String bidType) {
+  public CountinfoOperation setBidType(int bidType) {
     this.bidType = bidType;
+    setBidTypeIsSet(true);
     return this;
   }
 
   public void unsetBidType() {
-    this.bidType = null;
+    __isset_bit_vector.clear(__BIDTYPE_ISSET_ID);
   }
 
   /** Returns true if field bidType is set (has been assigned a value) and false otherwise */
   public boolean isSetBidType() {
-    return this.bidType != null;
+    return __isset_bit_vector.get(__BIDTYPE_ISSET_ID);
   }
 
   public void setBidTypeIsSet(boolean value) {
-    if (!value) {
-      this.bidType = null;
-    }
+    __isset_bit_vector.set(__BIDTYPE_ISSET_ID, value);
   }
 
   public double getBidPrice2() {
@@ -1581,28 +1578,27 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
     __isset_bit_vector.set(__BIDPRICE2_ISSET_ID, value);
   }
 
-  public String getBidType2() {
+  public int getBidType2() {
     return this.bidType2;
   }
 
-  public CountinfoOperation setBidType2(String bidType2) {
+  public CountinfoOperation setBidType2(int bidType2) {
     this.bidType2 = bidType2;
+    setBidType2IsSet(true);
     return this;
   }
 
   public void unsetBidType2() {
-    this.bidType2 = null;
+    __isset_bit_vector.clear(__BIDTYPE2_ISSET_ID);
   }
 
   /** Returns true if field bidType2 is set (has been assigned a value) and false otherwise */
   public boolean isSetBidType2() {
-    return this.bidType2 != null;
+    return __isset_bit_vector.get(__BIDTYPE2_ISSET_ID);
   }
 
   public void setBidType2IsSet(boolean value) {
-    if (!value) {
-      this.bidType2 = null;
-    }
+    __isset_bit_vector.set(__BIDTYPE2_ISSET_ID, value);
   }
 
   public String getJsVersion() {
@@ -1983,7 +1979,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
       if (value == null) {
         unsetAdPos();
       } else {
-        setAdPos((String)value);
+        setAdPos((Integer)value);
       }
       break;
 
@@ -2055,7 +2051,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
       if (value == null) {
         unsetFreq();
       } else {
-        setFreq((String)value);
+        setFreq((Integer)value);
       }
       break;
 
@@ -2223,7 +2219,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
       if (value == null) {
         unsetStatusCode();
       } else {
-        setStatusCode((Integer)value);
+        setStatusCode((Long)value);
       }
       break;
 
@@ -2247,7 +2243,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
       if (value == null) {
         unsetBidType();
       } else {
-        setBidType((String)value);
+        setBidType((Integer)value);
       }
       break;
 
@@ -2263,7 +2259,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
       if (value == null) {
         unsetBidType2();
       } else {
-        setBidType2((String)value);
+        setBidType2((Integer)value);
       }
       break;
 
@@ -2399,7 +2395,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
       return getAdpId();
 
     case AD_POS:
-      return getAdPos();
+      return Integer.valueOf(getAdPos());
 
     case ADP_X:
       return Integer.valueOf(getAdpX());
@@ -2426,7 +2422,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
       return getExt();
 
     case FREQ:
-      return getFreq();
+      return Integer.valueOf(getFreq());
 
     case GET_URL:
       return getGetUrl();
@@ -2489,7 +2485,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
       return getPageId();
 
     case STATUS_CODE:
-      return Integer.valueOf(getStatusCode());
+      return Long.valueOf(getStatusCode());
 
     case ADVERTISER_ID:
       return getAdvertiserId();
@@ -2498,13 +2494,13 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
       return Double.valueOf(getBidPrice());
 
     case BID_TYPE:
-      return getBidType();
+      return Integer.valueOf(getBidType());
 
     case BID_PRICE2:
       return Double.valueOf(getBidPrice2());
 
     case BID_TYPE2:
-      return getBidType2();
+      return Integer.valueOf(getBidType2());
 
     case JS_VERSION:
       return getJsVersion();
@@ -2708,7 +2704,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
     if (this_present_adPos || that_present_adPos) {
       if (!(this_present_adPos && that_present_adPos))
         return false;
-      if (!this.adPos.equals(that.adPos))
+      if (this.adPos != that.adPos)
         return false;
     }
 
@@ -2789,7 +2785,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
     if (this_present_freq || that_present_freq) {
       if (!(this_present_freq && that_present_freq))
         return false;
-      if (!this.freq.equals(that.freq))
+      if (this.freq != that.freq)
         return false;
     }
 
@@ -3005,7 +3001,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
     if (this_present_bidType || that_present_bidType) {
       if (!(this_present_bidType && that_present_bidType))
         return false;
-      if (!this.bidType.equals(that.bidType))
+      if (this.bidType != that.bidType)
         return false;
     }
 
@@ -3023,7 +3019,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
     if (this_present_bidType2 || that_present_bidType2) {
       if (!(this_present_bidType2 && that_present_bidType2))
         return false;
-      if (!this.bidType2.equals(that.bidType2))
+      if (this.bidType2 != that.bidType2)
         return false;
     }
 
@@ -3750,11 +3746,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
     if (isSetAdPos()) {
       if (!first) sb.append(", ");
       sb.append("adPos:");
-      if (this.adPos == null) {
-        sb.append("null");
-      } else {
-        sb.append(this.adPos);
-      }
+      sb.append(this.adPos);
       first = false;
     }
     if (isSetAdpX()) {
@@ -3824,11 +3816,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
     if (isSetFreq()) {
       if (!first) sb.append(", ");
       sb.append("freq:");
-      if (this.freq == null) {
-        sb.append("null");
-      } else {
-        sb.append(this.freq);
-      }
+      sb.append(this.freq);
       first = false;
     }
     if (isSetGetUrl()) {
@@ -4036,11 +4024,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
     if (isSetBidType()) {
       if (!first) sb.append(", ");
       sb.append("bidType:");
-      if (this.bidType == null) {
-        sb.append("null");
-      } else {
-        sb.append(this.bidType);
-      }
+      sb.append(this.bidType);
       first = false;
     }
     if (isSetBidPrice2()) {
@@ -4052,11 +4036,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
     if (isSetBidType2()) {
       if (!first) sb.append(", ");
       sb.append("bidType2:");
-      if (this.bidType2 == null) {
-        sb.append("null");
-      } else {
-        sb.append(this.bidType2);
-      }
+      sb.append(this.bidType2);
       first = false;
     }
     if (isSetJsVersion()) {
@@ -4254,8 +4234,8 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
             }
             break;
           case 3: // AD_POS
-            if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-              struct.adPos = iprot.readString();
+            if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
+              struct.adPos = iprot.readI32();
               struct.setAdPosIsSet(true);
             } else { 
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
@@ -4326,8 +4306,8 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
             }
             break;
           case 12: // FREQ
-            if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-              struct.freq = iprot.readString();
+            if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
+              struct.freq = iprot.readI32();
               struct.setFreqIsSet(true);
             } else { 
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
@@ -4494,8 +4474,8 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
             }
             break;
           case 33: // STATUS_CODE
-            if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
-              struct.statusCode = iprot.readI32();
+            if (schemeField.type == org.apache.thrift.protocol.TType.I64) {
+              struct.statusCode = iprot.readI64();
               struct.setStatusCodeIsSet(true);
             } else { 
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
@@ -4518,8 +4498,8 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
             }
             break;
           case 36: // BID_TYPE
-            if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-              struct.bidType = iprot.readString();
+            if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
+              struct.bidType = iprot.readI32();
               struct.setBidTypeIsSet(true);
             } else { 
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
@@ -4534,8 +4514,8 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
             }
             break;
           case 38: // BID_TYPE2
-            if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-              struct.bidType2 = iprot.readString();
+            if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
+              struct.bidType2 = iprot.readI32();
               struct.setBidType2IsSet(true);
             } else { 
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
@@ -4690,12 +4670,10 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
           oprot.writeFieldEnd();
         }
       }
-      if (struct.adPos != null) {
-        if (struct.isSetAdPos()) {
-          oprot.writeFieldBegin(AD_POS_FIELD_DESC);
-          oprot.writeString(struct.adPos);
-          oprot.writeFieldEnd();
-        }
+      if (struct.isSetAdPos()) {
+        oprot.writeFieldBegin(AD_POS_FIELD_DESC);
+        oprot.writeI32(struct.adPos);
+        oprot.writeFieldEnd();
       }
       if (struct.isSetAdpX()) {
         oprot.writeFieldBegin(ADP_X_FIELD_DESC);
@@ -4745,12 +4723,10 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
           oprot.writeFieldEnd();
         }
       }
-      if (struct.freq != null) {
-        if (struct.isSetFreq()) {
-          oprot.writeFieldBegin(FREQ_FIELD_DESC);
-          oprot.writeString(struct.freq);
-          oprot.writeFieldEnd();
-        }
+      if (struct.isSetFreq()) {
+        oprot.writeFieldBegin(FREQ_FIELD_DESC);
+        oprot.writeI32(struct.freq);
+        oprot.writeFieldEnd();
       }
       if (struct.getUrl != null) {
         if (struct.isSetGetUrl()) {
@@ -4884,7 +4860,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
       }
       if (struct.isSetStatusCode()) {
         oprot.writeFieldBegin(STATUS_CODE_FIELD_DESC);
-        oprot.writeI32(struct.statusCode);
+        oprot.writeI64(struct.statusCode);
         oprot.writeFieldEnd();
       }
       if (struct.advertiserId != null) {
@@ -4899,24 +4875,20 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
         oprot.writeDouble(struct.bidPrice);
         oprot.writeFieldEnd();
       }
-      if (struct.bidType != null) {
-        if (struct.isSetBidType()) {
-          oprot.writeFieldBegin(BID_TYPE_FIELD_DESC);
-          oprot.writeString(struct.bidType);
-          oprot.writeFieldEnd();
-        }
+      if (struct.isSetBidType()) {
+        oprot.writeFieldBegin(BID_TYPE_FIELD_DESC);
+        oprot.writeI32(struct.bidType);
+        oprot.writeFieldEnd();
       }
       if (struct.isSetBidPrice2()) {
         oprot.writeFieldBegin(BID_PRICE2_FIELD_DESC);
         oprot.writeDouble(struct.bidPrice2);
         oprot.writeFieldEnd();
       }
-      if (struct.bidType2 != null) {
-        if (struct.isSetBidType2()) {
-          oprot.writeFieldBegin(BID_TYPE2_FIELD_DESC);
-          oprot.writeString(struct.bidType2);
-          oprot.writeFieldEnd();
-        }
+      if (struct.isSetBidType2()) {
+        oprot.writeFieldBegin(BID_TYPE2_FIELD_DESC);
+        oprot.writeI32(struct.bidType2);
+        oprot.writeFieldEnd();
       }
       if (struct.jsVersion != null) {
         if (struct.isSetJsVersion()) {
@@ -5200,7 +5172,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
         oprot.writeString(struct.adpId);
       }
       if (struct.isSetAdPos()) {
-        oprot.writeString(struct.adPos);
+        oprot.writeI32(struct.adPos);
       }
       if (struct.isSetAdpX()) {
         oprot.writeI32(struct.adpX);
@@ -5227,7 +5199,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
         oprot.writeString(struct.ext);
       }
       if (struct.isSetFreq()) {
-        oprot.writeString(struct.freq);
+        oprot.writeI32(struct.freq);
       }
       if (struct.isSetGetUrl()) {
         oprot.writeString(struct.getUrl);
@@ -5290,7 +5262,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
         oprot.writeString(struct.pageId);
       }
       if (struct.isSetStatusCode()) {
-        oprot.writeI32(struct.statusCode);
+        oprot.writeI64(struct.statusCode);
       }
       if (struct.isSetAdvertiserId()) {
         oprot.writeString(struct.advertiserId);
@@ -5299,13 +5271,13 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
         oprot.writeDouble(struct.bidPrice);
       }
       if (struct.isSetBidType()) {
-        oprot.writeString(struct.bidType);
+        oprot.writeI32(struct.bidType);
       }
       if (struct.isSetBidPrice2()) {
         oprot.writeDouble(struct.bidPrice2);
       }
       if (struct.isSetBidType2()) {
-        oprot.writeString(struct.bidType2);
+        oprot.writeI32(struct.bidType2);
       }
       if (struct.isSetJsVersion()) {
         oprot.writeString(struct.jsVersion);
@@ -5367,7 +5339,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
         struct.setAdpIdIsSet(true);
       }
       if (incoming.get(2)) {
-        struct.adPos = iprot.readString();
+        struct.adPos = iprot.readI32();
         struct.setAdPosIsSet(true);
       }
       if (incoming.get(3)) {
@@ -5403,7 +5375,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
         struct.setExtIsSet(true);
       }
       if (incoming.get(11)) {
-        struct.freq = iprot.readString();
+        struct.freq = iprot.readI32();
         struct.setFreqIsSet(true);
       }
       if (incoming.get(12)) {
@@ -5487,7 +5459,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
         struct.setPageIdIsSet(true);
       }
       if (incoming.get(32)) {
-        struct.statusCode = iprot.readI32();
+        struct.statusCode = iprot.readI64();
         struct.setStatusCodeIsSet(true);
       }
       if (incoming.get(33)) {
@@ -5499,7 +5471,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
         struct.setBidPriceIsSet(true);
       }
       if (incoming.get(35)) {
-        struct.bidType = iprot.readString();
+        struct.bidType = iprot.readI32();
         struct.setBidTypeIsSet(true);
       }
       if (incoming.get(36)) {
@@ -5507,7 +5479,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
         struct.setBidPrice2IsSet(true);
       }
       if (incoming.get(37)) {
-        struct.bidType2 = iprot.readString();
+        struct.bidType2 = iprot.readI32();
         struct.setBidType2IsSet(true);
       }
       if (incoming.get(38)) {

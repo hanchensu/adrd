@@ -1,8 +1,5 @@
 package com.sohu.ad.data.sessionlog;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -13,8 +10,8 @@ import com.sohu.ad.data.common.AdrdDataUtil;
 import com.sohu.ad.data.common.FormatResult;
 import com.sohu.ad.data.common.LogSchema;
 import com.sohu.ad.data.common.Util;
-import com.sohu.ad.data.thrift.operation.CountinfoOperation;
-import com.sohu.ad.data.thrift.operation.CountinfoOperation._Fields;
+import com.sohu.ad.data.sessionlog.thrift.operation.CountinfoOperation;
+import com.sohu.ad.data.sessionlog.thrift.operation.CountinfoOperation._Fields;
 
 public class CountinfoMaker {
 	private static Object[] defaults = new Object[LogSchema.COUNTINFO_SCHEMA.length];
@@ -29,8 +26,9 @@ public class CountinfoMaker {
 			"ctr2", "eCPM", "eCPM2", "adgroupMK", "advertiserIdMK", "adScore",
 			"campaignIdMK", "edContent", "edStatus", "lineIdMK", "materialMK" };
 
-	private static Verifier[] verifiers = {};
+	private static Verifier[] verifiers = new Verifier[LogSchema.COUNTINFO_SCHEMA.length];
 	static {
+
 		defaults[indexOf("ADPOS")] = 0;
 		defaults[indexOf("ADP_X")] = -1;
 		defaults[indexOf("ADP_Y")] = -1;
@@ -54,6 +52,45 @@ public class CountinfoMaker {
 		required[indexOf("TIME")] = true;
 		required[indexOf("USERIP")] = true;
 
+		verifiers[indexOf("ADID")] = new StrlenVerifier(256);
+		verifiers[indexOf("ADPID")] = verifiers[indexOf("YYID")] = new StrlenVerifier(32);
+		verifiers[indexOf("ADTYPE")] = new EnumVerifier("0","1","2","3","4","5","null");
+		verifiers[indexOf("ADPOS")] = new RangeVerifier(0, 20);
+		verifiers[indexOf("ADP_X")] = new RangeVerifier(0, 2000);
+		verifiers[indexOf("ADP_Y")] = new RangeVerifier(0, 65535);
+		verifiers[indexOf("BROWSER")] = new Verifier() {
+			public boolean isValid(Object... objects) {
+				String value = (String) objects[0];
+				if (value.length() <= 64 && !value.contains(" ")) {
+					return true;
+				}
+				return false;
+			}
+		};
+		verifiers[indexOf("CLICK_X")] = verifiers[indexOf("CLICK_Y")] = new RangeVerifier(0, 2000);
+		verifiers[indexOf("CONTENT_URL")] = new StrlenVerifier(2048);
+		verifiers[indexOf("FREQ")] = new RangeVerifier(0, 256);
+		verifiers[indexOf("GETURL")] = new StrlenVerifier(1024);
+		verifiers[indexOf("IMPRESSIONID")] = new StrlenVerifier(34);
+		verifiers[indexOf("LATENCY")] = new RangeVerifier(0, 100000);
+		verifiers[indexOf("OS")] = new Verifier() {
+			public boolean isValid(Object... objects) {
+				String value = (String) objects[0];
+				if (value.length() <= 128 && !value.contains(":")
+						&& !value.contains("\t") && !value.contains(" ")) {
+					return true;
+				}
+				return false;
+			}
+		};
+		verifiers[indexOf("REFFER")] = new StrlenVerifier(128);
+		verifiers[indexOf("REQTYPE")] = new EnumVerifier("view","click","err","arrive","reach");
+		verifiers[indexOf("SUPPORT_FLASH")] = new EnumVerifier("0","1");
+		verifiers[indexOf("SUV")] = new StrlenVerifier(64);
+		verifiers[indexOf("USERAGENT")] = new StrlenVerifier(1024);
+		verifiers[indexOf("JS_VERSION")] = new StrlenVerifier(8);
+		verifiers[indexOf("BidType")] = verifiers[indexOf("BidType2")] = new EnumVerifier(0,1);
+
 	}
 
 	public static int indexOf(String key) {
@@ -72,7 +109,7 @@ public class CountinfoMaker {
 		List<String> strs = formatResult.strs;
 		if (strs != null) {
 			for (int i = 0; i < LogSchema.COUNTINFO_SCHEMA.length; i++) {
-				
+
 				_Fields field = CountinfoOperation._Fields
 						.findByName(thriftName[i]);
 
@@ -85,25 +122,41 @@ public class CountinfoMaker {
 						countinfo.setStatusCode(123);
 					}
 				} else if (type == TType.STRING) {
-					countinfo.setFieldValue(field, valueStr);
+					if(verifiers[i].isValid(valueStr)) {
+						countinfo.setFieldValue(field, valueStr);
+					} else {
+						countinfo.setStatusCode(123);
+					}
 				} else if (type == TType.I32) {
 					try {
 						int value = Integer.parseInt(valueStr);
-						countinfo.setFieldValue(field, value);
+						if(verifiers[i].isValid(value)) {
+							countinfo.setFieldValue(field, value);
+						} else {
+							countinfo.setStatusCode(123);
+						}
 					} catch (NumberFormatException e) {
 						countinfo.setStatusCode(123);
 					}
 				} else if (type == TType.I64) {
 					try {
 						long value = Long.parseLong(valueStr);
-						countinfo.setFieldValue(field, value);
+						if(verifiers[i].isValid(value)) {
+							countinfo.setFieldValue(field, value);
+						} else {
+							countinfo.setStatusCode(123);
+						}
 					} catch (NumberFormatException e) {
 						countinfo.setStatusCode(123);
 					}
 				} else if (type == TType.DOUBLE) {
 					try {
 						double value = Double.parseDouble(valueStr);
-						countinfo.setFieldValue(field, value);
+						if(verifiers[i].isValid(value)) {
+							countinfo.setFieldValue(field, value);
+						} else {
+							countinfo.setStatusCode(123);
+						}
 					} catch (NumberFormatException e) {
 						countinfo.setStatusCode(123);
 					}
@@ -116,22 +169,7 @@ public class CountinfoMaker {
 	}
 
 	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader(new File(
-				"D:/worktmp/countinfo.txt")));
-		String str;
-		while ((str = br.readLine()) != null) {
-			System.out.println(str);
-			System.out.println(makeCountinfo(str).latency);
-		}
-		br.close();
-//		for (int i = 0; i < LogSchema.COUNTINFO_SCHEMA.length; i++) {
-//			System.out.println(LogSchema.COUNTINFO_SCHEMA[i] + ":"
-//					+ thriftName[i]);
-//		}
-//		int i = 2;
-//		System.out.println(CountinfoOperation._Fields.findByName(thriftName[i])
-//				+ " " + LogSchema.COUNTINFO_SCHEMA[i]);
-
+		
 	}
 
 }

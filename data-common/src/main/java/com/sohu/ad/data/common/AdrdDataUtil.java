@@ -8,7 +8,7 @@ import org.apache.thrift.TException;
 import org.apache.thrift.TSerializer;
 import org.apache.thrift.protocol.TBinaryProtocol;
 
-import com.sohu.ad.data.thrift.operation.CountinfoOperation;
+import com.sohu.ad.data.sessionlog.thrift.operation.CountinfoOperation;
 
 
 public class AdrdDataUtil {

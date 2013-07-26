@@ -20,7 +20,7 @@ import com.sohu.ad.data.common.FormatResult;
 import com.sohu.ad.data.common.LogSchema;
 import com.sohu.ad.data.common.Util;
 import com.sohu.ad.data.sessionlog.CountinfoMaker;
-import com.sohu.ad.data.thrift.operation.CountinfoOperation;
+import com.sohu.ad.data.sessionlog.thrift.operation.CountinfoOperation;
 
 
 public class GetUserId extends EvalFunc<String> {
