@@ -16,18 +16,15 @@ import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.lib.input.FileSplit;
 import org.apache.hadoop.util.ReflectionUtils;
 
+import com.sohu.adrd.data.common.FormatResult;
+import com.sohu.adrd.data.common.Util;
 import com.sohu.adrd.data.sessionlog.config.PathConfig;
 import com.sohu.adrd.data.sessionlog.config.PreprocessConfig;
 import com.sohu.adrd.data.sessionlog.config.PreprocessFiles;
 import com.sohu.adrd.data.sessionlog.config.SessionLogConfig;
+import com.sohu.adrd.data.sessionlog.util.Extractor;
+import com.sohu.adrd.data.sessionlog.util.Formator;
 
-import sessionlog.mapreduce.ExtractResult;
-import sessionlog.mapreduce.Extractor;
-import sessionlog.mapreduce.ExtractorEntry;
-import sessionlog.mapreduce.FormatResult;
-import sessionlog.mapreduce.Formator;
-import sessionlog.mapreduce.Preprocessor;
-import sessionlog.util.Util;
 
 public class SessionLogMapper extends Mapper<LongWritable, Text, Text, BytesWritable> {
 
@@ -35,8 +32,6 @@ public class SessionLogMapper extends Mapper<LongWritable, Text, Text, BytesWrit
 	private Formator formator = null;
 	private Extractor extractor = null;
 	
-	private List<Preprocessor> preprocessors = new ArrayList<Preprocessor>();
-	private PreprocessFiles preprocessFiles = new PreprocessFiles();
 	
 	private ByteArrayOutputStream buffer = null;
 	private DataOutputStream output = null;
@@ -99,26 +94,25 @@ public class SessionLogMapper extends Mapper<LongWritable, Text, Text, BytesWrit
 		if (Util.isBlank(strValue)) {
 			return;
 		}
+		
 		FormatResult formatRes = null;
-		ExtractResult extractRes = null;
+		
+		
 		String userKey = null;
 		try {
 			
 			formatRes = formator.format(strValue);
-			String DEL_MARK = "DelByMapper_" + formator.getMark();
-			if (formatRes.strs == null || formatRes.strs.size() == 0) {
-				if(!DEL_MARK.contains("Pv_")) {
-					context.write(new Text(DEL_MARK + "Format_" + formatRes.errorcode+"_"+ strValue), new BytesWritable());
+			
+			if (formatRes.strs == null) {
+				String DEL_MARK = "DelByMapper_";
+				String errorCode = formatRes.errorcode;
+				if(!errorCode.contains("Pv_")) {
+					context.write(new Text(DEL_MARK + formatRes.errorcode+"_"+ strValue), new BytesWritable());
 				}
 				return;
 			}
 			
-			formatRes.strs.add("0");  //default statusCode is 0
 			
-			List<String> preprocessRes = formatRes.strs;
-			for(Preprocessor processor : preprocessors) {
-				preprocessRes = processor.preprocess(preprocessRes, preprocessFiles);
-			}
 			
 			extractRes = extractor.extract(preprocessRes);
 			

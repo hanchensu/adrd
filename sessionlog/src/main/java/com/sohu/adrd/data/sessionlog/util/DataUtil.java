@@ -1,4 +1,4 @@
-package sessionlog.util;
+spackage com.sohu.adrd.data.sessionlog.util;
 
 import java.util.ArrayList;
 import java.util.Iterator;

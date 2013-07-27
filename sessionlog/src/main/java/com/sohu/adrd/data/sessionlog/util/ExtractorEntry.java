@@ -1,14 +1,15 @@
 package com.sohu.adrd.data.sessionlog.util;
 
-import sessionlog.op.OperationType;
-import sessionlog.util.Util;
+import com.sohu.adrd.data.common.Util;
+import com.sohu.adrd.data.sessionlog.thrift.operation.OperationType;
+
 
 public class ExtractorEntry {
 	
 	private String userKey = null;
 	
-	private String typeKey = null; //added by shc
 	private OperationType operation = null;
+	
 	private long timestamp = -1;
 	private byte data[] = null;
 	private int offset = 0, length = 0;
