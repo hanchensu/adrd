@@ -1,4 +1,4 @@
-package com.sohu.adrd.data.sessionlog;
+package com.sohu.adrd.data.sessionlog.plugin;
 
 public class StrlenVerifier implements Verifier{
 	private int length;

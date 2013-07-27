@@ -1,4 +1,4 @@
-package com.sohu.adrd.data.sessionlog;
+package com.sohu.adrd.data.sessionlog.plugin;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -20,8 +20,8 @@ public class CountinfoMaker {
 			"adpId", "adPos", "adpX", "adpY", "adType", "browser", "clickX",
 			"clickY", "contentUrl", "ext", "freq", "getUrl", "impressionId",
 			"latency", "monitorKey", "os", "refer", "region", "reqType",
-			"resolution", "suv", "timestamp", "turn", "userAgent", "userIp",
-			"yyId", "supportFlash", "e", "c", "pageId", "advertiserId",
+			"resolution", "supportFlash", "suv", "timestamp", "turn", "userAgent", "userIp",
+			"yyId",  "e", "c", "pageId", "advertiserId",
 			"jsVersion", "bidPrice", "bidType", "bidPrice2", "bidType2", "ctr",
 			"ctr2", "eCPM", "eCPM2", "adgroupMK", "advertiserIdMK", "adScore",
 			"campaignIdMK", "edContent", "edStatus", "lineIdMK", "materialMK" };
@@ -119,13 +119,13 @@ public class CountinfoMaker {
 					if (defaults[i] != null) {
 						countinfo.setFieldValue(field, defaults[i]);
 					} else if (required[i]) {
-						countinfo.setStatusCode(123);
+						setError(countinfo,i);
 					}
 				} else if (type == TType.STRING) {
 					if(verifiers[i].isValid(valueStr)) {
 						countinfo.setFieldValue(field, valueStr);
 					} else {
-						countinfo.setStatusCode(123);
+						setError(countinfo,i);
 					}
 				} else if (type == TType.I32) {
 					try {
@@ -133,10 +133,10 @@ public class CountinfoMaker {
 						if(verifiers[i].isValid(value)) {
 							countinfo.setFieldValue(field, value);
 						} else {
-							countinfo.setStatusCode(123);
+							setError(countinfo,i);
 						}
 					} catch (NumberFormatException e) {
-						countinfo.setStatusCode(123);
+						setError(countinfo,i);
 					}
 				} else if (type == TType.I64) {
 					try {
@@ -144,10 +144,10 @@ public class CountinfoMaker {
 						if(verifiers[i].isValid(value)) {
 							countinfo.setFieldValue(field, value);
 						} else {
-							countinfo.setStatusCode(123);
+							setError(countinfo,i);
 						}
 					} catch (NumberFormatException e) {
-						countinfo.setStatusCode(123);
+						setError(countinfo,i);
 					}
 				} else if (type == TType.DOUBLE) {
 					try {
@@ -155,10 +155,10 @@ public class CountinfoMaker {
 						if(verifiers[i].isValid(value)) {
 							countinfo.setFieldValue(field, value);
 						} else {
-							countinfo.setStatusCode(123);
+							setError(countinfo,i);
 						}
 					} catch (NumberFormatException e) {
-						countinfo.setStatusCode(123);
+						setError(countinfo,i);
 					}
 				}
 
@@ -166,6 +166,11 @@ public class CountinfoMaker {
 		}
 		return countinfo;
 
+	}
+	
+	public static void setError(CountinfoOperation countinfo, int index) {
+		long status = countinfo.getStatusCode();
+		countinfo.setStatusCode(status | (1L << index));
 	}
 
 	public static void main(String[] args) throws IOException {

@@ -1,4 +1,4 @@
-package com.sohu.adrd.data.sessionlog;
+package com.sohu.adrd.data.sessionlog.plugin;
 
 public class RangeVerifier implements Verifier{
 	

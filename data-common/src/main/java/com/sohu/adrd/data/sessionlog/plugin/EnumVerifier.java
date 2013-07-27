@@ -1,4 +1,4 @@
-package com.sohu.adrd.data.sessionlog;
+package com.sohu.adrd.data.sessionlog.plugin;
 
 import java.util.HashSet;
 import java.util.Set;
