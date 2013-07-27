@@ -88,10 +88,5 @@
 			<artifactId>sessionlog-thrift</artifactId>
 			<version>0.2.7</version>
 		</dependency>
-		<dependency>
-			<groupId>com.sohu.ad.data.sessionlog</groupId>
-			<artifactId>sessionlog-plugin</artifactId>
-			<version>0.2.7</version>
-		</dependency>
 	</dependencies>
 </project>
