@@ -10,16 +10,7 @@ public class SessionLogConfig {
 	private ArrayList<PathConfig> pathConfigs = new ArrayList<PathConfig>();
 	private ZebraConfig zebraConfig = null;
 	private ArrayList<OpConfig> opConfigs = new ArrayList<OpConfig>();
-	private ArrayList<PreprocessConfig> preprocessConfigs = new ArrayList<PreprocessConfig>();
 	
-	
-	public ArrayList<PreprocessConfig> getPreprocessConfigs() {
-		return preprocessConfigs;
-	}
-
-	public void setPreprocessConfigs(ArrayList<PreprocessConfig> preprocessConfigs) {
-		this.preprocessConfigs = preprocessConfigs;
-	}
 
 	public void setOpConfigs(ArrayList<OpConfig> opConfigs) {
 		this.opConfigs = opConfigs;
@@ -72,8 +63,5 @@ public class SessionLogConfig {
 		opConfigs.add(opConfig);
 	}
 	
-	public void addPreprocessConfig(PreprocessConfig preprocessConfig) {
-		preprocessConfigs.add(preprocessConfig);
-	}
 	
 }

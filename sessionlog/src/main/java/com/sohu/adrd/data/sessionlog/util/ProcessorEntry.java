@@ -1,6 +1,5 @@
 package com.sohu.adrd.data.sessionlog.util;
 
-import java.util.Arrays;
 
 public class ProcessorEntry {
 	

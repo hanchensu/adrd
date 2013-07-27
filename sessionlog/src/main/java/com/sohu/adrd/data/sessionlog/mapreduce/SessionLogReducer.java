@@ -1,4 +1,4 @@
-package sessionlog.mapreduce;
+package com.sohu.adrd.data.sessionlog.mapreduce;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -26,17 +26,18 @@ import org.apache.pig.backend.executionengine.ExecException;
 import org.apache.pig.data.DataByteArray;
 import org.apache.pig.data.Tuple;
 
+import com.sohu.adrd.data.common.Util;
+import com.sohu.adrd.data.sessionlog.config.ConfigLoader;
 import com.sohu.adrd.data.sessionlog.config.OpConfig;
 import com.sohu.adrd.data.sessionlog.config.SessionLogConfig;
 import com.sohu.adrd.data.sessionlog.config.SortConfig;
 import com.sohu.adrd.data.sessionlog.config.ZebraConfig;
+import com.sohu.adrd.data.sessionlog.util.IdCreater;
+import com.sohu.adrd.data.sessionlog.util.PriorityQueue;
+import com.sohu.adrd.data.sessionlog.util.Processor;
+import com.sohu.adrd.data.sessionlog.util.ProcessorEntry;
+import com.sohu.adrd.data.sessionlog.thrift.operation.OperationType;
 
-import sessionlog.mapreduce.IdCreater;
-import sessionlog.mapreduce.Processor;
-import sessionlog.mapreduce.ProcessorEntry;
-import sessionlog.op.OperationType;
-import sessionlog.util.Util;
-import sessionlog.util.PriorityQueue;
 
 public class SessionLogReducer extends Reducer<Text, BytesWritable, Text, Text> {
 	
@@ -71,7 +72,7 @@ public class SessionLogReducer extends Reducer<Text, BytesWritable, Text, Text> 
 	@SuppressWarnings("unchecked")
 	protected void setup(Context context) throws IOException, InterruptedException {
 		Configuration conf = context.getConfiguration();
-		config = Util.loadConfig(conf);
+		config = ConfigLoader.loadConfig(conf);
 		if (config == null || !config.check()) throw new IOException("sessionlog.config logic error");
 		String schema = config.getZebraConfig().getSchema();
 		String storage = config.getZebraConfig().getStorage();
@@ -132,9 +133,9 @@ public class SessionLogReducer extends Reducer<Text, BytesWritable, Text, Text> 
 	}
 
 	protected void reduce(Text key, Iterable<BytesWritable> values, Context context) throws IOException, InterruptedException {
-		
+		//output deleted log
 		String userKey = key.toString();
-		if((userKey.contains("DelByMapper_Adinfo"))) {
+		if((userKey.contains(SessionLogMapper.DEL_MARK))) {
 			Iterator<BytesWritable> valueIt = values.iterator();
 			while (valueIt.hasNext()) {
 				valueIt.next();
@@ -143,9 +144,6 @@ public class SessionLogReducer extends Reducer<Text, BytesWritable, Text, Text> 
 			return;
 		}
 		
-		if(userKey.startsWith("Del") || userKey.startsWith("Ac")) {
-			return;
-		}
 		
 		Iterator<PriorityQueue> queueIt = queues.values().iterator();
 		while (queueIt.hasNext()) {
@@ -155,8 +153,9 @@ public class SessionLogReducer extends Reducer<Text, BytesWritable, Text, Text> 
 		
 		if (writer == null) init(userKey, context);
 		Iterator<BytesWritable> valueIt = values.iterator();
-//		List<String> ops = new ArrayList<String>();
+		
 		boolean badUser = false;
+		
 		while (valueIt.hasNext()) {
 			BytesWritable value = new BytesWritable();
 			value.set(valueIt.next());
@@ -166,24 +165,19 @@ public class SessionLogReducer extends Reducer<Text, BytesWritable, Text, Text> 
 			if (operateType == null) continue;
 			String strOp = operateType.getOperateName();
 			if (queues.get(strOp) == null) continue;
-//			ops.add(strOp);
 			ProcessorEntry entry = new ProcessorEntry(Util.readLog(data, 1), data, 9, value.getLength() - 9);
 			PriorityQueue queue = queues.get(strOp);
 			if (queue.size() > 10000) {
-				badUser = true;
+				
+				context.write(new Text("BadUser_"+key), new Text(" "));
+				writer BadUser;
+				
+				return;
 			}
-			if(!badUser) {
-				queue.add(entry);
-			}
+			queue.add(entry);
+			
 		}
-		if(badUser) {
-			context.write(new Text("BadUser_"+key), new Text(" "));
-//			context.write(new Text("BadUser"), new Text(" "));
-//			for(String op : ops) {
-//				context.write(new Text("BadUser____"+op), new Text(" "));
-//			}
-			return;
-		}
+
 		
 		Iterator<Entry<String, PriorityQueue>> entryIt = queues.entrySet().iterator();
 		while (entryIt.hasNext()) {
@@ -200,9 +194,7 @@ public class SessionLogReducer extends Reducer<Text, BytesWritable, Text, Text> 
 				String tag = processorEntry.getTag();
 				if (!ProcessorEntry.DELETE_TAG.equals(tag)) {
 				    inserter.add(processorEntry);
-            	} else {
-//            		context.write(new Text("DelPv___"), new Text(" "));
-                }
+            	}
             	
 			}
 			inserter.tupleSet(entry.getValue().getCgIndex(), null);

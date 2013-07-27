@@ -3,8 +3,9 @@ package com.sohu.adrd.data.sessionlog.util;
 import java.util.Arrays;
 import java.util.Iterator;
 
+import com.sohu.adrd.data.sessionlog.thrift.operation.OperationType;
 
-import sessionlog.op.OperationType;
+
 
 public class PriorityQueue {
 	

@@ -32,8 +32,8 @@ import sessionlog.config.ZebraConfig;
 
 public class Util {
 	
-	public static String SESSIONLOG_CONFIG = "new-sessionlog.config";
-	private static final Log LOG = LogFactory.getLog(Util.class);
+	
+	p
 	private static ThreadLocal<SimpleDateFormat> Usformaters = new ThreadLocal<SimpleDateFormat>();
 	private static ThreadLocal<SimpleDateFormat> Logformaters = new ThreadLocal<SimpleDateFormat>();
 	private static ThreadLocal<SimpleDateFormat> Udataformaters = new ThreadLocal<SimpleDateFormat>();
