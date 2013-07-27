@@ -24,8 +24,8 @@ import org.apache.pig.data.Tuple;
 import org.apache.pig.data.TupleFactory;
 
 import com.sohu.adrd.data.common.FormatResult;
-import com.sohu.adrd.data.common.InputPathFilter;
 import com.sohu.adrd.data.common.Util;
+import com.sohu.adrd.data.mapreduce.InputPathFilter;
 
 public class PvLogLoader extends LoadFunc {
 	

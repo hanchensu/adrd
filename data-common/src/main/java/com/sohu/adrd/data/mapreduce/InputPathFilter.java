@@ -1,4 +1,4 @@
-package com.sohu.adrd.data.common;
+package com.sohu.adrd.data.mapreduce;
 
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.fs.PathFilter;

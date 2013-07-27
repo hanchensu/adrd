@@ -29,8 +29,8 @@ import org.apache.pig.data.TupleFactory;
 import org.apache.pig.impl.util.Utils;
 import org.apache.pig.parser.AliasMasker.output_clause_return;
 
-import com.sohu.adrd.data.common.InputPathFilter;
 import com.sohu.adrd.data.common.Util;
+import com.sohu.adrd.data.mapreduce.InputPathFilter;
 import com.sohu.adrd.data.pig.udf.custom.TestConverter;
 
 public  class TestLoader1 extends LoadFunc implements LoadMetadata{

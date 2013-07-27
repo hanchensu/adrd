@@ -27,13 +27,13 @@ import org.apache.hadoop.mapreduce.lib.partition.HashPartitioner;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
+
+
 import com.sohu.adrd.data.common.Util;
+import com.sohu.adrd.data.mapreduce.InputPathFilter;
+import com.sohu.adrd.data.sessionlog.mapreduce.SessionLogMapper;
 
 
-import sessionlog.mapreduce.InputPathFilter;
-import sessionlog.mapreduce.SessionLogInputFormat;
-import sessionlog.mapreduce.SessionLogMapper;
-import sessionlog.mapreduce.SessionLogReducer;
 
 public class SessionLogJob implements Tool {
 	
