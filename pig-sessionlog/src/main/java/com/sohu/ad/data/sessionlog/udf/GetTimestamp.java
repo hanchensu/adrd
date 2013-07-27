@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 import org.apache.pig.EvalFunc;
 import org.apache.pig.data.Tuple;
 
-import com.sohu.ad.data.common.AdrdDataUtil;
+import com.sohu.adrd.data.common.AdrdDataUtil;
 
 public class GetTimestamp extends EvalFunc<Long> {
 	

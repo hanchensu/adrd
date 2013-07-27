@@ -1,4 +1,4 @@
-package com.sohu.ad.data.sessionlog.io;
+package com.sohu.adrd.data.common;
 
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.fs.PathFilter;

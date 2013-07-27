@@ -15,12 +15,12 @@ import org.apache.pig.impl.logicalLayer.schema.Schema;
 import org.apache.thrift.TSerializer;
 import org.apache.thrift.protocol.TBinaryProtocol;
 
-import com.sohu.ad.data.common.AdrdDataUtil;
-import com.sohu.ad.data.common.FormatResult;
-import com.sohu.ad.data.common.LogSchema;
-import com.sohu.ad.data.common.Util;
-import com.sohu.ad.data.sessionlog.CountinfoMaker;
-import com.sohu.ad.data.sessionlog.thrift.operation.CountinfoOperation;
+import com.sohu.adrd.data.common.AdrdDataUtil;
+import com.sohu.adrd.data.common.FormatResult;
+import com.sohu.adrd.data.common.LogSchema;
+import com.sohu.adrd.data.common.Util;
+import com.sohu.adrd.data.sessionlog.CountinfoMaker;
+import com.sohu.adrd.data.sessionlog.thrift.operation.CountinfoOperation;
 
 
 public class GetUserId extends EvalFunc<String> {

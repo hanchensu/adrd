@@ -14,9 +14,9 @@ import org.apache.pig.data.DataByteArray;
 import org.apache.pig.data.Tuple;
 import org.apache.pig.data.TupleFactory;
 
-import com.sohu.ad.data.common.Util;
 import com.sohu.ad.data.sessionlog.io.InputPathFilter;
 import com.sohu.ad.data.sessionlog.io.SessionLogInputFormat;
+import com.sohu.adrd.data.common.Util;
 
 public abstract class RawLogLoader extends LoadFunc {
 
