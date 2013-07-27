@@ -25,9 +25,10 @@ import org.apache.thrift.transport.TMemoryBuffer;
 import org.apache.thrift.transport.TMemoryInputTransport;
 import org.apache.thrift.transport.TTransport;
 
-import sessionlog.mapreduce.ExtractorEntry;
-import sessionlog.mapreduce.plugin.AdinfoExtractor;
-import sessionlog.mapreduce.plugin.AdinfoFormator;
+import com.sohu.adrd.data.sessionlog.mapreduce.AdinfoExtractor;
+import com.sohu.adrd.data.sessionlog.mapreduce.AdinfoFormator;
+import com.sohu.adrd.data.sessionlog.util.ExtractorEntry;
+
 import sessionlog.op.AdInfoOperation;
 
 public class FullTest {

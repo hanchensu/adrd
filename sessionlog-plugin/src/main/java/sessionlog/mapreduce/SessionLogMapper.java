@@ -1,4 +1,4 @@
-package com.sohu.adrd.data.sessionlog.mapreduce;
+package sessionlog.mapreduce;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -21,12 +21,6 @@ import com.sohu.adrd.data.sessionlog.config.PreprocessConfig;
 import com.sohu.adrd.data.sessionlog.config.PreprocessFiles;
 import com.sohu.adrd.data.sessionlog.config.SessionLogConfig;
 
-import sessionlog.mapreduce.ExtractResult;
-import sessionlog.mapreduce.Extractor;
-import sessionlog.mapreduce.ExtractorEntry;
-import sessionlog.mapreduce.FormatResult;
-import sessionlog.mapreduce.Formator;
-import sessionlog.mapreduce.Preprocessor;
 import sessionlog.util.Util;
 
 public class SessionLogMapper extends Mapper<LongWritable, Text, Text, BytesWritable> {

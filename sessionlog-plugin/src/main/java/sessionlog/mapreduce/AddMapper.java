@@ -1,4 +1,4 @@
-package com.sohu.adrd.data.sessionlog.mapreduce;
+package sessionlog.mapreduce;
 
 import java.io.IOException;
 

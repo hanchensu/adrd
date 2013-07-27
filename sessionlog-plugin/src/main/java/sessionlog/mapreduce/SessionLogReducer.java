@@ -31,9 +31,6 @@ import com.sohu.adrd.data.sessionlog.config.SessionLogConfig;
 import com.sohu.adrd.data.sessionlog.config.SortConfig;
 import com.sohu.adrd.data.sessionlog.config.ZebraConfig;
 
-import sessionlog.mapreduce.IdCreater;
-import sessionlog.mapreduce.Processor;
-import sessionlog.mapreduce.ProcessorEntry;
 import sessionlog.op.OperationType;
 import sessionlog.util.Util;
 import sessionlog.util.PriorityQueue;

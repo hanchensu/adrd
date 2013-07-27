@@ -84,9 +84,9 @@
 			<version>0.22.0</version>
 		</dependency>
 		<dependency>
-			<groupId>com.sohu.ad.data.sessionlog</groupId>
-			<artifactId>sessionlog-thrift</artifactId>
-			<version>0.2.7</version>
+			<groupId>com.sohu.adrd.data</groupId>
+			<artifactId>data-common</artifactId>
+			<version>0.2.0</version>
 		</dependency>
 	</dependencies>
 </project>

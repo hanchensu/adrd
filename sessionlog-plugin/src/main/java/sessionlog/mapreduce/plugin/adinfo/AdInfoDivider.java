@@ -2,7 +2,8 @@ package sessionlog.mapreduce.plugin.adinfo;
 
 import java.util.List;
 
-import sessionlog.mapreduce.plugin.AdinfoFormator;
+import com.sohu.adrd.data.sessionlog.mapreduce.AdinfoFormator;
+
 
 import sessionlog.op.OperationType;
 

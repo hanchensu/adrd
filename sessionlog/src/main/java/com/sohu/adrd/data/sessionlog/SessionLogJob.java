@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.sound.midi.Sequence;
 
 import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLine;
@@ -28,7 +27,8 @@ import org.apache.hadoop.mapreduce.lib.partition.HashPartitioner;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
-import com.sohu.ad.data.common.Util;
+import com.sohu.adrd.data.common.Util;
+
 
 import sessionlog.mapreduce.InputPathFilter;
 import sessionlog.mapreduce.SessionLogInputFormat;
@@ -296,8 +296,7 @@ public class SessionLogJob implements Tool {
 			}
         }
         config_.set("tmpjars", sb.toString());
-        
-        config_.set("mapred.job.name", "new-sessionlog");
+        config_.set("mapred.job.name", Util.isBlank(jobName_) ? jobName_ : "new-sessionlog");
         config_.set("mapred.mapper.new-api", "true");
         config_.set("mapred.reducer.new-api", "true");
         config_.set("mapred.input.dir", input_);
@@ -312,8 +311,6 @@ public class SessionLogJob implements Tool {
 	}
 	
 	private int submitAndMonitorJob() throws IOException {
-		
-		
 		
 		Job job = new Job(config_);
 		FileInputFormat.setInputPathFilter(job, InputPathFilter.class);
