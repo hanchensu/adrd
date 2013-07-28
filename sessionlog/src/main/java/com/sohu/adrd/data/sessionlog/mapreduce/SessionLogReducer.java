@@ -25,6 +25,12 @@ import org.apache.hadoop.zebra.types.TypesUtils;
 import org.apache.pig.backend.executionengine.ExecException;
 import org.apache.pig.data.DataByteArray;
 import org.apache.pig.data.Tuple;
+import org.apache.pig.parser.QueryParser.null_check_cond_return;
+import org.apache.thrift.TException;
+import org.apache.thrift.protocol.TBinaryProtocol;
+import org.apache.thrift.protocol.TProtocol;
+import org.apache.thrift.transport.TMemoryInputTransport;
+import org.mortbay.io.ByteArrayBuffer.CaseInsensitive;
 
 import com.sohu.adrd.data.common.Util;
 import com.sohu.adrd.data.sessionlog.config.ConfigLoader;
@@ -36,7 +42,10 @@ import com.sohu.adrd.data.sessionlog.util.IdCreater;
 import com.sohu.adrd.data.sessionlog.util.PriorityQueue;
 import com.sohu.adrd.data.sessionlog.util.Processor;
 import com.sohu.adrd.data.sessionlog.util.ProcessorEntry;
+import com.sohu.adrd.data.sessionlog.thrift.operation.CountinfoOperation;
 import com.sohu.adrd.data.sessionlog.thrift.operation.OperationType;
+import com.sohu.adrd.data.sessionlog.thrift.operation.PVOperation;
+import com.sohu.adrd.data.sessionlog.thrift.operation.SearchOperation;
 
 
 public class SessionLogReducer extends Reducer<Text, BytesWritable, Text, Text> {
@@ -154,7 +163,6 @@ public class SessionLogReducer extends Reducer<Text, BytesWritable, Text, Text> 
 		if (writer == null) init(userKey, context);
 		Iterator<BytesWritable> valueIt = values.iterator();
 		
-		boolean badUser = false;
 		
 		while (valueIt.hasNext()) {
 			BytesWritable value = new BytesWritable();
@@ -169,8 +177,14 @@ public class SessionLogReducer extends Reducer<Text, BytesWritable, Text, Text> 
 			PriorityQueue queue = queues.get(strOp);
 			if (queue.size() > 10000) {
 				
-				context.write(new Text("BadUser_"+key), new Text(" "));
-				writer BadUser;
+				String badUserInfo;
+				try {
+					badUserInfo = getUserKyes(data);
+				} catch (TException e) {
+					badUserInfo = e.getClass().toString();
+				}
+				
+				context.write(new Text("BadUser_"+badUserInfo), new Text(" "));
 				
 				return;
 			}
@@ -201,6 +215,54 @@ public class SessionLogReducer extends Reducer<Text, BytesWritable, Text, Text> 
 		}
 		inserter.tupleSet(0, userKey);
 		inserter.insert();
+	}
+
+	private String getUserKyes(byte[] data) throws TException {
+		TProtocol protocol;
+		TMemoryInputTransport inputTransport;
+		inputTransport = new TMemoryInputTransport();
+		protocol = new TBinaryProtocol(inputTransport);
+		OperationType operateType = OperationType.findByOperateId(data[0]);
+		
+		inputTransport.reset(data, 9, data.length - 9);
+		
+		String yyid = null,suv = null ,ip = null,agent = null;
+		switch (operateType) {
+		case PV:
+			PVOperation pvOp = new PVOperation();
+			pvOp.read(protocol);
+			yyid = pvOp.getYyid();
+			suv = pvOp.getSuv();
+			ip = pvOp.getIp();
+			agent = pvOp.getUseragent();
+			break;
+		case HB_CLICK:
+		case HB_DISPLAY:
+		case AD_CLICK:
+		case AD_DISPLAY:
+		case NEWS_CLICK:
+		case NEWS_DISPLAY:
+		case ARRIVE:
+		case REACH:
+		case ERR:
+			CountinfoOperation countinfoOp = new CountinfoOperation();
+			countinfoOp.read(protocol);
+			yyid = countinfoOp.getYyId();
+			suv = countinfoOp.getSuv();
+			ip = countinfoOp.getUserIp();
+			agent = countinfoOp.getUserAgent();
+			break;
+		case SEARCH:
+			SearchOperation searchOp = new SearchOperation();
+			searchOp.read(protocol);
+			yyid = searchOp.getYyid();
+			suv = searchOp.getIp();
+			ip = searchOp.getIp();
+			agent = searchOp.getUseragent();
+			break;
+		}
+		
+		return "YYID: "+ yyid +"\tSUV: "+ suv +"\tIP: "+ ip +"\tUA:"+ agent;
 	}
 
 	protected void cleanup(Context context) throws IOException, InterruptedException {

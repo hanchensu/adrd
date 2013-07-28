@@ -101,12 +101,15 @@ public class CountinfoMaker {
 		FormatResult fr = AdrdDataUtil.format(log, LogSchema.COUNTINFO_SCHEMA);
 		return makeCountinfo(fr);
 	}
-
+	
 	public static CountinfoOperation makeCountinfo(FormatResult formatResult) {
+		return makeCountinfo(formatResult.strs);
+	}
+
+	public static CountinfoOperation makeCountinfo(List<String> strs) {
 
 		CountinfoOperation countinfo = new CountinfoOperation();
 
-		List<String> strs = formatResult.strs;
 		if (strs != null) {
 			for (int i = 0; i < LogSchema.COUNTINFO_SCHEMA.length; i++) {
 

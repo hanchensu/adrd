@@ -1,4 +1,4 @@
-package com.sohu.adrd.data.sessionlog.mapreduce;
+package sessionlog.mapreduce;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -19,7 +19,6 @@ import com.sohu.adrd.data.sessionlog.util.Extractor;
 import com.sohu.adrd.data.sessionlog.util.ExtractorEntry;
 import com.sohu.adrd.data.sessionlog.util.ReuseMemoryBuffer;
 
-import sessionlog.mapreduce.ExtractResult;
 import sessionlog.op.AdInfoOperation;
 import sessionlog.op.OperationType;
 import sessionlog.op.PvOperation;

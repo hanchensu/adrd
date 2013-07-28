@@ -14,23 +14,20 @@ import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TMemoryInputTransport;
 
+import com.sohu.adrd.data.sessionlog.thrift.operation.CountinfoOperation;
+import com.sohu.adrd.data.sessionlog.thrift.operation.OperationType;
 import com.sohu.adrd.data.sessionlog.util.Processor;
 import com.sohu.adrd.data.sessionlog.util.ProcessorEntry;
 import com.sohu.adrd.data.sessionlog.util.ReuseMemoryBuffer;
 
-import sessionlog.op.AdInfoOperation;
-import sessionlog.op.OperationType;
-import sessionlog.op.PvOperation;
-
-public class AdInfoProcessor implements Processor {
+public class CountinfoProcessor implements Processor {
 
 	private TProtocol protocol;
 	private TMemoryInputTransport inputTransport;
 
-	private AdInfoOperation info = new AdInfoOperation();
 	private String pre;
 
-	public AdInfoProcessor() {
+	public CountinfoProcessor() {
 		inputTransport = new TMemoryInputTransport();
 		protocol = new TBinaryProtocol(inputTransport);
 	}
@@ -38,11 +35,13 @@ public class AdInfoProcessor implements Processor {
 	public List<OperationType> acceptTypes() {
 		return Arrays.asList(OperationType.AD_CLICK, OperationType.AD_DISPLAY,
 				OperationType.NEWS_CLICK, OperationType.NEWS_DISPLAY,
-				OperationType.HB_CLICK, OperationType.HB_DISPLAY, OperationType.ARRIVE);
+				OperationType.HB_CLICK, OperationType.HB_DISPLAY,
+				OperationType.REACH, OperationType.ARRIVE, OperationType.ERR);
 	}
 
 	public Iterator<ProcessorEntry> process(Iterator<ProcessorEntry> it) {
 		List<ProcessorEntry> pelist = new ArrayList<ProcessorEntry>();
+		CountinfoOperation info = new CountinfoOperation();
 
 		while (it.hasNext()) {
 			ProcessorEntry entry = it.next();
@@ -82,7 +81,7 @@ public class AdInfoProcessor implements Processor {
 	private void lastAddOne(List<ProcessorEntry> pelist) throws TException {
 		TMemoryInputTransport readTransport = new TMemoryInputTransport();
 		TProtocol readProtocol = new TBinaryProtocol(readTransport);
-		AdInfoOperation lastinfo = new AdInfoOperation();
+		CountinfoOperation lastinfo = new CountinfoOperation();
 		ProcessorEntry lastEntry = pelist.get(pelist.size() - 1);
 		readTransport.reset(lastEntry.getData(), lastEntry.getOffset(),
 				lastEntry.getLength());

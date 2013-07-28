@@ -9,10 +9,9 @@ import org.apache.hadoop.io.BytesWritable;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.pig.data.Tuple;
 
-import com.sohu.adrd.data.sessionlog.util.NamedList;
-import com.sohu.adrd.data.sessionlog.util.ThriftProtocol;
-
 import sessionlog.util.DataUtil;
+import sessionlog.util.NamedList;
+import sessionlog.util.ThriftProtocol;
 
 public class BaseMapper<VALUEIN, VALUEOUT> extends Mapper<BytesWritable, Tuple, VALUEIN, VALUEOUT> {
 	protected String projection = null;

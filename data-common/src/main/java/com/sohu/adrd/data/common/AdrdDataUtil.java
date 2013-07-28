@@ -9,6 +9,7 @@ import org.apache.thrift.TSerializer;
 import org.apache.thrift.protocol.TBinaryProtocol;
 
 import com.sohu.adrd.data.sessionlog.thrift.operation.CountinfoOperation;
+import com.sohu.adrd.data.sessionlog.thrift.operation.OperationType;
 
 
 public class AdrdDataUtil {
@@ -26,6 +27,10 @@ public class AdrdDataUtil {
 			else return s;
 		}
 		return null;
+	}
+	
+	public static String makeUserId(CountinfoOperation countinfo) {
+		return makeUserId(countinfo.yyId, countinfo.suv, countinfo.userIp, countinfo.userAgent);
 	}
 	
 	public static FormatResult format(String str,String[] schema) {
@@ -55,7 +60,7 @@ public class AdrdDataUtil {
 		return Util.jsonFormat(schema, result, str);
 	}
 	
-	public static String getOpType(String reqType, String adType, String suv) {
+	public static OperationType getOpType(String reqType, String adType, String suv) {
 		
 		String CLICK_FLAG = "click";
 		String DISPLAY_FLAG = "view";
@@ -68,47 +73,47 @@ public class AdrdDataUtil {
 		
 		if (DISPLAY_FLAG.equals(reqType) && TEST_SUV.equals(suv)) {
 			
-			return "hbdisplay";
+			return OperationType.HB_DISPLAY;
 			
 		} else if (CLICK_FLAG.equals(reqType) && TEST_SUV.equals(suv)) {
 			
-			return "hbclick";
+			return OperationType.HB_CLICK;
 			
 		} else if (DISPLAY_FLAG.equals(reqType) && NEWS_TYPE.equals(adType)) {
 			
-			return "newsdisplay";
+			return OperationType.NEWS_DISPLAY;
 			
 		} else if (CLICK_FLAG.equals(reqType) && NEWS_TYPE.equals(adType)) {
 			
-			return "newsclick";
+			return OperationType.NEWS_CLICK;
 			
 		} else if (DISPLAY_FLAG.equals(reqType) && !NEWS_TYPE.equals(adType)) {
 			
-			return "addisplay";
+			return OperationType.AD_DISPLAY;
 			
 		} else if (CLICK_FLAG.equals(reqType) && !NEWS_TYPE.equals(adType)) {
 			
-			return "adclick";
+			return OperationType.AD_CLICK;
 			
 		} else if (reqType.equals(REACH_FLAG)) {
 			
-			return "reach";
+			return OperationType.REACH;
 			
 		}  else if (reqType.equals(ARRIVE_FLAG)) {
 			
-			return "arrive";
+			return OperationType.ARRIVE;
 			
 		} else if (reqType.equals(ERR_FLAG)) {
 			
-			return "err";
+			return OperationType.ERR;
 			
 		} else {
 			
-			return "unknownLogType";
+			return null;
 		}
 	}
 	
-	public static String getOpType(CountinfoOperation countinfo) {
+	public static OperationType getOpType(CountinfoOperation countinfo) {
 		
 		return getOpType(countinfo.reqType, countinfo.adType, countinfo.suv);
 	}

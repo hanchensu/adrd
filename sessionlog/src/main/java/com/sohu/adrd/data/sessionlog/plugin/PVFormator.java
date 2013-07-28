@@ -10,19 +10,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.sohu.adrd.data.common.FormatResult;
+import com.sohu.adrd.data.common.Util;
 import com.sohu.adrd.data.sessionlog.util.ExtractorEntry;
 import com.sohu.adrd.data.sessionlog.util.Formator;
 
-import sessionlog.mapreduce.FormatResult;
-import sessionlog.util.Util;
 
-public class PvlogFormator implements Formator {
+public class PVFormator implements Formator {
     
 	private long lastTimeStamp = -1;
 	private List<String> result = new ArrayList<String>();
 	
 	public FormatResult format(String str) {
-		if (Util.isBlank(str)) return new FormatResult(null, "err1");
 		result.clear();
 		String yyid = null;
 		String suv = null;
@@ -132,14 +131,9 @@ public class PvlogFormator implements Formator {
 		else {
 			result.add(null);
 		}
-		return new FormatResult(result, "0"); 
+		return new FormatResult(result, "Normal"); 
 	}
 
-	@Override
-	public String getMark() {
-		return "Pv_";
-	}
-	
 	
 	
 //	public static void main(String args[]) throws Exception {

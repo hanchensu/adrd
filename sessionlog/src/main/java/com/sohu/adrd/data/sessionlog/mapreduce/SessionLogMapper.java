@@ -79,7 +79,6 @@ public class SessionLogMapper extends Mapper<LongWritable, Text, Text, BytesWrit
 		
 		try {
 			
-			
 			//Format
 			formatRes = formator.format(strValue);
 			if (formatRes.strs == null) {
@@ -92,24 +91,30 @@ public class SessionLogMapper extends Mapper<LongWritable, Text, Text, BytesWrit
 			}
 		
 			//Extract
-			ExtractorEntry entry = extractor.extract(formatRes.strs);
-			if(entry == null || !entry.check()) {
-				context.write(new Text(DEL_MARK + "Extract_" + strValue), new BytesWritable());
-				return;
-			}
+			List<ExtractorEntry> entryList = extractor.extract(formatRes.strs);
+			
 			
 			//Write key and value
-			if (output == null) {
-				buffer = new ByteArrayOutputStream(512);
-				output = new DataOutputStream(buffer);
-			}
-			if (userKey == null) userKey = entry.getUserKey();
-			output.write(entry.getOperation().getOperateId());
-			output.writeLong(entry.getTimestamp());
-			output.write(entry.getData(), entry.getOffset(), entry.getLength());
-			context.write(new Text(userKey), new BytesWritable(buffer.toByteArray()));
-			buffer.reset();
 			
+			for (ExtractorEntry entry : entryList) {
+				
+				
+				if (entry == null || !entry.check()) {
+					context.write(new Text(DEL_MARK + "Extract_" + strValue), new BytesWritable());
+					continue;
+				}
+				if (output == null) {
+					buffer = new ByteArrayOutputStream(512);
+					output = new DataOutputStream(buffer);
+				}
+				if (userKey == null) userKey = entry.getUserKey();
+				output.write(entry.getOperation().getOperateId());
+				output.writeLong(entry.getTimestamp());
+				output.write(entry.getData(), entry.getOffset(), entry.getLength());
+				context.write(new Text(userKey), new BytesWritable(buffer.toByteArray()));
+				
+				buffer.reset();
+			}
 			
 		} catch (Exception e) {
 			context.write(new Text(DEL_MARK+e.getClass()+"_"+strValue), new BytesWritable());

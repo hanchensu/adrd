@@ -13,22 +13,24 @@ import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TMemoryInputTransport;
 
+import com.sohu.adrd.data.sessionlog.thrift.operation.OperationType;
+import com.sohu.adrd.data.sessionlog.thrift.operation.PVOperation;
 import com.sohu.adrd.data.sessionlog.util.Processor;
 import com.sohu.adrd.data.sessionlog.util.ProcessorEntry;
 
-import sessionlog.op.OperationType;
-import sessionlog.op.PvOperation;
 
-public class PvProcessor implements Processor {
+
+public class PVProcessor implements Processor {
 
 	private TProtocol protocol;
 	private TMemoryInputTransport inputTransport;
 	private Map<String, Long> urlindex = new HashMap<String, Long>();
-	private PvOperation pv = new PvOperation();
+	private PVOperation pv = new PVOperation();
 
-	public PvProcessor() {
+	public PVProcessor() {
 		inputTransport = new TMemoryInputTransport();
 		protocol = new TBinaryProtocol(inputTransport);
+		
 	}
 
 	public List<OperationType> acceptTypes() {

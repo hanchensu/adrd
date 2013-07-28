@@ -1,11 +1,11 @@
-package com.sohu.adrd.data.sessionlog.plugin;
+package com.sohu.adrd.data.sessionlog.plugin.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class URLQueryParser {
+public class ParseURLKeywordDomain {
 	
 	private static String RegStr = "(.+?(google.com.+?q=)|(sogou.+?query=)|(yahoo.com.+?q=)|(yahoo.+?[\\?|&]p=)|(openfind.+?query=)|(google.+?q=)|(lycos.+?query=)|(onseek.+?keyword=)|(search.tom.+?word=)|"
 	+ "(search.qq.com.+?word=)|(zhongsou.com.+?word=)|(search.msn.com.+?q=)|(yisou.com.+?p=)|(sina.+?word=)|(sina.+?query=)|(sina.+?_searchkey=)|(sohu.+?word=)|"
@@ -13,7 +13,7 @@ public class URLQueryParser {
 	+ "(bing.+?q=)|(114.+?kw=)|(p.zhongsou.com.+?w=)|(www.qihoo.com.+?kw=))([^?&]*)";
 	private static Pattern Patt = Pattern.compile(RegStr);
 
-	public static String getQuery(String url){
+	public static String[] getKeywordAndDomain(String url){
 		String[] result = new String[2];
 		Matcher Mat = Patt.matcher(url.trim());
 		if (Mat.find()) {
@@ -24,13 +24,13 @@ public class URLQueryParser {
 		}
 		if (result[0] != null && !result[0].equals("")) {
 			result[0] = getEncode(result[0]);
-			return result[0];
+			return result;
 		}
 		result[0] = "";
-		return result[0];
+		return result;
 	}
 
-	private static String getDomain(String url) {
+	public static String getDomain(String url) {
 		String domain = "";
 		int spos = url.indexOf("//");
 		int epos = url.indexOf('/', spos + 2);
@@ -38,7 +38,7 @@ public class URLQueryParser {
 		return domain;
 	}
 	
-	private static String getEncode(String src) {
+	public static String getEncode(String src) {
 		String result;
 		if (src.contains("query") && src.contains("|")) {
 			src = src.substring(0, src.indexOf("|"));
@@ -90,7 +90,7 @@ public class URLQueryParser {
 	}
 	
 
-	private static boolean isChinese(char c) {
+	public static boolean isChinese(char c) {
 		Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);
 		if (ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS
 		|| ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS
@@ -103,7 +103,7 @@ public class URLQueryParser {
 		return false;
 	}
 
-	private static boolean hasChinese(String str) {
+	public static boolean hasChinese(String str) {
 		for (int i = 0; i < str.length(); i++) {
 			char ch = str.charAt(i);
 			if (isChinese(ch)) return true;
@@ -111,7 +111,7 @@ public class URLQueryParser {
 		return false;
 	}
 
-	private static boolean DecoderError(String str) {
+	public static boolean DecoderError(String str) {
 		for (int j = 0; j < str.length(); j++) {
 			char ch = str.charAt(j);
 			if (isChinese(ch)) continue;
@@ -123,11 +123,36 @@ public class URLQueryParser {
 	
 	
 	public static void main(String args[]) throws UnsupportedEncodingException {
-
 		
-		String testUrl = "https://www.google.com.hk/#newwindow=1&safe=strict&q=apache+pig+zebra&oq=apache+pig+zebra&gs_l=serp.3...2945.7088.0.7355.16.12.0.0.0.0.0.0..0.0...0.0.0..1c.1.15.serp.oSv-QFEY2So&fp=1&biw=1600&bih=775&bav=on.2,or.&cad=b";
-		String query = URLQueryParser.getQuery(testUrl);
-		System.out.println(query);
+		String[] test = getKeywordAndDomain("http://zhaoxuan.sohu.com/report/index.html?key_word=%E7%94%B1%E6%9C%AC%E6%B5%8B");
+		System.out.println(test == null);
+		System.out.println(test[0]);
+		System.out.println(test[1]);
+		
+//		String abc = "2005%E5%B9%B4%E6%98%A5%E8%8A%82%E6%99%9A%E4%BC%9A%E4%BA%89%E5%A5%87%E6%96%97%E8%89%B3%E2%80%94%E6%B5%81%E8%A1%8C%E9%A3%8E";
+//		String encodeStr = "gb2312";
+//		String result = "";
+//		
+//		result = getEncode(abc);
+//		System.out.println(result);
+		
+//		result = URLDecoder.decode(abc, encodeStr);
+//		System.out.println(encodeStr+": "+result);
+//		
+//		encodeStr = "utf-8";
+//		result = URLDecoder.decode(abc, encodeStr);
+//		System.out.println(encodeStr+": "+result);
+//		for(int i = 0; i < result.length(); i++) {
+//			System.out.println(result.charAt(i) +"__" +(long)result.charAt(i));
+//		}
+//		
+//		encodeStr = "utf-16";
+//		result = URLDecoder.decode(abc, encodeStr);
+//		System.out.println(encodeStr+": "+result);
+		
+//		String regStr = "\\t+";
+//		Pattern pattern = Pattern.compile(regStr);
+//		System.out.println(fix("abc		asdasd	¸ïÃüÉíÌå"));
 		
 		
 	}

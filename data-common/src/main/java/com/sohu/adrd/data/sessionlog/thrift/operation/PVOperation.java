@@ -27,7 +27,7 @@ import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PvOperation implements org.apache.thrift.TBase<PvOperation, PvOperation._Fields>, java.io.Serializable, Cloneable {
+public class PVOperation implements org.apache.thrift.TBase<PVOperation, PVOperation._Fields>, java.io.Serializable, Cloneable {
   private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("PvOperation");
 
   private static final org.apache.thrift.protocol.TField YYID_FIELD_DESC = new org.apache.thrift.protocol.TField("yyid", org.apache.thrift.protocol.TType.STRING, (short)1);
@@ -180,16 +180,16 @@ public class PvOperation implements org.apache.thrift.TBase<PvOperation, PvOpera
     tmpMap.put(_Fields.STATUS_CODE, new org.apache.thrift.meta_data.FieldMetaData("statusCode", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
     metaDataMap = Collections.unmodifiableMap(tmpMap);
-    org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(PvOperation.class, metaDataMap);
+    org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(PVOperation.class, metaDataMap);
   }
 
-  public PvOperation() {
+  public PVOperation() {
   }
 
   /**
    * Performs a deep copy on <i>other</i>.
    */
-  public PvOperation(PvOperation other) {
+  public PVOperation(PVOperation other) {
     __isset_bit_vector.clear();
     __isset_bit_vector.or(other.__isset_bit_vector);
     if (other.isSetYyid()) {
@@ -221,8 +221,8 @@ public class PvOperation implements org.apache.thrift.TBase<PvOperation, PvOpera
     this.statusCode = other.statusCode;
   }
 
-  public PvOperation deepCopy() {
-    return new PvOperation(this);
+  public PVOperation deepCopy() {
+    return new PVOperation(this);
   }
 
   @Override
@@ -247,7 +247,7 @@ public class PvOperation implements org.apache.thrift.TBase<PvOperation, PvOpera
     return this.yyid;
   }
 
-  public PvOperation setYyid(String yyid) {
+  public PVOperation setYyid(String yyid) {
     this.yyid = yyid;
     return this;
   }
@@ -271,7 +271,7 @@ public class PvOperation implements org.apache.thrift.TBase<PvOperation, PvOpera
     return this.sohupass;
   }
 
-  public PvOperation setSohupass(String sohupass) {
+  public PVOperation setSohupass(String sohupass) {
     this.sohupass = sohupass;
     return this;
   }
@@ -295,7 +295,7 @@ public class PvOperation implements org.apache.thrift.TBase<PvOperation, PvOpera
     return this.suv;
   }
 
-  public PvOperation setSuv(String suv) {
+  public PVOperation setSuv(String suv) {
     this.suv = suv;
     return this;
   }
@@ -319,7 +319,7 @@ public class PvOperation implements org.apache.thrift.TBase<PvOperation, PvOpera
     return this.ip;
   }
 
-  public PvOperation setIp(String ip) {
+  public PVOperation setIp(String ip) {
     this.ip = ip;
     return this;
   }
@@ -343,7 +343,7 @@ public class PvOperation implements org.apache.thrift.TBase<PvOperation, PvOpera
     return this.useragent;
   }
 
-  public PvOperation setUseragent(String useragent) {
+  public PVOperation setUseragent(String useragent) {
     this.useragent = useragent;
     return this;
   }
@@ -367,7 +367,7 @@ public class PvOperation implements org.apache.thrift.TBase<PvOperation, PvOpera
     return this.region;
   }
 
-  public PvOperation setRegion(String region) {
+  public PVOperation setRegion(String region) {
     this.region = region;
     return this;
   }
@@ -391,7 +391,7 @@ public class PvOperation implements org.apache.thrift.TBase<PvOperation, PvOpera
     return this.timestamp;
   }
 
-  public PvOperation setTimestamp(long timestamp) {
+  public PVOperation setTimestamp(long timestamp) {
     this.timestamp = timestamp;
     setTimestampIsSet(true);
     return this;
@@ -414,7 +414,7 @@ public class PvOperation implements org.apache.thrift.TBase<PvOperation, PvOpera
     return this.url;
   }
 
-  public PvOperation setUrl(String url) {
+  public PVOperation setUrl(String url) {
     this.url = url;
     return this;
   }
@@ -438,7 +438,7 @@ public class PvOperation implements org.apache.thrift.TBase<PvOperation, PvOpera
     return this.flag;
   }
 
-  public PvOperation setFlag(byte flag) {
+  public PVOperation setFlag(byte flag) {
     this.flag = flag;
     setFlagIsSet(true);
     return this;
@@ -461,7 +461,7 @@ public class PvOperation implements org.apache.thrift.TBase<PvOperation, PvOpera
     return this.refUrl;
   }
 
-  public PvOperation setRefUrl(String refUrl) {
+  public PVOperation setRefUrl(String refUrl) {
     this.refUrl = refUrl;
     return this;
   }
@@ -485,7 +485,7 @@ public class PvOperation implements org.apache.thrift.TBase<PvOperation, PvOpera
     return this.statusCode;
   }
 
-  public PvOperation setStatusCode(int statusCode) {
+  public PVOperation setStatusCode(int statusCode) {
     this.statusCode = statusCode;
     setStatusCodeIsSet(true);
     return this;
@@ -673,12 +673,12 @@ public class PvOperation implements org.apache.thrift.TBase<PvOperation, PvOpera
   public boolean equals(Object that) {
     if (that == null)
       return false;
-    if (that instanceof PvOperation)
-      return this.equals((PvOperation)that);
+    if (that instanceof PVOperation)
+      return this.equals((PVOperation)that);
     return false;
   }
 
-  public boolean equals(PvOperation that) {
+  public boolean equals(PVOperation that) {
     if (that == null)
       return false;
 
@@ -789,13 +789,13 @@ public class PvOperation implements org.apache.thrift.TBase<PvOperation, PvOpera
     return 0;
   }
 
-  public int compareTo(PvOperation other) {
+  public int compareTo(PVOperation other) {
     if (!getClass().equals(other.getClass())) {
       return getClass().getName().compareTo(other.getClass().getName());
     }
 
     int lastComparison = 0;
-    PvOperation typedOther = (PvOperation)other;
+    PVOperation typedOther = (PVOperation)other;
 
     lastComparison = Boolean.valueOf(isSetYyid()).compareTo(typedOther.isSetYyid());
     if (lastComparison != 0) {
@@ -1056,9 +1056,9 @@ public class PvOperation implements org.apache.thrift.TBase<PvOperation, PvOpera
     }
   }
 
-  private static class PvOperationStandardScheme extends StandardScheme<PvOperation> {
+  private static class PvOperationStandardScheme extends StandardScheme<PVOperation> {
 
-    public void read(org.apache.thrift.protocol.TProtocol iprot, PvOperation struct) throws org.apache.thrift.TException {
+    public void read(org.apache.thrift.protocol.TProtocol iprot, PVOperation struct) throws org.apache.thrift.TException {
       org.apache.thrift.protocol.TField schemeField;
       iprot.readStructBegin();
       while (true)
@@ -1167,7 +1167,7 @@ public class PvOperation implements org.apache.thrift.TBase<PvOperation, PvOpera
       struct.validate();
     }
 
-    public void write(org.apache.thrift.protocol.TProtocol oprot, PvOperation struct) throws org.apache.thrift.TException {
+    public void write(org.apache.thrift.protocol.TProtocol oprot, PVOperation struct) throws org.apache.thrift.TException {
       struct.validate();
 
       oprot.writeStructBegin(STRUCT_DESC);
@@ -1254,10 +1254,10 @@ public class PvOperation implements org.apache.thrift.TBase<PvOperation, PvOpera
     }
   }
 
-  private static class PvOperationTupleScheme extends TupleScheme<PvOperation> {
+  private static class PvOperationTupleScheme extends TupleScheme<PVOperation> {
 
     @Override
-    public void write(org.apache.thrift.protocol.TProtocol prot, PvOperation struct) throws org.apache.thrift.TException {
+    public void write(org.apache.thrift.protocol.TProtocol prot, PVOperation struct) throws org.apache.thrift.TException {
       TTupleProtocol oprot = (TTupleProtocol) prot;
       BitSet optionals = new BitSet();
       if (struct.isSetYyid()) {
@@ -1330,7 +1330,7 @@ public class PvOperation implements org.apache.thrift.TBase<PvOperation, PvOpera
     }
 
     @Override
-    public void read(org.apache.thrift.protocol.TProtocol prot, PvOperation struct) throws org.apache.thrift.TException {
+    public void read(org.apache.thrift.protocol.TProtocol prot, PVOperation struct) throws org.apache.thrift.TException {
       TTupleProtocol iprot = (TTupleProtocol) prot;
       BitSet incoming = iprot.readBitSet(11);
       if (incoming.get(0)) {

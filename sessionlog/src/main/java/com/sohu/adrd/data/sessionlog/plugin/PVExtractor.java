@@ -8,43 +8,44 @@ import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
 
+import com.sohu.adrd.data.common.AdrdDataUtil;
+import com.sohu.adrd.data.common.Util;
+import com.sohu.adrd.data.sessionlog.plugin.util.ParseURLKeywordDomain;
+import com.sohu.adrd.data.sessionlog.thrift.operation.OperationType;
+import com.sohu.adrd.data.sessionlog.thrift.operation.PVOperation;
+import com.sohu.adrd.data.sessionlog.thrift.operation.SearchOperation;
 import com.sohu.adrd.data.sessionlog.util.Extractor;
 import com.sohu.adrd.data.sessionlog.util.ExtractorEntry;
 import com.sohu.adrd.data.sessionlog.util.ReuseMemoryBuffer;
 
-import sessionlog.mapreduce.ExtractResult;
-import sessionlog.op.OperationType;
-import sessionlog.op.PvOperation;
-import sessionlog.op.SearchOperation;
-import sessionlog.util.Util;
 
-public class PvlogExtractor implements Extractor {
+public class PVExtractor implements Extractor {
 	
 	private TProtocol protocol;
 	private ReuseMemoryBuffer transport;
 	private List<ExtractorEntry> entryList;
 	private int offset;	
 
-	public PvlogExtractor() {
+	public PVExtractor() {
 		transport = new ReuseMemoryBuffer(1024);
 		protocol = new TBinaryProtocol(transport);
 		entryList = new ArrayList<ExtractorEntry>();
 		offset = 0;
 	}
 	
-	public ExtractResult extract(List<String> strs) {
+	public List<ExtractorEntry> extract(List<String> strs) {
 		transport.reuse();
 		entryList.clear();
 		offset = 0;
 		String userkey = "";
 		long timestamp = Long.parseLong(strs.get(5));
 		String[] urlstr = new String[2];
+		
 		userkey = chooseUserId(strs);
-		if (userkey == null) {
-			return new ExtractResult(null, "err1");
-		}
+		
 		urlstr[0] = strs.get(6);
 		urlstr[1] = strs.get(7);
+		
 		for (int i = 0; i < 2; i++) {
 			if (urlstr[i] != null) {
 				ExtractorEntry entry = new ExtractorEntry();
@@ -83,7 +84,7 @@ public class PvlogExtractor implements Extractor {
 						break;
 					}
 				case 2:
-					PvOperation pv = new PvOperation();
+					PVOperation pv = new PVOperation();
 					try {
 						pv.setStatusCode(Integer.parseInt(strs.get(strs.size()-1)));
 					} catch (NumberFormatException e) {
@@ -93,9 +94,9 @@ public class PvlogExtractor implements Extractor {
 					for (int j = 1; j < 8; j++) {
 						if (j==2) continue;
 						if (j != 7)
-							pv.setFieldValue(PvOperation._Fields.findByThriftId(j), strs.get(tmp));
+							pv.setFieldValue(PVOperation._Fields.findByThriftId(j), strs.get(tmp));
 						else
-							pv.setFieldValue(PvOperation._Fields
+							pv.setFieldValue(PVOperation._Fields
 							.findByThriftId(j), Long.parseLong(strs.get(tmp)));
 						tmp++;
 					}
@@ -103,7 +104,7 @@ public class PvlogExtractor implements Extractor {
 					
 					if (urlstr[i].length() <=4 || !urlstr[i].substring(0, 4).equals("http")) break;
 					entry.setOperation(OperationType.PV);
-					pv.setFieldValue(PvOperation._Fields.findByThriftId(8), urlstr[i]);
+					pv.setFieldValue(PVOperation._Fields.findByThriftId(8), urlstr[i]);
 					entry = writePVFields(entry, pv);
 					entryList.add(entry);
 					break;
@@ -112,7 +113,7 @@ public class PvlogExtractor implements Extractor {
 				}
 			}
 		}
-		return new ExtractResult(entryList, "0");
+		return entryList;
 	}
 
 //	public List<ExtractorEntry> extract(List<String> strs) {
@@ -190,7 +191,7 @@ public class PvlogExtractor implements Extractor {
 		return entry;
 	}
 
-	public ExtractorEntry writePVFields(ExtractorEntry entry, PvOperation pv) {
+	public ExtractorEntry writePVFields(ExtractorEntry entry, PVOperation pv) {
 		try {
 			pv.write(protocol);
 		} catch (TException e) {
@@ -205,51 +206,7 @@ public class PvlogExtractor implements Extractor {
 		String suv = result.get(1);
 		String ip = result.get(2);
 		String useragent = result.get(3);
-		if (Util.isNotBlank(yyid)) return yyid;
-		else if (Util.isNotBlank(suv)) return suv;
-		else if (Util.isNotBlank(ip)) {
-			String s = Util.isNotBlank(useragent) ? ip + useragent : ip;
-			s = Util.getMD5(s);
-			if (s == null) return null;
-			else return s;
-		} else return null;
-	}
-
-	@Override
-	public String getTypeId(List<String> strs) {
-		
-		StringBuilder sb = new StringBuilder();
-		
-		String str = strs.get(0);  //yyid
-		if (Util.isNotBlank(str)) {
-			sb.append("1");
-		} else {
-			sb.append("0");
-		}
-		
-		str = strs.get(1);  //suv
-		if (Util.isNotBlank(str)) {
-			sb.append("1");
-		} else {
-			sb.append("0");
-		}
-		
-		str = strs.get(2);  //ip
-		if (Util.isNotBlank(str)) {
-			sb.append("1");
-		} else {
-			sb.append("0");
-		}
-		
-		str = strs.get(3); //ua
-		
-		if (Util.isNotBlank(str)) {
-			sb.append("1");
-		} else {
-			sb.append("0");
-		}
-		
-		return  "Pv_" + sb.toString();
+		return AdrdDataUtil.makeUserId(yyid, suv, ip, useragent);
 	}
 
 }

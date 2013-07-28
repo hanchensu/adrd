@@ -16,14 +16,13 @@ import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TMemoryInputTransport;
 
+import com.sohu.adrd.data.common.Util;
+import com.sohu.adrd.data.sessionlog.thrift.operation.OperationType;
+import com.sohu.adrd.data.sessionlog.thrift.operation.SearchOperation;
 import com.sohu.adrd.data.sessionlog.util.Extractor;
 import com.sohu.adrd.data.sessionlog.util.ExtractorEntry;
 import com.sohu.adrd.data.sessionlog.util.ReuseMemoryBuffer;
 
-import sessionlog.mapreduce.ExtractResult;
-import sessionlog.op.OperationType;
-import sessionlog.op.SearchOperation;
-import sessionlog.util.Util;
 
 public class UdataExtractor implements Extractor {
 	
@@ -48,7 +47,7 @@ public class UdataExtractor implements Extractor {
 		    //System.out.println(str);
 			List<String> strs = formator.format(str).strs;
 			if (strs != null) {
-				List<ExtractorEntry> entries = extractor.extract(strs).res;
+				List<ExtractorEntry> entries = extractor.extract(strs);
 				if (entries != null) {
 					for (ExtractorEntry entry : entries) {
 						if (entry == null || !entry.check()) continue;
@@ -91,11 +90,11 @@ public class UdataExtractor implements Extractor {
 		random = new Random();
 	}
 	
-	public ExtractResult extract(List<String> strs) {
+	public List<ExtractorEntry> extract(List<String> strs) {
 		transport.reuse();
 		entryList.clear();
 		offset = 0;
-		if (strs == null || strs.size() == 0) return new ExtractResult(null, "err1");
+		if (strs == null || strs.size() == 0) return null;
 		for (String line : strs) {
 			if (Util.isBlank(line)) continue;
 			int index = line.indexOf(":");
@@ -141,7 +140,7 @@ public class UdataExtractor implements Extractor {
 				}
 			}
 		}
-		return new ExtractResult(entryList, "0");
+		return entryList;
 	}
 	
 	public ExtractorEntry writeSearchFields(ExtractorEntry entry, SearchOperation search) {
@@ -152,11 +151,6 @@ public class UdataExtractor implements Extractor {
 		entry.setValue(transport.getArray(), offset, transport.length() - offset);
 		offset = transport.length();
 		return entry;
-	}
-
-	@Override
-	public String getTypeId(List<String> strs) {
-		return "Uata";
 	}
 	
 }

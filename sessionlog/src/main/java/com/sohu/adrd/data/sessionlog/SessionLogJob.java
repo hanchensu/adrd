@@ -29,7 +29,9 @@ import org.apache.hadoop.util.ToolRunner;
 
 import com.sohu.adrd.data.common.Util;
 import com.sohu.adrd.data.mapreduce.InputPathFilter;
+import com.sohu.adrd.data.sessionlog.mapreduce.ConfigurableTextInputFormat;
 import com.sohu.adrd.data.sessionlog.mapreduce.SessionLogMapper;
+import com.sohu.adrd.data.sessionlog.mapreduce.SessionLogReducer;
 
 
 
@@ -312,7 +314,7 @@ public class SessionLogJob implements Tool {
 		
 		Job job = new Job(config_);
 		FileInputFormat.setInputPathFilter(job, InputPathFilter.class);
-        job.setInputFormatClass(SessionLogInputFormat.class);
+        job.setInputFormatClass(ConfigurableTextInputFormat.class);
         job.setOutputFormatClass(TextOutputFormat.class);
         job.setMapperClass(SessionLogMapper.class);
         job.setReducerClass(SessionLogReducer.class);

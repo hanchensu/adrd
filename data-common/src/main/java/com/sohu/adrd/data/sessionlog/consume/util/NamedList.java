@@ -1,4 +1,5 @@
-package com.sohu.adrd.data.sessionlog.util;
+package com.sohu.adrd.data.sessionlog.consume.util;
+
 
 import java.util.*;
 import java.io.Serializable;

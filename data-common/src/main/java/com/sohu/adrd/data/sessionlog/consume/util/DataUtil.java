@@ -1,4 +1,4 @@
-package com.sohu.adrd.data.sessionlog.util;
+package com.sohu.adrd.data.sessionlog.consume.util;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -8,6 +8,7 @@ import org.apache.pig.backend.executionengine.ExecException;
 import org.apache.pig.data.DataByteArray;
 import org.apache.pig.data.Tuple;
 import org.apache.thrift.TException;
+
 
 import sessionlog.op.AdInfoOperation;
 import sessionlog.op.PvOperation;

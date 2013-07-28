@@ -19,6 +19,8 @@ import org.apache.pig.backend.executionengine.ExecException;
 import org.apache.pig.data.DataByteArray;
 import org.apache.pig.data.Tuple;
 
+import com.sohu.adrd.data.sessionlog.mapreduce.SessionLogReducer;
+
 import sessionlog.util.DataUtil;
 import sessionlog.util.Util;
 import sessionlog.zebra.add.AddBasicTable;

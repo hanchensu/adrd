@@ -8,7 +8,10 @@ public enum OperationType {
 
 	PV((byte) 1, "pv"), SEARCH((byte) 2, "search"), AD_CLICK((byte) 3,
 			"adclick"), AD_DISPLAY((byte) 4, "addisplay"), NEWS_CLICK((byte) 5,
-			"newsclick"), NEWS_DISPLAY((byte) 6, "newsdisplay"), HB_CLICK((byte) 7, "hbclick"), HB_DISPLAY((byte) 8, "hbdisplay"), ARRIVE((byte) 9,"arrive");
+			"newsclick"), NEWS_DISPLAY((byte) 6, "newsdisplay"), HB_CLICK(
+			(byte) 7, "hbclick"), HB_DISPLAY((byte) 8, "hbdisplay"), ARRIVE(
+			(byte) 9, "arrive"), REACH((byte) 10, "reach"), ERR((byte) 11,
+			"err");
 
 	private final byte OperateId;
 	private final String OperateName;
@@ -53,6 +56,10 @@ public enum OperationType {
 			return HB_DISPLAY;
 		case 9:
 			return ARRIVE;
+		case 10:
+			return REACH;
+		case 11:
+			return ERR;
 		default:
 			return null;
 		}
