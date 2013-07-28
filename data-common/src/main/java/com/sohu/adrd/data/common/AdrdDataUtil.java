@@ -129,9 +129,5 @@ public class AdrdDataUtil {
 	
 	}
 	
-	
-//	public static long getStatusCode(FormatResult formatResult) {
-//		return new CountinfoMaker().makeCountinfo(formatResult).getAdId();
-//	}
 
 }
