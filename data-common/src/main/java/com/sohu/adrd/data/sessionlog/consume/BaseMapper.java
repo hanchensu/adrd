@@ -1,6 +1,5 @@
 package com.sohu.adrd.data.sessionlog.consume;
 
-
 import java.io.IOException;
 
 import org.apache.commons.logging.Log;
@@ -10,26 +9,29 @@ import org.apache.hadoop.io.BytesWritable;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.pig.data.Tuple;
 
-import sessionlog.util.DataUtil;
-import sessionlog.util.NamedList;
-import sessionlog.util.ThriftProtocol;
+import com.sohu.adrd.data.sessionlog.consume.util.DataUtil;
+import com.sohu.adrd.data.sessionlog.consume.util.NamedList;
+import com.sohu.adrd.data.sessionlog.consume.util.ThriftProtocol;
 
-public class BaseMapper<VALUEIN, VALUEOUT> extends Mapper<BytesWritable, Tuple, VALUEIN, VALUEOUT> {
+public class BaseMapper<VALUEIN, VALUEOUT> extends
+		Mapper<BytesWritable, Tuple, VALUEIN, VALUEOUT> {
 	protected String projection = null;
 	protected long id = 0;
 	protected NamedList<Object> list;
 	private ThriftProtocol protocol;
 	private static final Log LOG = LogFactory.getLog(BaseMapper.class);
 
-	protected void setup(Context context) throws IOException, InterruptedException {
+	protected void setup(Context context) throws IOException,
+			InterruptedException {
 		Configuration conf = context.getConfiguration();
 		projection = conf.get("mapreduce.lib.table.input.projection");
 		list = new NamedList<Object>();
 		protocol = new ThriftProtocol();
 	}
 
-	protected void map(BytesWritable key, Tuple value, Context context) throws IOException, InterruptedException {
-		
+	protected void map(BytesWritable key, Tuple value, Context context)
+			throws IOException, InterruptedException {
+
 	}
 
 	protected void decode(BytesWritable key, Tuple value) throws IOException {
@@ -42,9 +44,10 @@ public class BaseMapper<VALUEIN, VALUEOUT> extends Mapper<BytesWritable, Tuple, 
 		}
 	}
 
-	protected void cleanup(Context context) throws IOException, InterruptedException {
+	protected void cleanup(Context context) throws IOException,
+			InterruptedException {
 		list.clear();
 		protocol.close();
 	}
-	
+
 }

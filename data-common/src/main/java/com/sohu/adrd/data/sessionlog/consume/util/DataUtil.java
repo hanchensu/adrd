@@ -9,11 +9,10 @@ import org.apache.pig.data.DataByteArray;
 import org.apache.pig.data.Tuple;
 import org.apache.thrift.TException;
 
-
-import sessionlog.op.AdInfoOperation;
-import sessionlog.op.PvOperation;
-import sessionlog.op.SearchOperation;
-import sessionlog.util.Util;
+import com.sohu.adrd.data.common.Util;
+import com.sohu.adrd.data.sessionlog.thrift.operation.CountinfoOperation;
+import com.sohu.adrd.data.sessionlog.thrift.operation.PVOperation;
+import com.sohu.adrd.data.sessionlog.thrift.operation.SearchOperation;
 
 public class DataUtil {
 
@@ -27,6 +26,8 @@ public class DataUtil {
 	public static final String CG_HBDISPLAY = "hbdisplay";
 	public static final String CG_HBCLICK = "hbclick";
 	public static final String CG_ARRIVE = "arrive";
+	public static final String CG_REACH = "reach";
+	public static final String CG_ERR = "err";
 
 	public static final String OPERATION_SPLIT = "\1";
 	public static final String OBJECT_SPLIT = "\2";
@@ -92,12 +93,12 @@ public class DataUtil {
 				if (data != null && (length = data.size()) > 0) {
 					buffer = data.get();
 					protocol.getTransport().reset(buffer, 0, length);
-					ArrayList<PvOperation> pvList = null;
+					ArrayList<PVOperation> pvList = null;
 					while (protocol.getTransport().getBufferPosition() < length - 1) {
-						PvOperation pv = new PvOperation();
+						PVOperation pv = new PVOperation();
 						pv.read(protocol.getProtocol());
 						if (pvList == null)
-							pvList = new ArrayList<PvOperation>();
+							pvList = new ArrayList<PVOperation>();
 						pvList.add(pv);
 					}
 					list.add(CG_PV, pvList);
@@ -123,17 +124,19 @@ public class DataUtil {
 					|| cg.equalsIgnoreCase(CG_NEWSCLICK)
 					|| cg.equalsIgnoreCase(CG_HBDISPLAY)
 					|| cg.equalsIgnoreCase(CG_HBCLICK)
-					|| cg.equalsIgnoreCase(CG_ARRIVE)) {
+					|| cg.equalsIgnoreCase(CG_ARRIVE)
+					|| cg.equalsIgnoreCase(CG_REACH)
+					|| cg.equalsIgnoreCase(CG_ERR)) {
 				data = (DataByteArray) value.get(index);
 				if (data != null && (length = data.size()) > 0) {
 					buffer = data.get();
 					protocol.getTransport().reset(buffer, 0, length);
-					ArrayList<AdInfoOperation> infoList = null;
+					ArrayList<CountinfoOperation> infoList = null;
 					while (protocol.getTransport().getBufferPosition() < length - 1) {
-						AdInfoOperation info = new AdInfoOperation();
+						CountinfoOperation info = new CountinfoOperation();
 						info.read(protocol.getProtocol());
 						if (infoList == null)
-							infoList = new ArrayList<AdInfoOperation>();
+							infoList = new ArrayList<CountinfoOperation>();
 						infoList.add(info);
 					}
 					list.add(cg, infoList);
@@ -142,156 +145,6 @@ public class DataUtil {
 				throw new UnsupportedOperationException("not supported cg:"
 						+ cg);
 			}
-		}
-	}
-
-	public static void extractorStr(ThriftProtocol protocol, Tuple value,
-			String projection, Tuple extracter) throws ExecException,
-			TException {
-		if (protocol == null || Util.isBlank(projection) || value == null
-				|| extracter == null) {
-			throw new IllegalArgumentException(
-					"illegal projection/protocol/tuple");
-		}
-		extracter.set(0, "");
-		extracter.set(1, "");
-		String cgs[] = projection.split(",");
-		if (cgs.length != value.size()) {
-			throw new IllegalArgumentException(
-					"not consistent projection/tuple");
-		}
-		StringBuffer sb = new StringBuffer();
-		int index = -1, valueIndex = 0;
-		byte buffer[] = null;
-		int length = 0;
-		DataByteArray data = null;
-		for (String cg : cgs) {
-			index++;
-			if (!CG_USER.equals(cg)) {
-				if (valueIndex > 0)
-					sb.append(OPERATION_SPLIT);
-				else
-					valueIndex = 1;
-			}
-			if (cg == null)
-				continue;
-			if (cg.equalsIgnoreCase(CG_USER)) {
-				String userid = (String) value.get(index);
-				if (userid != null)
-					extracter.set(0, userid);
-			} else if (cg.equalsIgnoreCase(CG_PV)) {
-				data = (DataByteArray) value.get(index);
-				if (data != null && (length = data.size()) > 0) {
-					buffer = data.get();
-					protocol.getTransport().reset(buffer, 0, length);
-					PvOperation pv = new PvOperation();
-					boolean first = true;
-					while (protocol.getTransport().getBufferPosition() < length - 1) {
-						pv.clear();
-						pv.read(protocol.getProtocol());
-						if (first)
-							first = false;
-						else
-							sb.append(OBJECT_SPLIT);
-						append(pv, sb);
-					}
-				}
-			} else if (cg.equalsIgnoreCase(CG_SEARCH)) {
-				data = (DataByteArray) value.get(index);
-				if (data != null && (length = data.size()) > 0) {
-					buffer = data.get();
-					protocol.getTransport().reset(buffer, 0, length);
-					SearchOperation search = new SearchOperation();
-					boolean first = true;
-					while (protocol.getTransport().getBufferPosition() < length - 1) {
-						search.clear();
-						search.read(protocol.getProtocol());
-						if (first)
-							first = false;
-						else
-							sb.append(OBJECT_SPLIT);
-						append(search, sb);
-					}
-				}
-			} else if (cg.equalsIgnoreCase(CG_ADDISPLAY)
-					|| cg.equalsIgnoreCase(CG_ADCLICK)
-					|| cg.equalsIgnoreCase(CG_NEWSDISPLAY)
-					|| cg.equalsIgnoreCase(CG_NEWSCLICK)
-					|| cg.equalsIgnoreCase(CG_HBDISPLAY)
-					|| cg.equalsIgnoreCase(CG_HBCLICK)
-					|| cg.equalsIgnoreCase(CG_ARRIVE)) {
-				data = (DataByteArray) value.get(index);
-				if (data != null && (length = data.size()) > 0) {
-					buffer = data.get();
-					protocol.getTransport().reset(buffer, 0, length);
-					AdInfoOperation info = new AdInfoOperation();
-					boolean first = true;
-					while (protocol.getTransport().getBufferPosition() < length - 1) {
-						info.clear();
-						info.read(protocol.getProtocol());
-						if (first)
-							first = false;
-						else
-							sb.append(OBJECT_SPLIT);
-						append(info, sb);
-					}
-				}
-			} else {
-				throw new UnsupportedOperationException("not supported cg:"
-						+ cg);
-			}
-		}
-		extracter.set(1, sb.toString());
-	}
-
-	public static void append(PvOperation pv, StringBuffer sb) {
-		Iterator<sessionlog.op.PvOperation._Fields> it = PvOperation.metaDataMap
-				.keySet().iterator();
-		boolean first = true;
-		while (it.hasNext()) {
-			sessionlog.op.PvOperation._Fields field = it.next();
-			if (first)
-				first = false;
-			else
-				sb.append(FIELD_SPLIT);
-			if (pv.isSet(field))
-				sb.append(pv.getFieldValue(field));
-			else
-				sb.append(" ");
-		}
-	}
-
-	public static void append(SearchOperation search, StringBuffer sb) {
-		Iterator<sessionlog.op.SearchOperation._Fields> it = SearchOperation.metaDataMap
-				.keySet().iterator();
-		boolean first = true;
-		while (it.hasNext()) {
-			sessionlog.op.SearchOperation._Fields field = it.next();
-			if (first)
-				first = false;
-			else
-				sb.append(FIELD_SPLIT);
-			if (search.isSet(field))
-				sb.append(search.getFieldValue(field));
-			else
-				sb.append(" ");
-		}
-	}
-
-	public static void append(AdInfoOperation display, StringBuffer sb) {
-		Iterator<sessionlog.op.AdInfoOperation._Fields> it = AdInfoOperation.metaDataMap
-				.keySet().iterator();
-		boolean first = true;
-		while (it.hasNext()) {
-			sessionlog.op.AdInfoOperation._Fields field = it.next();
-			if (first)
-				first = false;
-			else
-				sb.append(FIELD_SPLIT);
-			if (display.isSet(field))
-				sb.append(display.getFieldValue(field));
-			else
-				sb.append(" ");
 		}
 	}
 
