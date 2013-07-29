@@ -55,14 +55,11 @@ public class CountinfoProcessor implements Processor {
 				if (pelist.size() == 0) {
 					entry.setTag("NORMAL");
 					pelist.add(entry);
-					pre = info.toString() + entry.getTimestamp(); // logtime and
-																	// log
-																	// content
+					pre = info.toString() + entry.getTimestamp(); // logtime and log content
 				} else {
 					String str = info.toString() + entry.getTimestamp();
 					if (str.equals(pre)) { // duplicate in flume
-						lastAddOne(pelist); // last entry's repeat in pelist add
-											// one
+						lastAddOne(pelist); // last entry's repeat in pelist add one
 					} else {
 						entry.setTag("NORMAL");
 						pelist.add(entry);

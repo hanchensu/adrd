@@ -81,6 +81,7 @@ public class SessionLogMapper extends Mapper<LongWritable, Text, Text, BytesWrit
 			
 			//Format
 			formatRes = formator.format(strValue);
+			
 			if (formatRes.strs == null) {
 				
 				String errorCode = formatRes.errorcode;
