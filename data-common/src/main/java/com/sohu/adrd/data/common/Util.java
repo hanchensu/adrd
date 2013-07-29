@@ -109,7 +109,7 @@ public class Util {
 				+ ((readBuffer[5] & 255) << 16) + ((readBuffer[6] & 255) << 8) + ((readBuffer[7] & 255) << 0));
 	}
 
-	public static long readLog(byte data[], int off) {
+	public static long readLong(byte data[], int off) {
 		if (off + 8 > data.length) throw new RuntimeException("");
 		return (((long)data[off + 0] << 56) + ((long)(data[off + 1] & 255) << 48) +
 		((long)(data[off + 2] & 255) << 40) + ((long)(data[off + 3] & 255) << 32) +

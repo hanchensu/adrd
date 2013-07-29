@@ -173,7 +173,7 @@ public class SessionLogReducer extends Reducer<Text, BytesWritable, Text, Text> 
 			if (operateType == null) continue;
 			String strOp = operateType.getOperateName();
 			if (queues.get(strOp) == null) continue;
-			ProcessorEntry entry = new ProcessorEntry(Util.readLog(data, 1), data, 9, value.getLength() - 9);
+			ProcessorEntry entry = new ProcessorEntry(Util.readLong(data, 1), data, 9, value.getLength() - 9);
 			PriorityQueue queue = queues.get(strOp);
 			if (queue.size() > 10000) {
 				
