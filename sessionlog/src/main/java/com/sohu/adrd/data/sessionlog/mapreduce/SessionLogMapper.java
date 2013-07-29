@@ -77,7 +77,7 @@ public class SessionLogMapper extends Mapper<LongWritable, Text, Text, BytesWrit
 		FormatResult formatRes = null;
 		String userKey = null;
 		
-		try {
+//		try {
 			
 			//Format
 			formatRes = formator.format(strValue);
@@ -120,9 +120,9 @@ public class SessionLogMapper extends Mapper<LongWritable, Text, Text, BytesWrit
 				
 				buffer.reset();
 			}
-		} catch (Exception e) {
-			context.write(new Text(DEL_MARK+e.getClass()+"_"+strValue), new BytesWritable());
-		}
+//		} catch (Exception e) {
+//			context.write(new Text(DEL_MARK+e.getStackTrace()+"__rawLog: "+strValue), new BytesWritable());
+//		}
 	}
 	
 	protected void cleanup(Context context) throws IOException, InterruptedException {

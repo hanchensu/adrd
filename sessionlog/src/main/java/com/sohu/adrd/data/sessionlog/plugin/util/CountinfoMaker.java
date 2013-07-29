@@ -36,7 +36,7 @@ public class CountinfoMaker {
 		defaults[indexOf("CLICK_X")] = -1;
 		defaults[indexOf("CLICK_Y")] = -1;
 		defaults[indexOf("FREQ")] = 1;
-		defaults[indexOf("LATENCY")] = 0;
+		defaults[indexOf("LATENCY")] = 0L;
 		defaults[indexOf("OS")] = "0";
 		defaults[indexOf("REGION")] = "965011170131968";
 		defaults[indexOf("TURN")] = "0";
@@ -80,7 +80,7 @@ public class CountinfoMaker {
 		verifiers[indexOf("FREQ")] = new RangeVerifier(0, 256);
 		verifiers[indexOf("GETURL")] = new StrlenVerifier(1024);
 		verifiers[indexOf("IMPRESSIONID")] = new StrlenVerifier(34);
-		verifiers[indexOf("LATENCY")] = new RangeVerifier(0, 100000);
+		verifiers[indexOf("LATENCY")] = new RangeVerifier(0L, 100000L);
 		verifiers[indexOf("OS")] = new Verifier() {
 			public boolean isValid(Object... objects) {
 				String value = (String) objects[0];

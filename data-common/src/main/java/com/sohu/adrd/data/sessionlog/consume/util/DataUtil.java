@@ -27,6 +27,7 @@ public class DataUtil {
 	public static final String CG_HBCLICK = "hbclick";
 	public static final String CG_ARRIVE = "arrive";
 	public static final String CG_REACH = "reach";
+	public static final String CG_ACTION = "action";
 	public static final String CG_ERR = "err";
 
 	public static final String OPERATION_SPLIT = "\1";
@@ -126,6 +127,7 @@ public class DataUtil {
 					|| cg.equalsIgnoreCase(CG_HBCLICK)
 					|| cg.equalsIgnoreCase(CG_ARRIVE)
 					|| cg.equalsIgnoreCase(CG_REACH)
+					|| cg.equalsIgnoreCase(CG_ACTION)
 					|| cg.equalsIgnoreCase(CG_ERR)) {
 				data = (DataByteArray) value.get(index);
 				if (data != null && (length = data.size()) > 0) {

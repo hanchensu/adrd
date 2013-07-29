@@ -68,8 +68,8 @@ public class AdrdDataUtil {
 		String TEST_SUV = "123456";
 		String REACH_FLAG = "reach";
 		String ARRIVE_FLAG = "arrive";
+		String ACTION_FLAG = "action";
 		String ERR_FLAG = "err";
-		
 		
 		if (DISPLAY_FLAG.equals(reqType) && TEST_SUV.equals(suv)) {
 			
@@ -95,15 +95,19 @@ public class AdrdDataUtil {
 			
 			return OperationType.AD_CLICK;
 			
-		} else if (reqType.equals(REACH_FLAG)) {
+		} else if (REACH_FLAG.equals(reqType)) {
 			
 			return OperationType.REACH;
 			
-		}  else if (reqType.equals(ARRIVE_FLAG)) {
+		}  else if (ARRIVE_FLAG.equals(reqType)) {
 			
 			return OperationType.ARRIVE;
 			
-		} else if (reqType.equals(ERR_FLAG)) {
+		} else if (ACTION_FLAG.equals(reqType)) {
+			
+			return OperationType.ACTION;
+			
+		} else if (ERR_FLAG.equals(reqType)) {
 			
 			return OperationType.ERR;
 			
