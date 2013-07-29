@@ -1,5 +1,7 @@
 package com.sohu.adrd.data.sessionlog.util;
 
+import com.sohu.adrd.data.common.AdrdDataUtil;
+
 
 public class ProcessorEntry {
 	
@@ -54,5 +56,31 @@ public class ProcessorEntry {
 			this.data[i+9] = data[i];
 		}
 	}
+	
+	public boolean less(ProcessorEntry pe) {
+		if(this.getTimestamp() < pe.getTimestamp())
+			return true;
+		if(this.getTimestamp() == pe.getTimestamp() && AdrdDataUtil.compareTo(this.getData(), this.getOffset(), this.getLength(), pe.getData(), pe.getOffset(), pe.getLength()) < 0 )
+			return true;
+		return false;
+		
+	}
+	
+	public boolean greater(ProcessorEntry pe) {
+		if(this.getTimestamp() > pe.getTimestamp())
+			return true;
+		if(this.getTimestamp() == pe.getTimestamp() && AdrdDataUtil.compareTo(this.getData(), this.getOffset(), this.getLength(), pe.getData(), pe.getOffset(), pe.getLength()) > 0 )
+			return true;
+		return false;
+		
+	}
+	
+	public boolean equals(ProcessorEntry pe) {
+		if(pe.getTimestamp() == this.getTimestamp() && AdrdDataUtil.compareTo(this.getData(), this.getOffset(), this.getLength(), pe.getData(), pe.getOffset(), pe.getLength()) == 0 )
+			return true;
+		return false;
+		
+	}
+	
 	
 }

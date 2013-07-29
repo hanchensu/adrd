@@ -1,0 +1,10 @@
+com.sohu.adrd.data.common
+com.sohu.adrd.data.hive.io
+com.sohu.adrd.data.mapred
+com.sohu.adrd.data.mapreduce
+com.sohu.adrd.data.pig.udf.custom
+com.sohu.adrd.data.pig.udf.heartbeat
+com.sohu.adrd.data.pig.udf.log
+com.sohu.adrd.data.sessionlog.consume
+com.sohu.adrd.data.sessionlog.consume.util
+com.sohu.adrd.data.sessionlog.thrift.operation

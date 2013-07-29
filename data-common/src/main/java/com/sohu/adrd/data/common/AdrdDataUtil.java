@@ -12,9 +12,23 @@ import com.sohu.adrd.data.sessionlog.thrift.operation.CountinfoOperation;
 import com.sohu.adrd.data.sessionlog.thrift.operation.OperationType;
 
 
+/**
+ * @author Su Hanchen hanchensu@sohu-inc.com
+ * 
+ */
+
 public class AdrdDataUtil {
-	
+	/** 
+	 * Make user id from yyid, suv, ip and agent
+	 * 
+	 * @param yyid yyid
+	 * @param suv suv
+	 * @param ip user ip
+	 * @param agent	user agent
+	 * @return unique user id, null if all four values are blank
+	 */
 	public static String makeUserId(String yyid, String suv, String ip, String agent) {
+	
 		
 		if (Util.isNotBlank(yyid)) return yyid;
 		
@@ -29,6 +43,12 @@ public class AdrdDataUtil {
 		return null;
 	}
 	
+	/**
+	 * Make user id from {@link CountinfoOperation}
+	 * 
+	 * @param countinfo {@link CountinfoOperation} serialized by thrift from log
+	 * @return unique user id, null if yyid, suv, ip, agent are all blank
+	 */
 	public static String makeUserId(CountinfoOperation countinfo) {
 		return makeUserId(countinfo.yyId, countinfo.suv, countinfo.userIp, countinfo.userAgent);
 	}
@@ -58,6 +78,25 @@ public class AdrdDataUtil {
 		}
 
 		return Util.jsonFormat(schema, result, str);
+	}
+	
+	public static int compareTo(byte[] buffer1, int offset1, int length1,
+			byte[] buffer2, int offset2, int length2) {
+		// Short circuit equal case
+		if (buffer1 == buffer2 && offset1 == offset2 && length1 == length2) {
+			return 0;
+		}
+
+		int end1 = offset1 + length1;
+		int end2 = offset2 + length2;
+		for (int i = offset1, j = offset2; i < end1 && j < end2; i++, j++) {
+			int a = (buffer1[i] & 0xff);
+			int b = (buffer2[j] & 0xff);
+			if (a != b) {
+				return a - b;
+			}
+		}
+		return length1 - length2;
 	}
 	
 	public static OperationType getOpType(String reqType, String adType, String suv) {
