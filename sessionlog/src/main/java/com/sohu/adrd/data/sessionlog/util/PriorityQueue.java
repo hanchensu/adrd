@@ -57,39 +57,58 @@ public class PriorityQueue {
 			queue[i] = null;
 		size = 0;
 	}
-
+	
 	private void fixUp(int k) {
-		while (k > 1) {
-			int j = k >> 1;
-			if ((queue[j].getTimestamp() < queue[k].getTimestamp() || (queue[j]
-					.getTimestamp() == queue[k].getTimestamp() && compareTo(
-					queue[j], queue[k]) < 0))
-					|| (queue[j].getTimestamp() == queue[k].getTimestamp() && compareTo(
-							queue[j], queue[k]) == 0))
-				break;
-			ProcessorEntry tmp = queue[j];
-			queue[j] = queue[k];
-			queue[k] = tmp;
-			k = j;
-		}
-	}
+        while (k > 1) {
+            int j = k >> 1;
+            if (queue[j].getTimestamp() <= queue[k].getTimestamp()) break;
+            ProcessorEntry tmp = queue[j];  queue[j] = queue[k]; queue[k] = tmp;
+            k = j;
+        }
+    }
 
-	private void fixDown(int k) {
-		int j;
-		while ((j = k << 1) <= size && j > 0) {
-			if (j < size
-					&& queue[j].getTimestamp() > queue[j + 1].getTimestamp()
-					|| (queue[j].getTimestamp() == queue[j + 1].getTimestamp() && compareTo(
-							queue[j], queue[j + 1]) > 0))
-				j++;
-			if (queue[k].getTimestamp() <= queue[j].getTimestamp())
-				break;
-			ProcessorEntry tmp = queue[j];
-			queue[j] = queue[k];
-			queue[k] = tmp;
-			k = j;
-		}
-	}
+    private void fixDown(int k) {
+        int j;
+        while ((j = k << 1) <= size && j > 0) {
+            if (j < size && queue[j].getTimestamp() > queue[j+1].getTimestamp()) j++;
+            if (queue[k].getTimestamp() <= queue[j].getTimestamp()) break;
+            ProcessorEntry tmp = queue[j];  queue[j] = queue[k]; queue[k] = tmp;
+            k = j;
+        }
+    }
+
+//	private void fixUp(int k) {
+//		while (k > 1) {
+//			int j = k >> 1;
+//			if ((queue[j].getTimestamp() < queue[k].getTimestamp() || (queue[j]
+//					.getTimestamp() == queue[k].getTimestamp() && compareTo(
+//					queue[j], queue[k]) < 0))
+//					|| (queue[j].getTimestamp() == queue[k].getTimestamp() && compareTo(
+//							queue[j], queue[k]) == 0))
+//				break;
+//			ProcessorEntry tmp = queue[j];
+//			queue[j] = queue[k];
+//			queue[k] = tmp;
+//			k = j;
+//		}
+//	}
+//
+//	private void fixDown(int k) {
+//		int j;
+//		while ((j = k << 1) <= size && j > 0) {
+//			if (j < size
+//					&& queue[j].getTimestamp() > queue[j + 1].getTimestamp()
+//					|| (queue[j].getTimestamp() == queue[j + 1].getTimestamp() && compareTo(
+//							queue[j], queue[j + 1]) > 0))
+//				j++;
+//			if (queue[k].getTimestamp() <= queue[j].getTimestamp())
+//				break;
+//			ProcessorEntry tmp = queue[j];
+//			queue[j] = queue[k];
+//			queue[k] = tmp;
+//			k = j;
+//		}
+//	}
 
 	public void heapify() {
 		for (int i = size / 2; i >= 1; i--)
