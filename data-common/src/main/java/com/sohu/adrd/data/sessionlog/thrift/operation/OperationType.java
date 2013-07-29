@@ -11,7 +11,7 @@ public enum OperationType {
 			"newsclick"), NEWS_DISPLAY((byte) 6, "newsdisplay"), HB_CLICK(
 			(byte) 7, "hbclick"), HB_DISPLAY((byte) 8, "hbdisplay"), ARRIVE(
 			(byte) 9, "arrive"), REACH((byte) 10, "reach"), ACTION((byte) 11,
-			"action"), ERR((byte) 12, "err");
+			"action"), ERR((byte) 12, "err"), EXCHANGE((byte) 13,"exchange");
 
 	private final byte OperateId;
 	private final String OperateName;
@@ -62,6 +62,8 @@ public enum OperationType {
 			return ACTION;
 		case 12:
 			return ERR;
+		case 13:
+			return EXCHANGE;
 		default:
 			return null;
 		}
