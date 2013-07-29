@@ -3,7 +3,6 @@ package com.sohu.adrd.data.sessionlog.util;
 import java.util.Arrays;
 import java.util.Iterator;
 
-import sessionlog.mapreduce.ProcessorEntry;
 
 import com.sohu.adrd.data.sessionlog.thrift.operation.OperationType;
 
