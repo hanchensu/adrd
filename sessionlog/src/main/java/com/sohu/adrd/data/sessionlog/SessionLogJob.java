@@ -77,7 +77,7 @@ public class SessionLogJob implements Tool {
 		Option output = createOption("output", "DFS output directory for the Reduce step", "path", 1, true);
 		Option configFile = createOption("configFile", "sessionlog config file path", "file", Integer.MAX_VALUE, true);
 		Option libjars = createOption("lib", "sessionlog mapreduce lib jars", "file", Integer.MAX_VALUE, true);
-		Option numReduceTasks = createOption("numReduceTasks", "Optional.", "spec", 1, true);
+		Option numReduceTasks = createOption("numReduceTasks", "reducer num", "spec", 1, true);
 		Option attachments = createOption("attachments", "sessionlog attachments, comma seperated", "file", Integer.MAX_VALUE, false);
 		Option jobName = createOption("jobName", "Optional.", "spec", 1, false);
 		
@@ -280,7 +280,7 @@ public class SessionLogJob implements Tool {
 	}
 	
 	private void setJobConf() throws IOException {
-		config_.set("tmpfiles", configFile_+","+attachments_);
+		config_.set("tmpfiles", Util.isNotBlank(attachments_)? configFile_+","+attachments_ : configFile_);
 		
 		//set tmpjars
 		final StringBuffer sb = new StringBuffer();
@@ -296,7 +296,7 @@ public class SessionLogJob implements Tool {
 			}
         }
         config_.set("tmpjars", sb.toString());
-        config_.set("mapred.job.name", Util.isBlank(jobName_) ? jobName_ : "new-sessionlog");
+        config_.set("mapred.job.name", Util.isNotBlank(jobName_) ? jobName_ : "new-sessionlog");
         config_.set("mapred.mapper.new-api", "true");
         config_.set("mapred.reducer.new-api", "true");
         config_.set("mapred.input.dir", input_);

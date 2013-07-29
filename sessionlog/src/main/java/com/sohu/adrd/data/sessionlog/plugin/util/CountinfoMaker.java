@@ -51,6 +51,14 @@ public class CountinfoMaker {
 		required[indexOf("ADTYPE")] = true;
 		required[indexOf("TIME")] = true;
 		required[indexOf("USERIP")] = true;
+		
+		for(int i = 0; i < verifiers.length; i++) {
+			verifiers[i] = new Verifier() {
+				public boolean isValid(Object... objects) {
+					return true;
+				}
+			};
+		}
 
 		verifiers[indexOf("ADID")] = new StrlenVerifier(256);
 		verifiers[indexOf("ADPID")] = verifiers[indexOf("YYID")] = new StrlenVerifier(32);
