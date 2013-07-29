@@ -61,7 +61,7 @@ public class PriorityQueue {
 	private void fixUp(int k) {
         while (k > 1) {
             int j = k >> 1;
-            if (queue[j].getTimestamp() <= queue[k].getTimestamp()) break;
+            if (less(queue[j], queue[k]) || equal(queue[j], queue[k])) break;
             ProcessorEntry tmp = queue[j];  queue[j] = queue[k]; queue[k] = tmp;
             k = j;
         }
@@ -70,8 +70,8 @@ public class PriorityQueue {
     private void fixDown(int k) {
         int j;
         while ((j = k << 1) <= size && j > 0) {
-            if (j < size && queue[j].getTimestamp() > queue[j+1].getTimestamp()) j++;
-            if (queue[k].getTimestamp() <= queue[j].getTimestamp()) break;
+            if (j < size && greater(queue[j], queue[j+1])) j++;
+            if (less(queue[k], queue[j]) || equal(queue[k], queue[j])) break;
             ProcessorEntry tmp = queue[j];  queue[j] = queue[k]; queue[k] = tmp;
             k = j;
         }
@@ -114,7 +114,32 @@ public class PriorityQueue {
 		for (int i = size / 2; i >= 1; i--)
 			fixDown(i);
 	}
-
+	
+	public boolean less(ProcessorEntry pe1, ProcessorEntry pe2) {
+		if(pe1.getTimestamp() < pe2.getTimestamp())
+			return true;
+		if(pe1.getTimestamp() == pe2.getTimestamp() && compareTo(pe1, pe2) < 0 )
+			return true;
+		return false;
+		
+	}
+	
+	public boolean greater(ProcessorEntry pe1, ProcessorEntry pe2) {
+		if(pe1.getTimestamp() > pe2.getTimestamp())
+			return true;
+		if(pe1.getTimestamp() == pe2.getTimestamp() && compareTo(pe1, pe2) > 0 )
+			return true;
+		return false;
+		
+	}
+	
+	public boolean equal(ProcessorEntry pe1, ProcessorEntry pe2) {
+		if(pe1.getTimestamp() == pe2.getTimestamp() && compareTo(pe1, pe2) == 0 )
+			return true;
+		return false;
+		
+	}
+	
 	public int compareTo(ProcessorEntry pe1, ProcessorEntry pe2) {
 		return compareTo(pe1.getData(), pe1.getOffset(), pe1.getLength(),
 				pe2.getData(), pe2.getOffset(), pe2.getLength());

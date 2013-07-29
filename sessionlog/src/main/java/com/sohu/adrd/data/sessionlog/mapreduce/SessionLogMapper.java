@@ -111,7 +111,11 @@ public class SessionLogMapper extends Mapper<LongWritable, Text, Text, BytesWrit
 				output.write(entry.getOperation().getOperateId());
 				output.writeLong(entry.getTimestamp());
 				output.write(entry.getData(), entry.getOffset(), entry.getLength());
-				context.write(new Text(userKey), new BytesWritable(buffer.toByteArray()));
+//				context.write(new Text(userKey), new BytesWritable(buffer.toByteArray()));
+				
+				if(userKey.startsWith(DEL_MARK)) {
+					context.write(new Text(userKey), new BytesWritable(buffer.toByteArray()));
+				}
 				
 				buffer.reset();
 			}
