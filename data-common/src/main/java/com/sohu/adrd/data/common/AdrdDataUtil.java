@@ -25,7 +25,7 @@ public class AdrdDataUtil {
 	 * @param suv suv
 	 * @param ip user ip
 	 * @param agent	user agent
-	 * @return unique user id, null if all four values are blank
+	 * @return unique user id, null if all four params are blank
 	 */
 	public static String makeUserId(String yyid, String suv, String ip, String agent) {
 	
