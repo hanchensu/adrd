@@ -175,10 +175,16 @@ public class CountinfoMaker {
 
 			}
 		}
+		crossFieldVerify(countinfo);
 		return countinfo;
 
 	}
 	
+	public static void crossFieldVerify(CountinfoOperation countinfo) {
+		if("2".equals(countinfo.getAdType()) && !countinfo.isSetAdId()) {
+			setError(countinfo, 63);
+		}
+	}
 	
 	
 	public static void setError(CountinfoOperation countinfo, int index) {

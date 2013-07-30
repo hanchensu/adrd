@@ -1,9 +1,13 @@
 package com.sohu.adrd.data.sessionlog.plugin.util;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
+import org.apache.pig.data.DataByteArray;
 import org.apache.thrift.protocol.TType;
 
 
@@ -11,7 +15,6 @@ import com.sohu.adrd.data.common.AdrdDataUtil;
 import com.sohu.adrd.data.common.FormatResult;
 import com.sohu.adrd.data.common.LogSchema;
 import com.sohu.adrd.data.common.Util;
-import com.sohu.adrd.data.sessionlog.thrift.operation.CountinfoOperation;
 import com.sohu.adrd.data.sessionlog.thrift.operation.ExOperation;
 import com.sohu.adrd.data.sessionlog.thrift.operation.ExOperation._Fields;;
 
@@ -143,13 +146,49 @@ public class ExMaker {
 
 			}
 		}
+		crossFieldVerify(ex);
 		return ex;
 	}
 	
-	private static void fix(ExOperation ex) {
-		
+	public static void crossFieldVerify(ExOperation ex) {
+		if(!"TIMEOUT".equals(ex.getStatus()) || !"GIVEUP".equals(ex.getLogType())){
+			if(!ex.isSetSuv()) {
+				setError(ex, 63);
+			}
+		}
+		if("WIN".equals(ex.getLogType()) && ex.getDspID()!=0) {
+			if(!ex.isSetAdID()) {
+				setError(ex, 62);
+			}
+		}
+		if("WIN".equals(ex.getLogType())) {
+			if(!ex.isSetAdpID()) {
+				setError(ex, 61);
+			}
+		}
+		if("BID".equals(ex.getLogType()) || "WIN".equals(ex.getLogType())) {
+			if(!ex.isSetBidPrice()) {
+				setError(ex, 60);
+			}
+		}
+		if("WIN".equals(ex.getLogType())) {
+			if(!ex.isSetSecondPrice()) {
+				setError(ex, 59);
+			}
+		}
+		//set timestamp
+		SimpleDateFormat format = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm:ss,SSS");
+		Date date;
+		try {
+			date = format.parse(ex.getLogTime());
+			ex.setTimestamp(date.getTime() / 1000L);
+		} catch (Exception e) {
+			setError(ex, 58);
+		}
 		
 	}
+	
 	public static void setError(ExOperation ex, int index) {
 		long status = ex.getStatusCode();
 		ex.setStatusCode(status | (1L << index));

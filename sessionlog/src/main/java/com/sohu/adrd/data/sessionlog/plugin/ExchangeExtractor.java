@@ -62,7 +62,7 @@ public class ExchangeExtractor implements Extractor {
 		Date date;
 		try {
 			date = format.parse(timestr);
-			timestamp = date.getTime();
+			timestamp = date.getTime() / 1000L;
 		} catch (ParseException e) {
 			
 		}
