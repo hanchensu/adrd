@@ -60,7 +60,7 @@ public class ExtractorEntry {
 	
 	public boolean check() {
 		if (Util.isBlank(userKey) || timestamp < 0 
-		|| operation == null || data == null || operation == null) return false;
+		|| operation == null || data == null) return false;
 		return true;
 	}
 	

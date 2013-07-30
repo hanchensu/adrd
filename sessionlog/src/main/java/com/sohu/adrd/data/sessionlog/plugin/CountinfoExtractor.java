@@ -3,7 +3,10 @@ package com.sohu.adrd.data.sessionlog.plugin;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -56,7 +59,8 @@ public class CountinfoExtractor implements Extractor {
 		entry.setOperation(opType);
 		entry = writeFields(entry, countinfo);
 		
-		entryList.add(entry);	
+		entryList.add(entry);
+		offset = 0;
 		return entryList;
 	}
 	
@@ -68,6 +72,37 @@ public class CountinfoExtractor implements Extractor {
 		entry.setValue(transport.getArray(), offset, transport.length() - offset);
 		offset = transport.length();
 		return entry;
+	}
+	
+	
+	public static void main(String args[]) throws IOException {
+		
+		BufferedReader br = new BufferedReader(new FileReader(new File("D:/worktmp/countinfo.txt")));
+		String str;
+		while ((str = br.readLine()) != null) {
+			List<ExtractorEntry> entryList = new CountinfoExtractor().extract(new CountinfoFormator().format(str).strs);
+			System.out.println(CountinfoMaker.makeCountinfo(new CountinfoFormator().format(str)));
+			for(ExtractorEntry entry : entryList) {
+				System.out.println(entry.getOffset()+"\t"+entry.getLength());
+				
+				ByteArrayOutputStream buffer = null;
+				DataOutputStream output = null;
+				
+				if (output == null) {
+					buffer = new ByteArrayOutputStream(512);
+					output = new DataOutputStream(buffer);
+				}
+				
+				output.write(entry.getOperation().getOperateId());
+				output.writeLong(entry.getTimestamp());
+				output.write(entry.getData(), entry.getOffset(), entry.getLength());
+				
+				
+				System.out.println(entry.getUserKey()+"\t"+entry.getTimestamp()+"\t"+buffer.toByteArray().length);
+			}
+				
+		}
+		br.close();
 	}
 	
 }

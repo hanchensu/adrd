@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -32,6 +33,7 @@ import org.apache.pig.parser.AliasMasker.query_return;
 import com.sohu.adrd.data.common.AdrdDataUtil;
 import com.sohu.adrd.data.common.FormatResult;
 import com.sohu.adrd.data.common.LogSchema;
+import com.sohu.adrd.data.common.Util;
 import com.sohu.adrd.data.sessionlog.util.Formator;
 
 
@@ -62,15 +64,38 @@ public class CountinfoFormator implements Formator {
 		int agentIndex =  Arrays.asList(LogSchema.COUNTINFO_SCHEMA).indexOf("USERAGENT");
 		
 		String agent = fr.strs.get(agentIndex);
-		fr.strs.set(agentIndex, agent.replaceAll("\\\"", "\""));
+		if(Util.isNotBlank(agent)) {
+			fr.strs.set(agentIndex, agent.replaceAll("\\\"", "\""));
+		}
 		
 		String refer = fr.strs.get(referIndex);
-		try {
-			refer = URLDecoder.decode(refer, dfltEncName);
-			fr.strs.set(referIndex, refer);
-		} catch (Exception e) {
-			
+		if(Util.isNotBlank(refer)) {
+			try {
+				refer = URLDecoder.decode(refer, dfltEncName);
+				fr.strs.set(referIndex, refer);
+			} catch (Exception e) {
+				
+			}
 		}
 		return fr;
-	}	
+	}
+	
+	public static void main(String args[]) throws IOException {
+		
+		BufferedReader br = new BufferedReader(new FileReader(new File("D:/worktmp/countinfo.txt")));
+		String str;
+		while ((str = br.readLine()) != null) {
+			System.out.println(str);
+			
+			FormatResult fr = new CountinfoFormator().format(str);
+			System.out.println(fr.errorcode);
+			
+			for(String abc : fr.strs) {
+				System.out.println(abc);
+			}
+			
+		}
+		
+		br.close();
+	}
 }

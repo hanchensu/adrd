@@ -7,10 +7,15 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import net.sf.json.JSONException;
+import net.sf.json.JSONObject;
 
 import org.apache.hadoop.io.BytesWritable;
 
@@ -30,14 +35,12 @@ public class Util {
 	public static boolean isNotBlank(String str) {
 		return !isBlank(str);
 	}
-
+	
+	
+	
 	public static int indexOf(String key, String[] schema) {
-		for (int i = 0; i < schema.length; i++) {
-			if (key.equals(schema[i])) {
-				return i;
-			}
-		}
-		return -1;
+		return Arrays.asList(schema).indexOf(key);
+		
 	}
 	
 	public static String getAttr(String log, String key) {
@@ -57,28 +60,35 @@ public class Util {
 	
 	public static FormatResult jsonFormat(String[] schema, List<String> resList, String log) {
 		
-		String regex = "\"([\\p{Print}]*?)\"[\\p{Blank}]*:[\\p{Blank}]*((\"[\\p{Print}]*?\")|([\\p{Print}]*?))[\\p{Blank}]*[,\\}]";
-		Pattern pattern = Pattern.compile(regex);
-		Matcher match = pattern.matcher(log);
-		String errCode = "Normal";
-		while (match.find()) {
-			String key = match.group(1);
-			String quoted = match.group(3);
-			String value = quoted != null ? quoted.substring(1, quoted.length()-1):match.group(4);
-			key = key.trim();
-			value = value.trim();
-			
-			int index = Util.indexOf(key, schema);
-			if(index == -1) {
-				errCode = "Schema Err(Unknown Key): "+key;
-				continue;
-			}
-			
-			if(Util.isNotBlank(value)) {
-				resList.set(index, value);
-			}
+		int index = log.indexOf("{");
+		if(index == -1){
+			return new FormatResult(null, "jsonFormatError");
 		}
-		return new FormatResult(resList,errCode);
+		
+		String jsonLog = log.substring(index);
+		
+		try{
+			JSONObject json = JSONObject.fromObject(jsonLog);
+			
+			if(json == null) {
+				return new FormatResult(null, "jsonFormatError");
+			}
+			for(Iterator iter = json.keys();iter.hasNext();){
+				String key = (String)iter.next();
+				String value = json.getString(key);
+				int keyIndex = Util.indexOf(key, schema);
+				if(keyIndex == -1) {
+					continue;
+				}
+				if(Util.isNotBlank(value)) {
+					resList.set(keyIndex, value);
+				}
+			}
+		} catch (JSONException e) {
+			return new FormatResult(null,"jsonFormatError");
+		}
+		
+		return new FormatResult(resList,"Normal");
 	}
 	
 	public static void trastoId(long v, BytesWritable data) {
@@ -109,7 +119,7 @@ public class Util {
 				+ ((readBuffer[5] & 255) << 16) + ((readBuffer[6] & 255) << 8) + ((readBuffer[7] & 255) << 0));
 	}
 
-	public static long readLog(byte data[], int off) {
+	public static long readLong(byte data[], int off) {
 		if (off + 8 > data.length) throw new RuntimeException("");
 		return (((long)data[off + 0] << 56) + ((long)(data[off + 1] & 255) << 48) +
 		((long)(data[off + 2] & 255) << 40) + ((long)(data[off + 3] & 255) << 32) +
@@ -167,22 +177,23 @@ public class Util {
 	
 	
 	public static void main(String args[]) throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader(new File("D:/worktmp/gtr.txt")));
-		String regex = "\"([\\p{Print}]*?)\"[\\p{Blank}]*:[\\p{Blank}]*((\"[\\p{Print}]*?\")|([\\p{Print}]*?))[\\p{Blank}]*[,\\}]";
-		Pattern pattern = Pattern.compile(regex);
-		
-		String str;
-		while ((str = br.readLine()) != null) {
-			Matcher match = pattern.matcher(str);
-			while (match.find()) {
-				String key = match.group(1);
-				String quoted = match.group(3);
-				String value = quoted != null ? quoted.substring(1, quoted.length()-1):match.group(4);
-				key = key.trim();
-				value = value.trim();
-				System.out.print("\""+key+"\",");
-			}
-		}
-		br.close();
+//		BufferedReader br = new BufferedReader(new FileReader(new File("D:/worktmp/gtr.txt")));
+//		String regex = "\"([\\p{Print}]*?)\"[\\p{Blank}]*:[\\p{Blank}]*((\"[\\p{Print}]*?\")|([\\p{Print}]*?))[\\p{Blank}]*[,\\}]";
+//		Pattern pattern = Pattern.compile(regex);
+//		
+//		String str;
+//		while ((str = br.readLine()) != null) {
+//			Matcher match = pattern.matcher(str);
+//			while (match.find()) {
+//				String key = match.group(1);
+//				String quoted = match.group(3);
+//				String value = quoted != null ? quoted.substring(1, quoted.length()-1):match.group(4);
+//				key = key.trim();
+//				value = value.trim();
+//				System.out.print("\""+key+"\",");
+//			}
+//		}
+//		br.close();
+		System.out.println(indexOf("LogTime", LogSchema.COUNTINFO_SCHEMA));
 	}
 }

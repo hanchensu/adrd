@@ -43,6 +43,7 @@ import com.sohu.adrd.data.sessionlog.util.PriorityQueue;
 import com.sohu.adrd.data.sessionlog.util.Processor;
 import com.sohu.adrd.data.sessionlog.util.ProcessorEntry;
 import com.sohu.adrd.data.sessionlog.thrift.operation.CountinfoOperation;
+import com.sohu.adrd.data.sessionlog.thrift.operation.ExOperation;
 import com.sohu.adrd.data.sessionlog.thrift.operation.OperationType;
 import com.sohu.adrd.data.sessionlog.thrift.operation.PVOperation;
 import com.sohu.adrd.data.sessionlog.thrift.operation.SearchOperation;
@@ -173,7 +174,7 @@ public class SessionLogReducer extends Reducer<Text, BytesWritable, Text, Text> 
 			if (operateType == null) continue;
 			String strOp = operateType.getOperateName();
 			if (queues.get(strOp) == null) continue;
-			ProcessorEntry entry = new ProcessorEntry(Util.readLog(data, 1), data, 9, value.getLength() - 9);
+			ProcessorEntry entry = new ProcessorEntry(Util.readLong(data, 1), data, 9, value.getLength() - 9);
 			PriorityQueue queue = queues.get(strOp);
 			if (queue.size() > 10000) {
 				
@@ -226,7 +227,7 @@ public class SessionLogReducer extends Reducer<Text, BytesWritable, Text, Text> 
 		
 		inputTransport.reset(data, 9, data.length - 9);
 		
-		String yyid = null,suv = null ,ip = null,agent = null;
+		String yyid = "NuLl",suv = "NuLl" ,ip = "NuLl",agent = "NuLl";
 		switch (operateType) {
 		case PV:
 			PVOperation pvOp = new PVOperation();
@@ -244,6 +245,7 @@ public class SessionLogReducer extends Reducer<Text, BytesWritable, Text, Text> 
 		case NEWS_DISPLAY:
 		case ARRIVE:
 		case REACH:
+		case ACTION:
 		case ERR:
 			CountinfoOperation countinfoOp = new CountinfoOperation();
 			countinfoOp.read(protocol);
@@ -260,6 +262,11 @@ public class SessionLogReducer extends Reducer<Text, BytesWritable, Text, Text> 
 			ip = searchOp.getIp();
 			agent = searchOp.getUseragent();
 			break;
+		case EXCHANGE:
+			ExOperation ex = new ExOperation();
+			ex.read(protocol);
+			suv = ex.getSuv();
+			
 		}
 		
 		return "YYID: "+ yyid +"\tSUV: "+ suv +"\tIP: "+ ip +"\tUA:"+ agent;

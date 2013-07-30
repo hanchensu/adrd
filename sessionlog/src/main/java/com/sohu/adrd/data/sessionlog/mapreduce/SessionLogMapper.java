@@ -81,6 +81,7 @@ public class SessionLogMapper extends Mapper<LongWritable, Text, Text, BytesWrit
 			
 			//Format
 			formatRes = formator.format(strValue);
+			
 			if (formatRes.strs == null) {
 				
 				String errorCode = formatRes.errorcode;
@@ -113,10 +114,14 @@ public class SessionLogMapper extends Mapper<LongWritable, Text, Text, BytesWrit
 				output.write(entry.getData(), entry.getOffset(), entry.getLength());
 				context.write(new Text(userKey), new BytesWritable(buffer.toByteArray()));
 				
+//				if(userKey.startsWith(DEL_MARK)) {
+//					context.write(new Text(userKey), new BytesWritable(buffer.toByteArray()));
+//				}
+				
 				buffer.reset();
 			}
 		} catch (Exception e) {
-			context.write(new Text(DEL_MARK+e.getClass()+"_"+strValue), new BytesWritable());
+			context.write(new Text(DEL_MARK+e.getStackTrace()+"__rawLog: "+strValue), new BytesWritable());
 		}
 	}
 	

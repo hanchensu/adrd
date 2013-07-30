@@ -26,6 +26,11 @@ public class LogSchema {
 			"USER_AGENT", "USER_IP", "USER_REGION", "WIDTH", "YYID", "eCPM",
 			"eCPM2" };
 
+	public static final String[] EX_SCHEMA = { "LogTime", "LogLevel", "DSPID",
+			"BIDID", "IMPID", "MONITORKEY", "SUV", "ADID", "ADPID", "ADSIZE",
+			"ADURL", "BIDFLOOR", "BIDPRICE", "SECONDPRICE", "STATUS",
+			"LATENCY", "LOGTYPE" };
+
 	public static final String[] CI_SEND_SCHEMA = { "id", "apid", "aid",
 			"impid", "at", "type", "status" };
 
@@ -37,7 +42,7 @@ public class LogSchema {
 
 	public static void main(String args[]) {
 		for (String attr : COUNTINFO_SCHEMA) {
-			System.out.println(attr.toLowerCase()+"\t\tSTRING,");
+			System.out.println(attr.toLowerCase() + "\t\tSTRING,");
 		}
 	}
 

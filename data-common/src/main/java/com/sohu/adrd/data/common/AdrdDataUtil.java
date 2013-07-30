@@ -12,9 +12,23 @@ import com.sohu.adrd.data.sessionlog.thrift.operation.CountinfoOperation;
 import com.sohu.adrd.data.sessionlog.thrift.operation.OperationType;
 
 
+/**
+ * @author Su Hanchen hanchensu@sohu-inc.com
+ * 
+ */
+
 public class AdrdDataUtil {
-	
+	/** 
+	 * Make user id from yyid, suv, ip and agent
+	 * 
+	 * @param yyid yyid
+	 * @param suv suv
+	 * @param ip user ip
+	 * @param agent	user agent
+	 * @return unique user id, null if all four params are blank
+	 */
 	public static String makeUserId(String yyid, String suv, String ip, String agent) {
+	
 		
 		if (Util.isNotBlank(yyid)) return yyid;
 		
@@ -29,14 +43,29 @@ public class AdrdDataUtil {
 		return null;
 	}
 	
+	
+	/**
+	 * Make user id from {@link CountinfoOperation}
+	 * 
+	 * @param countinfo {@link CountinfoOperation} serialized by thrift from log
+	 * @return unique user id, null if yyid, suv, ip, agent are all blank
+	 */
 	public static String makeUserId(CountinfoOperation countinfo) {
 		return makeUserId(countinfo.yyId, countinfo.suv, countinfo.userIp, countinfo.userAgent);
 	}
 	
+	/**
+	 * Turn a jason log from the adserver into a <tt>List<String></tt>
+	 * 
+	 * @author Su Hanchen hanchensu@sohu-inc.com
+	 * @param str Log to format
+	 * @param schema a string array that contains the attribute names of the schema
+	 * @return {@link FormatResult} with <tt>strs == null</tt> if error happened and the <tt>errcode</tt> (default: Normal)
+	 */
 	public static FormatResult format(String str,String[] schema) {
 		List<String> result = new ArrayList<String>();
 		
-		if (Util.isBlank(str)) // filter illegal
+		if (Util.isBlank(str)) //filter Blankline
 			return new FormatResult(null, "BlankLine");
 
 		result.clear();
@@ -51,13 +80,40 @@ public class AdrdDataUtil {
 		}
 
 		try {
-			String mark = str.substring(24, 29);
-			result.set(1, mark);
+			String logLevel = str.substring(23,str.indexOf("{"));	
+			result.set(1, logLevel.trim());
 		} catch (Exception e2) {
-			result.set(0, null);
+			result.set(1, null);
 		}
 
 		return Util.jsonFormat(schema, result, str);
+	}
+	
+	/**
+	 * Get the log type from log in countinfo
+	 * 
+	 * @author Su Hanchen hanchensu@sohu-inc.com
+	 * @param log raw log from countinfo
+	 * @return log type represented by string: must be one of {adclick, addisplay, newsclick, newsdisplay, hbclick, hbdisplay, reach, action, arrive, err}
+	 * @throws Exception if the log cannot be formated by {@link format}
+	 */
+	public static String getCountinfoLogType(String log) throws Exception {
+		String[] schema = LogSchema.COUNTINFO_SCHEMA;
+		FormatResult fr = AdrdDataUtil.format(log, LogSchema.COUNTINFO_SCHEMA);
+		if(fr.strs == null) {
+			throw new Exception(fr.errorcode);
+		} else {
+			String reqType = fr.strs.get(Util.indexOf("REQTYPE", schema));
+			String adType = fr.strs.get(Util.indexOf("ADTYPE", schema));
+			String suv = fr.strs.get(Util.indexOf("SUV", schema));
+			return getOpType(reqType, adType, suv).getOperateName();
+		}
+		
+	}
+	
+	public static OperationType getOpType(CountinfoOperation countinfo) {
+		
+		return getOpType(countinfo.reqType, countinfo.adType, countinfo.suv);
 	}
 	
 	public static OperationType getOpType(String reqType, String adType, String suv) {
@@ -68,8 +124,8 @@ public class AdrdDataUtil {
 		String TEST_SUV = "123456";
 		String REACH_FLAG = "reach";
 		String ARRIVE_FLAG = "arrive";
+		String ACTION_FLAG = "action";
 		String ERR_FLAG = "err";
-		
 		
 		if (DISPLAY_FLAG.equals(reqType) && TEST_SUV.equals(suv)) {
 			
@@ -95,15 +151,19 @@ public class AdrdDataUtil {
 			
 			return OperationType.AD_CLICK;
 			
-		} else if (reqType.equals(REACH_FLAG)) {
+		} else if (REACH_FLAG.equals(reqType)) {
 			
 			return OperationType.REACH;
 			
-		}  else if (reqType.equals(ARRIVE_FLAG)) {
+		}  else if (ARRIVE_FLAG.equals(reqType)) {
 			
 			return OperationType.ARRIVE;
 			
-		} else if (reqType.equals(ERR_FLAG)) {
+		} else if (ACTION_FLAG.equals(reqType)) {
+			
+			return OperationType.ACTION;
+			
+		} else if (ERR_FLAG.equals(reqType)) {
 			
 			return OperationType.ERR;
 			
@@ -113,10 +173,26 @@ public class AdrdDataUtil {
 		}
 	}
 	
-	public static OperationType getOpType(CountinfoOperation countinfo) {
-		
-		return getOpType(countinfo.reqType, countinfo.adType, countinfo.suv);
+	
+	public static int compareTo(byte[] buffer1, int offset1, int length1,
+			byte[] buffer2, int offset2, int length2) {
+		// Short circuit equal case
+		if (buffer1 == buffer2 && offset1 == offset2 && length1 == length2) {
+			return 0;
+		}
+
+		int end1 = offset1 + length1;
+		int end2 = offset2 + length2;
+		for (int i = offset1, j = offset2; i < end1 && j < end2; i++, j++) {
+			int a = (buffer1[i] & 0xff);
+			int b = (buffer2[j] & 0xff);
+			if (a != b) {
+				return a - b;
+			}
+		}
+		return length1 - length2;
 	}
+	
 	
 	public static byte[] serilize(CountinfoOperation adinfo) throws IOException {
 		TSerializer serializer = new TSerializer(new TBinaryProtocol.Factory());
@@ -127,6 +203,10 @@ public class AdrdDataUtil {
 			throw new IOException("Serilizer: Serilize error");
 		}
 	
+	}
+	
+	public static void main(String[] args) {
+		
 	}
 	
 
