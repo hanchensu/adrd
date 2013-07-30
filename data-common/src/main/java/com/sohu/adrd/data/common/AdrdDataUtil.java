@@ -43,6 +43,7 @@ public class AdrdDataUtil {
 		return null;
 	}
 	
+	
 	/**
 	 * Make user id from {@link CountinfoOperation}
 	 * 
@@ -88,23 +89,31 @@ public class AdrdDataUtil {
 		return Util.jsonFormat(schema, result, str);
 	}
 	
-	public static int compareTo(byte[] buffer1, int offset1, int length1,
-			byte[] buffer2, int offset2, int length2) {
-		// Short circuit equal case
-		if (buffer1 == buffer2 && offset1 == offset2 && length1 == length2) {
-			return 0;
+	/**
+	 * Get the log type from log in countinfo
+	 * 
+	 * @author Su Hanchen hanchensu@sohu-inc.com
+	 * @param log raw log from countinfo
+	 * @return log type represented by string: must be one of {adclick, addisplay, newsclick, newsdisplay, hbclick, hbdisplay, reach, action, arrive, err}
+	 * @throws Exception if the log cannot be formated by {@link format}
+	 */
+	public static String getCountinfoLogType(String log) throws Exception {
+		String[] schema = LogSchema.COUNTINFO_SCHEMA;
+		FormatResult fr = AdrdDataUtil.format(log, LogSchema.COUNTINFO_SCHEMA);
+		if(fr.strs == null) {
+			throw new Exception(fr.errorcode);
+		} else {
+			String reqType = fr.strs.get(Util.indexOf("REQTYPE", schema));
+			String adType = fr.strs.get(Util.indexOf("ADTYPE", schema));
+			String suv = fr.strs.get(Util.indexOf("SUV", schema));
+			return getOpType(reqType, adType, suv).getOperateName();
 		}
-
-		int end1 = offset1 + length1;
-		int end2 = offset2 + length2;
-		for (int i = offset1, j = offset2; i < end1 && j < end2; i++, j++) {
-			int a = (buffer1[i] & 0xff);
-			int b = (buffer2[j] & 0xff);
-			if (a != b) {
-				return a - b;
-			}
-		}
-		return length1 - length2;
+		
+	}
+	
+	public static OperationType getOpType(CountinfoOperation countinfo) {
+		
+		return getOpType(countinfo.reqType, countinfo.adType, countinfo.suv);
 	}
 	
 	public static OperationType getOpType(String reqType, String adType, String suv) {
@@ -164,10 +173,26 @@ public class AdrdDataUtil {
 		}
 	}
 	
-	public static OperationType getOpType(CountinfoOperation countinfo) {
-		
-		return getOpType(countinfo.reqType, countinfo.adType, countinfo.suv);
+	
+	public static int compareTo(byte[] buffer1, int offset1, int length1,
+			byte[] buffer2, int offset2, int length2) {
+		// Short circuit equal case
+		if (buffer1 == buffer2 && offset1 == offset2 && length1 == length2) {
+			return 0;
+		}
+
+		int end1 = offset1 + length1;
+		int end2 = offset2 + length2;
+		for (int i = offset1, j = offset2; i < end1 && j < end2; i++, j++) {
+			int a = (buffer1[i] & 0xff);
+			int b = (buffer2[j] & 0xff);
+			if (a != b) {
+				return a - b;
+			}
+		}
+		return length1 - length2;
 	}
+	
 	
 	public static byte[] serilize(CountinfoOperation adinfo) throws IOException {
 		TSerializer serializer = new TSerializer(new TBinaryProtocol.Factory());

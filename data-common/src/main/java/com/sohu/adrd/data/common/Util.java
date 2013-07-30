@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -34,14 +35,12 @@ public class Util {
 	public static boolean isNotBlank(String str) {
 		return !isBlank(str);
 	}
-
+	
+	
+	
 	public static int indexOf(String key, String[] schema) {
-		for (int i = 0; i < schema.length; i++) {
-			if (key.equals(schema[i])) {
-				return i;
-			}
-		}
-		return -1;
+		return Arrays.asList(schema).indexOf(key);
+		
 	}
 	
 	public static String getAttr(String log, String key) {
@@ -178,22 +177,23 @@ public class Util {
 	
 	
 	public static void main(String args[]) throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader(new File("D:/worktmp/gtr.txt")));
-		String regex = "\"([\\p{Print}]*?)\"[\\p{Blank}]*:[\\p{Blank}]*((\"[\\p{Print}]*?\")|([\\p{Print}]*?))[\\p{Blank}]*[,\\}]";
-		Pattern pattern = Pattern.compile(regex);
-		
-		String str;
-		while ((str = br.readLine()) != null) {
-			Matcher match = pattern.matcher(str);
-			while (match.find()) {
-				String key = match.group(1);
-				String quoted = match.group(3);
-				String value = quoted != null ? quoted.substring(1, quoted.length()-1):match.group(4);
-				key = key.trim();
-				value = value.trim();
-				System.out.print("\""+key+"\",");
-			}
-		}
-		br.close();
+//		BufferedReader br = new BufferedReader(new FileReader(new File("D:/worktmp/gtr.txt")));
+//		String regex = "\"([\\p{Print}]*?)\"[\\p{Blank}]*:[\\p{Blank}]*((\"[\\p{Print}]*?\")|([\\p{Print}]*?))[\\p{Blank}]*[,\\}]";
+//		Pattern pattern = Pattern.compile(regex);
+//		
+//		String str;
+//		while ((str = br.readLine()) != null) {
+//			Matcher match = pattern.matcher(str);
+//			while (match.find()) {
+//				String key = match.group(1);
+//				String quoted = match.group(3);
+//				String value = quoted != null ? quoted.substring(1, quoted.length()-1):match.group(4);
+//				key = key.trim();
+//				value = value.trim();
+//				System.out.print("\""+key+"\",");
+//			}
+//		}
+//		br.close();
+		System.out.println(indexOf("LogTime", LogSchema.COUNTINFO_SCHEMA));
 	}
 }
