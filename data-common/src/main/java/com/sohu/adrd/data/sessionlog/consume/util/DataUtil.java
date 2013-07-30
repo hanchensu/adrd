@@ -11,6 +11,7 @@ import org.apache.thrift.TException;
 
 import com.sohu.adrd.data.common.Util;
 import com.sohu.adrd.data.sessionlog.thrift.operation.CountinfoOperation;
+import com.sohu.adrd.data.sessionlog.thrift.operation.ExOperation;
 import com.sohu.adrd.data.sessionlog.thrift.operation.PVOperation;
 import com.sohu.adrd.data.sessionlog.thrift.operation.SearchOperation;
 
@@ -29,6 +30,7 @@ public class DataUtil {
 	public static final String CG_REACH = "reach";
 	public static final String CG_ACTION = "action";
 	public static final String CG_ERR = "err";
+	public static final String CG_EXCHANGE = "exchange";
 
 	public static final String OPERATION_SPLIT = "\1";
 	public static final String OBJECT_SPLIT = "\2";
@@ -142,6 +144,21 @@ public class DataUtil {
 						infoList.add(info);
 					}
 					list.add(cg, infoList);
+				}
+			} else if (cg.equalsIgnoreCase(CG_EXCHANGE)) {
+				data = (DataByteArray) value.get(index);
+				if (data != null && (length = data.size()) > 0) {
+					buffer = data.get();
+					protocol.getTransport().reset(buffer, 0, length);
+					ArrayList<ExOperation> exchangeList = null;
+					while (protocol.getTransport().getBufferPosition() < length - 1) {
+						ExOperation ex = new ExOperation();
+						ex.read(protocol.getProtocol());
+						if (exchangeList == null)
+							exchangeList = new ArrayList<ExOperation>();
+						exchangeList.add(ex);
+					}
+					list.add(CG_EXCHANGE, exchangeList);
 				}
 			} else {
 				throw new UnsupportedOperationException("not supported cg:"
