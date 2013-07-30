@@ -53,10 +53,18 @@ public class AdrdDataUtil {
 		return makeUserId(countinfo.yyId, countinfo.suv, countinfo.userIp, countinfo.userAgent);
 	}
 	
+	/**
+	 * Turn a jason log from the adserver into a <tt>List<String></tt>
+	 * 
+	 * @author Su Hanchen hanchensu@sohu-inc.com
+	 * @param str Log to format
+	 * @param schema a string array that contains the attribute names of the schema
+	 * @return {@link FormatResult} with <tt>strs == null</tt> if error happened and the <tt>errcode</tt> (default: Normal)
+	 */
 	public static FormatResult format(String str,String[] schema) {
 		List<String> result = new ArrayList<String>();
 		
-		if (Util.isBlank(str)) // filter illegal
+		if (Util.isBlank(str)) //filter Blankline
 			return new FormatResult(null, "BlankLine");
 
 		result.clear();
@@ -71,10 +79,10 @@ public class AdrdDataUtil {
 		}
 
 		try {
-			String mark = str.substring(24, 29);
-			result.set(1, mark);
+			String logLevel = str.substring(23,str.indexOf("{"));	
+			result.set(1, logLevel.trim());
 		} catch (Exception e2) {
-			result.set(0, null);
+			result.set(1, null);
 		}
 
 		return Util.jsonFormat(schema, result, str);
@@ -170,6 +178,10 @@ public class AdrdDataUtil {
 			throw new IOException("Serilizer: Serilize error");
 		}
 	
+	}
+	
+	public static void main(String[] args) {
+		
 	}
 	
 

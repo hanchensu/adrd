@@ -7,10 +7,14 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import net.sf.json.JSONException;
+import net.sf.json.JSONObject;
 
 import org.apache.hadoop.io.BytesWritable;
 
@@ -57,28 +61,35 @@ public class Util {
 	
 	public static FormatResult jsonFormat(String[] schema, List<String> resList, String log) {
 		
-		String regex = "\"([\\p{Print}]*?)\"[\\p{Blank}]*:[\\p{Blank}]*((\"[\\p{Print}]*?\")|([\\p{Print}]*?))[\\p{Blank}]*[,\\}]";
-		Pattern pattern = Pattern.compile(regex);
-		Matcher match = pattern.matcher(log);
-		String errCode = "Normal";
-		while (match.find()) {
-			String key = match.group(1);
-			String quoted = match.group(3);
-			String value = quoted != null ? quoted.substring(1, quoted.length()-1):match.group(4);
-			key = key.trim();
-			value = value.trim();
-			
-			int index = Util.indexOf(key, schema);
-			if(index == -1) {
-				errCode = "Schema Err(Unknown Key): "+key;
-				continue;
-			}
-			
-			if(Util.isNotBlank(value)) {
-				resList.set(index, value);
-			}
+		int index = log.indexOf("{");
+		if(index == -1){
+			return new FormatResult(null, "jsonFormatError");
 		}
-		return new FormatResult(resList,errCode);
+		
+		String jsonLog = log.substring(index);
+		
+		try{
+			JSONObject json = JSONObject.fromObject(jsonLog);
+			
+			if(json == null) {
+				return new FormatResult(null, "jsonFormatError");
+			}
+			for(Iterator iter = json.keys();iter.hasNext();){
+				String key = (String)iter.next();
+				String value = json.getString(key);
+				int keyIndex = Util.indexOf(key, schema);
+				if(keyIndex == -1) {
+					continue;
+				}
+				if(Util.isNotBlank(value)) {
+					resList.set(keyIndex, value);
+				}
+			}
+		} catch (JSONException e) {
+			return new FormatResult(null,"jsonFormatError");
+		}
+		
+		return new FormatResult(resList,"Normal");
 	}
 	
 	public static void trastoId(long v, BytesWritable data) {

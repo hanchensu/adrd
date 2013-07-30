@@ -85,11 +85,17 @@ public class CountinfoFormator implements Formator {
 		BufferedReader br = new BufferedReader(new FileReader(new File("D:/worktmp/countinfo.txt")));
 		String str;
 		while ((str = br.readLine()) != null) {
-			for(String abc : new CountinfoFormator().format(str).strs) {
+			System.out.println(str);
+			
+			FormatResult fr = new CountinfoFormator().format(str);
+			System.out.println(fr.errorcode);
+			
+			for(String abc : fr.strs) {
 				System.out.println(abc);
 			}
-				
+			
 		}
+		
 		br.close();
 	}
 }
