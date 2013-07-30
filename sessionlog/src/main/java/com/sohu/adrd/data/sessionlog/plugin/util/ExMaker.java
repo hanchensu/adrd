@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.pig.data.DataByteArray;
 import org.apache.thrift.protocol.TType;
 
 
