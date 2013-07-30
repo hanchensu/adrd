@@ -44,11 +44,12 @@ public class ExOperation implements org.apache.thrift.TBase<ExOperation, ExOpera
   private static final org.apache.thrift.protocol.TField SECOND_PRICE_FIELD_DESC = new org.apache.thrift.protocol.TField("secondPrice", org.apache.thrift.protocol.TType.I32, (short)12);
   private static final org.apache.thrift.protocol.TField STATUS_FIELD_DESC = new org.apache.thrift.protocol.TField("status", org.apache.thrift.protocol.TType.STRING, (short)13);
   private static final org.apache.thrift.protocol.TField LATENCY_FIELD_DESC = new org.apache.thrift.protocol.TField("latency", org.apache.thrift.protocol.TType.I64, (short)14);
-  private static final org.apache.thrift.protocol.TField LOG_TYPE_FIELD_DESC = new org.apache.thrift.protocol.TField("logType", org.apache.thrift.protocol.TType.STRING, (short)15);
-  private static final org.apache.thrift.protocol.TField LOG_TIME_FIELD_DESC = new org.apache.thrift.protocol.TField("logTime", org.apache.thrift.protocol.TType.STRING, (short)16);
-  private static final org.apache.thrift.protocol.TField LOG_LEVEL_FIELD_DESC = new org.apache.thrift.protocol.TField("logLevel", org.apache.thrift.protocol.TType.STRING, (short)17);
-  private static final org.apache.thrift.protocol.TField STATUS_CODE_FIELD_DESC = new org.apache.thrift.protocol.TField("statusCode", org.apache.thrift.protocol.TType.I64, (short)18);
-  private static final org.apache.thrift.protocol.TField REPEAT_FIELD_DESC = new org.apache.thrift.protocol.TField("repeat", org.apache.thrift.protocol.TType.I32, (short)19);
+  private static final org.apache.thrift.protocol.TField TIMESTAMP_FIELD_DESC = new org.apache.thrift.protocol.TField("timestamp", org.apache.thrift.protocol.TType.I64, (short)15);
+  private static final org.apache.thrift.protocol.TField LOG_TYPE_FIELD_DESC = new org.apache.thrift.protocol.TField("logType", org.apache.thrift.protocol.TType.STRING, (short)16);
+  private static final org.apache.thrift.protocol.TField LOG_TIME_FIELD_DESC = new org.apache.thrift.protocol.TField("logTime", org.apache.thrift.protocol.TType.STRING, (short)17);
+  private static final org.apache.thrift.protocol.TField LOG_LEVEL_FIELD_DESC = new org.apache.thrift.protocol.TField("logLevel", org.apache.thrift.protocol.TType.STRING, (short)18);
+  private static final org.apache.thrift.protocol.TField STATUS_CODE_FIELD_DESC = new org.apache.thrift.protocol.TField("statusCode", org.apache.thrift.protocol.TType.I64, (short)19);
+  private static final org.apache.thrift.protocol.TField REPEAT_FIELD_DESC = new org.apache.thrift.protocol.TField("repeat", org.apache.thrift.protocol.TType.I32, (short)20);
 
   private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
   static {
@@ -70,6 +71,7 @@ public class ExOperation implements org.apache.thrift.TBase<ExOperation, ExOpera
   public int secondPrice; // optional
   public String status; // optional
   public long latency; // optional
+  public long timestamp; // optional
   public String logType; // optional
   public String logTime; // optional
   public String logLevel; // optional
@@ -92,11 +94,12 @@ public class ExOperation implements org.apache.thrift.TBase<ExOperation, ExOpera
     SECOND_PRICE((short)12, "secondPrice"),
     STATUS((short)13, "status"),
     LATENCY((short)14, "latency"),
-    LOG_TYPE((short)15, "logType"),
-    LOG_TIME((short)16, "logTime"),
-    LOG_LEVEL((short)17, "logLevel"),
-    STATUS_CODE((short)18, "statusCode"),
-    REPEAT((short)19, "repeat");
+    TIMESTAMP((short)15, "timestamp"),
+    LOG_TYPE((short)16, "logType"),
+    LOG_TIME((short)17, "logTime"),
+    LOG_LEVEL((short)18, "logLevel"),
+    STATUS_CODE((short)19, "statusCode"),
+    REPEAT((short)20, "repeat");
 
     private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
@@ -139,15 +142,17 @@ public class ExOperation implements org.apache.thrift.TBase<ExOperation, ExOpera
           return STATUS;
         case 14: // LATENCY
           return LATENCY;
-        case 15: // LOG_TYPE
+        case 15: // TIMESTAMP
+          return TIMESTAMP;
+        case 16: // LOG_TYPE
           return LOG_TYPE;
-        case 16: // LOG_TIME
+        case 17: // LOG_TIME
           return LOG_TIME;
-        case 17: // LOG_LEVEL
+        case 18: // LOG_LEVEL
           return LOG_LEVEL;
-        case 18: // STATUS_CODE
+        case 19: // STATUS_CODE
           return STATUS_CODE;
-        case 19: // REPEAT
+        case 20: // REPEAT
           return REPEAT;
         default:
           return null;
@@ -195,10 +200,11 @@ public class ExOperation implements org.apache.thrift.TBase<ExOperation, ExOpera
   private static final int __BIDPRICE_ISSET_ID = 3;
   private static final int __SECONDPRICE_ISSET_ID = 4;
   private static final int __LATENCY_ISSET_ID = 5;
-  private static final int __STATUSCODE_ISSET_ID = 6;
-  private static final int __REPEAT_ISSET_ID = 7;
-  private BitSet __isset_bit_vector = new BitSet(8);
-  private _Fields optionals[] = {_Fields.DSP_ID,_Fields.BID_ID,_Fields.IMP_ID,_Fields.MONITOR_KEY,_Fields.SUV,_Fields.AD_ID,_Fields.ADP_ID,_Fields.AD_SIZE,_Fields.AD_URL,_Fields.BID_FLOOR,_Fields.BID_PRICE,_Fields.SECOND_PRICE,_Fields.STATUS,_Fields.LATENCY,_Fields.LOG_TYPE,_Fields.LOG_TIME,_Fields.LOG_LEVEL,_Fields.STATUS_CODE,_Fields.REPEAT};
+  private static final int __TIMESTAMP_ISSET_ID = 6;
+  private static final int __STATUSCODE_ISSET_ID = 7;
+  private static final int __REPEAT_ISSET_ID = 8;
+  private BitSet __isset_bit_vector = new BitSet(9);
+  private _Fields optionals[] = {_Fields.DSP_ID,_Fields.BID_ID,_Fields.IMP_ID,_Fields.MONITOR_KEY,_Fields.SUV,_Fields.AD_ID,_Fields.ADP_ID,_Fields.AD_SIZE,_Fields.AD_URL,_Fields.BID_FLOOR,_Fields.BID_PRICE,_Fields.SECOND_PRICE,_Fields.STATUS,_Fields.LATENCY,_Fields.TIMESTAMP,_Fields.LOG_TYPE,_Fields.LOG_TIME,_Fields.LOG_LEVEL,_Fields.STATUS_CODE,_Fields.REPEAT};
   public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
   static {
     Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
@@ -229,6 +235,8 @@ public class ExOperation implements org.apache.thrift.TBase<ExOperation, ExOpera
     tmpMap.put(_Fields.STATUS, new org.apache.thrift.meta_data.FieldMetaData("status", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
     tmpMap.put(_Fields.LATENCY, new org.apache.thrift.meta_data.FieldMetaData("latency", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I64)));
+    tmpMap.put(_Fields.TIMESTAMP, new org.apache.thrift.meta_data.FieldMetaData("timestamp", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I64)));
     tmpMap.put(_Fields.LOG_TYPE, new org.apache.thrift.meta_data.FieldMetaData("logType", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
@@ -283,6 +291,7 @@ public class ExOperation implements org.apache.thrift.TBase<ExOperation, ExOpera
       this.status = other.status;
     }
     this.latency = other.latency;
+    this.timestamp = other.timestamp;
     if (other.isSetLogType()) {
       this.logType = other.logType;
     }
@@ -322,6 +331,8 @@ public class ExOperation implements org.apache.thrift.TBase<ExOperation, ExOpera
     this.status = null;
     setLatencyIsSet(false);
     this.latency = 0;
+    setTimestampIsSet(false);
+    this.timestamp = 0;
     this.logType = null;
     this.logTime = null;
     this.logLevel = null;
@@ -661,6 +672,29 @@ public class ExOperation implements org.apache.thrift.TBase<ExOperation, ExOpera
     __isset_bit_vector.set(__LATENCY_ISSET_ID, value);
   }
 
+  public long getTimestamp() {
+    return this.timestamp;
+  }
+
+  public ExOperation setTimestamp(long timestamp) {
+    this.timestamp = timestamp;
+    setTimestampIsSet(true);
+    return this;
+  }
+
+  public void unsetTimestamp() {
+    __isset_bit_vector.clear(__TIMESTAMP_ISSET_ID);
+  }
+
+  /** Returns true if field timestamp is set (has been assigned a value) and false otherwise */
+  public boolean isSetTimestamp() {
+    return __isset_bit_vector.get(__TIMESTAMP_ISSET_ID);
+  }
+
+  public void setTimestampIsSet(boolean value) {
+    __isset_bit_vector.set(__TIMESTAMP_ISSET_ID, value);
+  }
+
   public String getLogType() {
     return this.logType;
   }
@@ -893,6 +927,14 @@ public class ExOperation implements org.apache.thrift.TBase<ExOperation, ExOpera
       }
       break;
 
+    case TIMESTAMP:
+      if (value == null) {
+        unsetTimestamp();
+      } else {
+        setTimestamp((Long)value);
+      }
+      break;
+
     case LOG_TYPE:
       if (value == null) {
         unsetLogType();
@@ -980,6 +1022,9 @@ public class ExOperation implements org.apache.thrift.TBase<ExOperation, ExOpera
     case LATENCY:
       return Long.valueOf(getLatency());
 
+    case TIMESTAMP:
+      return Long.valueOf(getTimestamp());
+
     case LOG_TYPE:
       return getLogType();
 
@@ -1034,6 +1079,8 @@ public class ExOperation implements org.apache.thrift.TBase<ExOperation, ExOpera
       return isSetStatus();
     case LATENCY:
       return isSetLatency();
+    case TIMESTAMP:
+      return isSetTimestamp();
     case LOG_TYPE:
       return isSetLogType();
     case LOG_TIME:
@@ -1184,6 +1231,15 @@ public class ExOperation implements org.apache.thrift.TBase<ExOperation, ExOpera
       if (!(this_present_latency && that_present_latency))
         return false;
       if (this.latency != that.latency)
+        return false;
+    }
+
+    boolean this_present_timestamp = true && this.isSetTimestamp();
+    boolean that_present_timestamp = true && that.isSetTimestamp();
+    if (this_present_timestamp || that_present_timestamp) {
+      if (!(this_present_timestamp && that_present_timestamp))
+        return false;
+      if (this.timestamp != that.timestamp)
         return false;
     }
 
@@ -1388,6 +1444,16 @@ public class ExOperation implements org.apache.thrift.TBase<ExOperation, ExOpera
         return lastComparison;
       }
     }
+    lastComparison = Boolean.valueOf(isSetTimestamp()).compareTo(typedOther.isSetTimestamp());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetTimestamp()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.timestamp, typedOther.timestamp);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
     lastComparison = Boolean.valueOf(isSetLogType()).compareTo(typedOther.isSetLogType());
     if (lastComparison != 0) {
       return lastComparison;
@@ -1571,6 +1637,12 @@ public class ExOperation implements org.apache.thrift.TBase<ExOperation, ExOpera
       if (!first) sb.append(", ");
       sb.append("latency:");
       sb.append(this.latency);
+      first = false;
+    }
+    if (isSetTimestamp()) {
+      if (!first) sb.append(", ");
+      sb.append("timestamp:");
+      sb.append(this.timestamp);
       first = false;
     }
     if (isSetLogType()) {
@@ -1771,7 +1843,15 @@ public class ExOperation implements org.apache.thrift.TBase<ExOperation, ExOpera
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 15: // LOG_TYPE
+          case 15: // TIMESTAMP
+            if (schemeField.type == org.apache.thrift.protocol.TType.I64) {
+              struct.timestamp = iprot.readI64();
+              struct.setTimestampIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
+          case 16: // LOG_TYPE
             if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
               struct.logType = iprot.readString();
               struct.setLogTypeIsSet(true);
@@ -1779,7 +1859,7 @@ public class ExOperation implements org.apache.thrift.TBase<ExOperation, ExOpera
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 16: // LOG_TIME
+          case 17: // LOG_TIME
             if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
               struct.logTime = iprot.readString();
               struct.setLogTimeIsSet(true);
@@ -1787,7 +1867,7 @@ public class ExOperation implements org.apache.thrift.TBase<ExOperation, ExOpera
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 17: // LOG_LEVEL
+          case 18: // LOG_LEVEL
             if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
               struct.logLevel = iprot.readString();
               struct.setLogLevelIsSet(true);
@@ -1795,7 +1875,7 @@ public class ExOperation implements org.apache.thrift.TBase<ExOperation, ExOpera
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 18: // STATUS_CODE
+          case 19: // STATUS_CODE
             if (schemeField.type == org.apache.thrift.protocol.TType.I64) {
               struct.statusCode = iprot.readI64();
               struct.setStatusCodeIsSet(true);
@@ -1803,7 +1883,7 @@ public class ExOperation implements org.apache.thrift.TBase<ExOperation, ExOpera
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 19: // REPEAT
+          case 20: // REPEAT
             if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
               struct.repeat = iprot.readI32();
               struct.setRepeatIsSet(true);
@@ -1912,6 +1992,11 @@ public class ExOperation implements org.apache.thrift.TBase<ExOperation, ExOpera
         oprot.writeI64(struct.latency);
         oprot.writeFieldEnd();
       }
+      if (struct.isSetTimestamp()) {
+        oprot.writeFieldBegin(TIMESTAMP_FIELD_DESC);
+        oprot.writeI64(struct.timestamp);
+        oprot.writeFieldEnd();
+      }
       if (struct.logType != null) {
         if (struct.isSetLogType()) {
           oprot.writeFieldBegin(LOG_TYPE_FIELD_DESC);
@@ -2003,22 +2088,25 @@ public class ExOperation implements org.apache.thrift.TBase<ExOperation, ExOpera
       if (struct.isSetLatency()) {
         optionals.set(13);
       }
-      if (struct.isSetLogType()) {
+      if (struct.isSetTimestamp()) {
         optionals.set(14);
       }
-      if (struct.isSetLogTime()) {
+      if (struct.isSetLogType()) {
         optionals.set(15);
       }
-      if (struct.isSetLogLevel()) {
+      if (struct.isSetLogTime()) {
         optionals.set(16);
       }
-      if (struct.isSetStatusCode()) {
+      if (struct.isSetLogLevel()) {
         optionals.set(17);
       }
-      if (struct.isSetRepeat()) {
+      if (struct.isSetStatusCode()) {
         optionals.set(18);
       }
-      oprot.writeBitSet(optionals, 19);
+      if (struct.isSetRepeat()) {
+        optionals.set(19);
+      }
+      oprot.writeBitSet(optionals, 20);
       if (struct.isSetDspID()) {
         oprot.writeI32(struct.dspID);
       }
@@ -2061,6 +2149,9 @@ public class ExOperation implements org.apache.thrift.TBase<ExOperation, ExOpera
       if (struct.isSetLatency()) {
         oprot.writeI64(struct.latency);
       }
+      if (struct.isSetTimestamp()) {
+        oprot.writeI64(struct.timestamp);
+      }
       if (struct.isSetLogType()) {
         oprot.writeString(struct.logType);
       }
@@ -2081,7 +2172,7 @@ public class ExOperation implements org.apache.thrift.TBase<ExOperation, ExOpera
     @Override
     public void read(org.apache.thrift.protocol.TProtocol prot, ExOperation struct) throws org.apache.thrift.TException {
       TTupleProtocol iprot = (TTupleProtocol) prot;
-      BitSet incoming = iprot.readBitSet(19);
+      BitSet incoming = iprot.readBitSet(20);
       if (incoming.get(0)) {
         struct.dspID = iprot.readI32();
         struct.setDspIDIsSet(true);
@@ -2139,22 +2230,26 @@ public class ExOperation implements org.apache.thrift.TBase<ExOperation, ExOpera
         struct.setLatencyIsSet(true);
       }
       if (incoming.get(14)) {
+        struct.timestamp = iprot.readI64();
+        struct.setTimestampIsSet(true);
+      }
+      if (incoming.get(15)) {
         struct.logType = iprot.readString();
         struct.setLogTypeIsSet(true);
       }
-      if (incoming.get(15)) {
+      if (incoming.get(16)) {
         struct.logTime = iprot.readString();
         struct.setLogTimeIsSet(true);
       }
-      if (incoming.get(16)) {
+      if (incoming.get(17)) {
         struct.logLevel = iprot.readString();
         struct.setLogLevelIsSet(true);
       }
-      if (incoming.get(17)) {
+      if (incoming.get(18)) {
         struct.statusCode = iprot.readI64();
         struct.setStatusCodeIsSet(true);
       }
-      if (incoming.get(18)) {
+      if (incoming.get(19)) {
         struct.repeat = iprot.readI32();
         struct.setRepeatIsSet(true);
       }

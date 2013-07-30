@@ -11,6 +11,7 @@ import com.sohu.adrd.data.common.AdrdDataUtil;
 import com.sohu.adrd.data.common.FormatResult;
 import com.sohu.adrd.data.common.LogSchema;
 import com.sohu.adrd.data.common.Util;
+import com.sohu.adrd.data.sessionlog.thrift.operation.CountinfoOperation;
 import com.sohu.adrd.data.sessionlog.thrift.operation.ExOperation;
 import com.sohu.adrd.data.sessionlog.thrift.operation.ExOperation._Fields;;
 
@@ -45,19 +46,26 @@ public class ExMaker {
 			};
 		}
 		
+		verifiers[indexOf("DSPID")] = new RangeVerifier(0, Integer.MAX_VALUE);
+		verifiers[indexOf("BIDID")] = new StrlenVerifier(1, 63);
+		verifiers[indexOf("IMPID")] = new StrlenVerifier(1, 255);
+		verifiers[indexOf("MONITORKEY")] = new StrlenVerifier(25, 25);
 		
-		verifiers[indexOf("ADID")] = new StrlenVerifier(256);
-		verifiers[indexOf("ADP_Y")] = new RangeVerifier(0, 65535);
-		verifiers[indexOf("BROWSER")] = new Verifier() {
-			public boolean isValid(Object... objects) {
-				String value = (String) objects[0];
-				if (value.length() <= 64 && !value.contains(" ")) {
-					return true;
-				}
-				return false;
-			}
-		};
-		verifiers[indexOf("REQTYPE")] = new EnumVerifier("view","click","err","arrive","reach");
+		verifiers[indexOf("SUV")] = new StrlenVerifier(16, 16);
+		verifiers[indexOf("ADID")] = new StrlenVerifier(1, 63);
+		verifiers[indexOf("ADPID")] = new StrlenVerifier(1, 63);
+		verifiers[indexOf("ADSIZE")] = new StrlenVerifier(0, 99999999);
+		
+	
+		verifiers[indexOf("BIDFLOOR")] = new RangeVerifier(0, Integer.MAX_VALUE);
+		verifiers[indexOf("BIDPRICE")] = new RangeVerifier(1, Integer.MAX_VALUE);
+		verifiers[indexOf("SECONDPRICE")] = new RangeVerifier(1, Integer.MAX_VALUE);
+		verifiers[indexOf("STATUS")] = new EnumVerifier("SUCCESS","NOTEXIST","NOTAUDIT","SIZEERROR","TIMEOUT","LOWPRICE","OTHER");
+		
+		verifiers[indexOf("LATENCY")] = new RangeVerifier(0L, Long.MAX_VALUE);
+		verifiers[indexOf("LOGTYPE")] = new EnumVerifier("WIN","BID","GIVEUP","SEND");
+		
+		
 
 	}
 
@@ -136,9 +144,12 @@ public class ExMaker {
 			}
 		}
 		return ex;
-
 	}
 	
+	private static void fix(ExOperation ex) {
+		
+		
+	}
 	public static void setError(ExOperation ex, int index) {
 		long status = ex.getStatusCode();
 		ex.setStatusCode(status | (1L << index));

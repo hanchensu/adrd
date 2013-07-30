@@ -179,6 +179,8 @@ public class CountinfoMaker {
 
 	}
 	
+	
+	
 	public static void setError(CountinfoOperation countinfo, int index) {
 		long status = countinfo.getStatusCode();
 		countinfo.setStatusCode(status | (1L << index));
