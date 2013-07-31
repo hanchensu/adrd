@@ -6,20 +6,14 @@ Created on Jun 24, 2013
 import codecs
 import string
 
-fin = codecs.open('D:/worktmp/video/0628/201209',encoding='utf-8')
-fout = open('D:/worktmp/video/0628/search-count-09', 'w')
-searchCnt={}
+fin = codecs.open('D:/worktmp/video/0731/forecastTeam_used.txt',encoding='utf-8')
+fout = open('D:/worktmp/video/0731/sql', 'w')
+ 
+rowNum = 0
+sql = ""
 for line in fin:
-    key=line.split("\t")[0]
-    value=line.split("\t")[1]
-    if(key in searchCnt):
-        searchCnt[key] += string.atoi(value);
-    else:
-        searchCnt[key] = string.atoi(value);
-    #print key+":"+value
-fin.close()
-
-for key,value in searchCnt.items():
-    print key+'\t'+str(value)
-    fout.write(key+'\t'+str(value)+'\n')
-fout.close()
+    rowNum = rowNum + 1
+    if rowNum %4 == 1:
+        sql += "ALBUM_ID = " + line[0:len(line)-2] + " OR "
+ 
+print sql

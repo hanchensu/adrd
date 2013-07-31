@@ -25,16 +25,16 @@ def avg(lst):
     return round(result,3)
 #     print round(result,3)
 
-interval_search = 3
-interval_count = 3
-interval_month = 30
+interval_search = 5
+interval_count = 5
+interval_month = 15
 album = []; #[[id,name,date]] unicode:unicode:str
 searchMap = {} #{(name,date):count} unicode:str:unicode
 countMap = {} #{(id,date):count} str:str:int
 search_count = [] #[name,[search],[count]] 
 
 #make album list
-fin = codecs.open('D:/worktmp/video/0701/album_used2.txt', encoding='GBK')
+fin = codecs.open('D:/worktmp/video/0731/album_used.txt', encoding='GBK')
 for line in fin:
     x = line.split()[:3]
     x[2] = datetime.datetime.strftime(datetime.datetime.strptime(x[2],'%Y/%m/%d'),'%Y%m%d')
@@ -49,7 +49,7 @@ fin.close()
 #     print x[2].__class__
 
 #make search map
-searchDir="D:/worktmp/video/0701/search"
+searchDir="D:/worktmp/video/0731/search"
 searchFiles = os.listdir(searchDir)
 
 for filename in searchFiles:
