@@ -84,7 +84,7 @@ public class Util {
 					resList.set(keyIndex, value);
 				}
 			}
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			return new FormatResult(null,"jsonFormatError");
 		}
 		
