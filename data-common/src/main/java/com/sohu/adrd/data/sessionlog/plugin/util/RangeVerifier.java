@@ -19,7 +19,6 @@ public class RangeVerifier implements Verifier{
 		
 		if(value.getClass() == java.lang.Integer.class) {
 			
-			
 			if((Integer)min <= (Integer)value && (Integer)value <= (Integer)max) {
 				return true;
 			}

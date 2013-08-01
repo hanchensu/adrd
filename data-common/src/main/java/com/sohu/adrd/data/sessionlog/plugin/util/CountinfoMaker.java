@@ -147,7 +147,7 @@ public class CountinfoMaker {
 					try {
 						int value = Integer.parseInt(valueStr);
 						countinfo.setFieldValue(field, value);
-						if(!verifiers[i].isValid(valueStr)) {
+						if(!verifiers[i].isValid(value)) {
 							setError(countinfo,i);
 						} 
 					} catch (NumberFormatException e) {
@@ -157,7 +157,7 @@ public class CountinfoMaker {
 					try {
 						long value = Long.parseLong(valueStr);
 						countinfo.setFieldValue(field, value);
-						if(!verifiers[i].isValid(valueStr)) {
+						if(!verifiers[i].isValid(value)) {
 							setError(countinfo,i);
 						} 
 					} catch (NumberFormatException e) {
