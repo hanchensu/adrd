@@ -193,6 +193,27 @@ public class AdrdDataUtil {
 		return length1 - length2;
 	}
 	
+	public static String prettyErr(long num,String[] schema) {
+		String res = "";
+		for(int i = 0; i < 64;i++) {
+			if((num & (1L << i)) != 0L) {
+				if(i < schema.length) {
+					res += i+":"+ LogSchema.COUNTINFO_SCHEMA[i]+"; ";
+				} else {
+					res += i+"; ";
+				}
+			}
+		}
+		if(Util.isBlank(res)) return "Normal";
+		return res;
+//		if(num == 0L) return "0";
+//		String binary = Long.toBinaryString(num);
+//		String res = "";
+//		for(int i = 0; i < 64 - binary.length(); i++) {
+//			res += "0";
+//		}
+//		return res + binary;
+	}
 	
 	public static byte[] serilize(CountinfoOperation adinfo) throws IOException {
 		TSerializer serializer = new TSerializer(new TBinaryProtocol.Factory());

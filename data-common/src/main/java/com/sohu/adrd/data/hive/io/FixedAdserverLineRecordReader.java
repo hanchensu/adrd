@@ -142,7 +142,7 @@ public class FixedAdserverLineRecordReader implements
 			
 			if(fs.strs!=null) {
 				CountinfoOperation countinfo = CountinfoMaker.makeCountinfo(fs.strs);
-				value.set(line+"\001"+formatCode+"\001"+prettyPrint(countinfo.statusCode));			
+				value.set(line+"\001"+formatCode+"\001"+AdrdDataUtil.prettyErr(countinfo.statusCode,LogSchema.COUNTINFO_SCHEMA));			
 			} else {
 				value.set(line+"\001"+formatCode+"\001"+"NoLogErr");
 			}
@@ -160,15 +160,6 @@ public class FixedAdserverLineRecordReader implements
 		return false;
 	}
 	
-	public String prettyPrint(long num) {
-		if(num == 0L) return "0";
-		String binary = Long.toBinaryString(num);
-		String res = "";
-		for(int i = 0; i < 64 - binary.length(); i++) {
-			res += "0";
-		}
-		return res + binary;
-	}
 
 	/**
 	 * Get the progress within the split

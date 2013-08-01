@@ -18,5 +18,9 @@ public class EnumVerifier implements Verifier {
 		Object value = objects[0];
 		return valids.contains(value);
 	}
-
+	
+	public static void main(String[] args) {
+		EnumVerifier verifier = new EnumVerifier(null,1,2);
+		System.out.println(verifier.isValid(null));
+	}
 }

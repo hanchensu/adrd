@@ -14,9 +14,11 @@ public class RangeVerifier implements Verifier{
 	
 	public boolean isValid(Object... objects) {
 		
-		Object value = objects[0].getClass();
+		Object value = objects[0];
+		
 		
 		if(value.getClass() == java.lang.Integer.class) {
+			
 			
 			if((Integer)min <= (Integer)value && (Integer)value <= (Integer)max) {
 				return true;

@@ -1,5 +1,8 @@
 package com.sohu.adrd.data.sessionlog.plugin.util;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -22,7 +25,7 @@ public class CountinfoMaker {
 			"latency", "monitorKey", "os", "refer", "region", "reqType",
 			"resolution", "supportFlash", "suv", "timestamp", "turn", "userAgent", "userIp",
 			"yyId",  "e", "c", "pageId", "advertiserId",
-			"jsVersion", "bidPrice", "bidType", "bidPrice2", "bidType2", "ctr",
+			"jsVersion", "bidPrice", "bidPrice2", "bidType", "bidType2", "ctr",
 			"ctr2", "eCPM", "eCPM2", "adgroupMK", "advertiserIdMK", "adScore",
 			"campaignIdMK", "edContent", "edStatus", "lineIdMK", "materialMK" };
 
@@ -48,12 +51,14 @@ public class CountinfoMaker {
 		defaults[indexOf("eCPM")] = 0.0;
 		defaults[indexOf("eCPM2")] = 0.0;
 
-		required[indexOf("ADTYPE")] = true;
+//		required[indexOf("ADTYPE")] = true;
 		required[indexOf("TIME")] = true;
 		required[indexOf("USERIP")] = true;
 		
 		for(int i = 0; i < verifiers.length; i++) {
+			
 			verifiers[i] = new Verifier() {
+				
 				public boolean isValid(Object... objects) {
 					return true;
 				}
@@ -62,7 +67,7 @@ public class CountinfoMaker {
 
 		verifiers[indexOf("ADID")] = new StrlenVerifier(256);
 		verifiers[indexOf("ADPID")] = verifiers[indexOf("YYID")] = new StrlenVerifier(32);
-		verifiers[indexOf("ADTYPE")] = new EnumVerifier("0","1","2","3","4","5","null");
+		verifiers[indexOf("ADTYPE")] = new EnumVerifier("0","1","2","3","4","5","6","null");
 		verifiers[indexOf("ADPOS")] = new RangeVerifier(0, 20);
 		verifiers[indexOf("ADP_X")] = new RangeVerifier(0, 2000);
 		verifiers[indexOf("ADP_Y")] = new RangeVerifier(0, 65535);
@@ -77,12 +82,13 @@ public class CountinfoMaker {
 		};
 		verifiers[indexOf("CLICK_X")] = verifiers[indexOf("CLICK_Y")] = new RangeVerifier(0, 2000);
 		verifiers[indexOf("CONTENT_URL")] = new StrlenVerifier(2048);
-		verifiers[indexOf("FREQ")] = new RangeVerifier(0, 256);
+		verifiers[indexOf("FREQ")] = new RangeVerifier(-1, 256);
 		verifiers[indexOf("GETURL")] = new StrlenVerifier(1024);
 		verifiers[indexOf("IMPRESSIONID")] = new StrlenVerifier(34);
 		verifiers[indexOf("LATENCY")] = new RangeVerifier(0L, 100000L);
 		verifiers[indexOf("OS")] = new Verifier() {
 			public boolean isValid(Object... objects) {
+				
 				String value = (String) objects[0];
 				if (value.length() <= 128 && !value.contains(":")
 						&& !value.contains("\t") && !value.contains(" ")) {
@@ -97,7 +103,7 @@ public class CountinfoMaker {
 		verifiers[indexOf("SUV")] = new StrlenVerifier(64);
 		verifiers[indexOf("USERAGENT")] = new StrlenVerifier(1024);
 		verifiers[indexOf("JS_VERSION")] = new StrlenVerifier(8);
-		verifiers[indexOf("BidType")] = verifiers[indexOf("BidType2")] = new EnumVerifier(0,1);
+//		verifiers[indexOf("BidType")] = verifiers[indexOf("BidType2")] = new EnumVerifier(1,2);
 
 	}
 
@@ -133,39 +139,35 @@ public class CountinfoMaker {
 						setError(countinfo,i);
 					}
 				} else if (type == TType.STRING) {
+					countinfo.setFieldValue(field, valueStr);
 					if(!verifiers[i].isValid(valueStr)) {
-						countinfo.setFieldValue(field, valueStr);
-					} else {
 						setError(countinfo,i);
-					}
+					} 
 				} else if (type == TType.I32) {
 					try {
 						int value = Integer.parseInt(valueStr);
-						if(!verifiers[i].isValid(value)) {
-							countinfo.setFieldValue(field, value);
-						} else {
+						countinfo.setFieldValue(field, value);
+						if(!verifiers[i].isValid(valueStr)) {
 							setError(countinfo,i);
-						}
+						} 
 					} catch (NumberFormatException e) {
 						setError(countinfo,i);
 					}
 				} else if (type == TType.I64) {
 					try {
 						long value = Long.parseLong(valueStr);
-						if(!verifiers[i].isValid(value)) {
-							countinfo.setFieldValue(field, value);
-						} else {
+						countinfo.setFieldValue(field, value);
+						if(!verifiers[i].isValid(valueStr)) {
 							setError(countinfo,i);
-						}
+						} 
 					} catch (NumberFormatException e) {
 						setError(countinfo,i);
 					}
 				} else if (type == TType.DOUBLE) {
 					try {
 						double value = Double.parseDouble(valueStr);
+						countinfo.setFieldValue(field, value);
 						if(!verifiers[i].isValid(value)) {
-							countinfo.setFieldValue(field, value);
-						} else {
 							setError(countinfo,i);
 						}
 					} catch (NumberFormatException e) {
@@ -193,7 +195,18 @@ public class CountinfoMaker {
 	}
 
 	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(new File("D:/worktmp/countinfo.txt")));
+		String str;
+		while ((str = br.readLine()) != null) {
+			System.out.println(str);
+			CountinfoOperation countinfo = CountinfoMaker.makeCountinfo(str);
+			//System.out.println(countinfo.bidType);
+			System.out.println(AdrdDataUtil.prettyErr(countinfo.statusCode,LogSchema.COUNTINFO_SCHEMA));
+			
+		}
 		
+		
+		br.close();
 	}
 
 }

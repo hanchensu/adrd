@@ -32,7 +32,7 @@ public class FixedCountinfoInputFormat extends FileInputFormat<LongWritable, Tex
 	public RecordReader<LongWritable, Text> getRecordReader(InputSplit split,
 			JobConf job, Reporter reporter) throws IOException {
 		
-		return new RawAdserverLineRecordReader(job, (FileSplit) split,LogSchema.COUNTINFO_SCHEMA);
+		return new FixedAdserverLineRecordReader(job, (FileSplit) split,LogSchema.COUNTINFO_SCHEMA);
 	}
 
 	protected boolean isSplitable(FileSystem fs, Path filename) {
