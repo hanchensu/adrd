@@ -103,7 +103,7 @@ public class ExMaker {
 						setError(ex,i);
 					}
 				} else if (type == TType.STRING) {
-					if(verifiers[i].isValid(valueStr)) {
+					if(!verifiers[i].isValid(valueStr)) {
 						ex.setFieldValue(field, valueStr);
 					} else {
 						setError(ex,i);
@@ -111,7 +111,7 @@ public class ExMaker {
 				} else if (type == TType.I32) {
 					try {
 						int value = Integer.parseInt(valueStr);
-						if(verifiers[i].isValid(value)) {
+						if(!verifiers[i].isValid(value)) {
 							ex.setFieldValue(field, value);
 						} else {
 							setError(ex,i);
@@ -122,7 +122,7 @@ public class ExMaker {
 				} else if (type == TType.I64) {
 					try {
 						long value = Long.parseLong(valueStr);
-						if(verifiers[i].isValid(value)) {
+						if(!verifiers[i].isValid(value)) {
 							ex.setFieldValue(field, value);
 						} else {
 							setError(ex,i);
@@ -133,7 +133,7 @@ public class ExMaker {
 				} else if (type == TType.DOUBLE) {
 					try {
 						double value = Double.parseDouble(valueStr);
-						if(verifiers[i].isValid(value)) {
+						if(!verifiers[i].isValid(value)) {
 							ex.setFieldValue(field, value);
 						} else {
 							setError(ex,i);

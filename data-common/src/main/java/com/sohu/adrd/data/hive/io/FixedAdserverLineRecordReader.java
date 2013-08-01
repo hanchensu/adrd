@@ -21,6 +21,10 @@ import org.apache.commons.logging.Log;
 
 import com.sohu.adrd.data.common.AdrdDataUtil;
 import com.sohu.adrd.data.common.FormatResult;
+import com.sohu.adrd.data.common.LogSchema;
+import com.sohu.adrd.data.sessionlog.plugin.util.CountinfoMaker;
+import com.sohu.adrd.data.sessionlog.thrift.operation.CountinfoOperation;
+import com.sohu.adrd.data.sessionlog.thrift.operation.CountinfoOperation._Fields;
 
 public class FixedAdserverLineRecordReader implements
 		RecordReader<LongWritable, Text> {
@@ -134,28 +138,14 @@ public class FixedAdserverLineRecordReader implements
 			
 			String line = value.toString();
 			FormatResult fs = AdrdDataUtil.format(line, schema);
+			String formatCode = fs.errorcode;
+			
 			if(fs.strs!=null) {
-//				value.set(line);
-				String attrs = "";
-				for(String attr:fs.strs) {
-					if(attr == null) {
-						attrs+="__NULL__"+"\001";    //hive treat java null as string 'null'
-					} else {
-						attrs+=attr+"\001";
-					}
-					
-				}
-				value.set(attrs+fs.errorcode+"\001"+line);
-				
+				CountinfoOperation countinfo = CountinfoMaker.makeCountinfo(fs.strs);
+				value.set(line+"\001"+formatCode+"\001"+prettyPrint(countinfo.statusCode));			
 			} else {
-				String attrs="";
-				for(int i=0; i < schema.length; i++) {
-					attrs+="__NULL__"+"\001";
-				}
-				value.set(attrs+fs.errorcode+"\001"+line);
+				value.set(line+"\001"+formatCode+"\001"+"NoLogErr");
 			}
-			
-			
 			
 			pos += newSize;
 			if (newSize < maxLineLength) {
@@ -168,6 +158,16 @@ public class FixedAdserverLineRecordReader implements
 		}
 
 		return false;
+	}
+	
+	public String prettyPrint(long num) {
+		if(num == 0L) return "0";
+		String binary = Long.toBinaryString(num);
+		String res = "";
+		for(int i = 0; i < 64 - binary.length(); i++) {
+			res += "0";
+		}
+		return res + binary;
 	}
 
 	/**

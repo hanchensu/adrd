@@ -133,7 +133,7 @@ public class CountinfoMaker {
 						setError(countinfo,i);
 					}
 				} else if (type == TType.STRING) {
-					if(verifiers[i].isValid(valueStr)) {
+					if(!verifiers[i].isValid(valueStr)) {
 						countinfo.setFieldValue(field, valueStr);
 					} else {
 						setError(countinfo,i);
@@ -141,7 +141,7 @@ public class CountinfoMaker {
 				} else if (type == TType.I32) {
 					try {
 						int value = Integer.parseInt(valueStr);
-						if(verifiers[i].isValid(value)) {
+						if(!verifiers[i].isValid(value)) {
 							countinfo.setFieldValue(field, value);
 						} else {
 							setError(countinfo,i);
@@ -152,7 +152,7 @@ public class CountinfoMaker {
 				} else if (type == TType.I64) {
 					try {
 						long value = Long.parseLong(valueStr);
-						if(verifiers[i].isValid(value)) {
+						if(!verifiers[i].isValid(value)) {
 							countinfo.setFieldValue(field, value);
 						} else {
 							setError(countinfo,i);
@@ -163,7 +163,7 @@ public class CountinfoMaker {
 				} else if (type == TType.DOUBLE) {
 					try {
 						double value = Double.parseDouble(valueStr);
-						if(verifiers[i].isValid(value)) {
+						if(!verifiers[i].isValid(value)) {
 							countinfo.setFieldValue(field, value);
 						} else {
 							setError(countinfo,i);
