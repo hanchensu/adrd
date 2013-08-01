@@ -20,14 +20,14 @@ import com.sohu.adrd.data.sessionlog.util.Processor;
 import com.sohu.adrd.data.sessionlog.util.ProcessorEntry;
 import com.sohu.adrd.data.sessionlog.util.ReuseMemoryBuffer;
 
-public class ExchageProcessor implements Processor {
+public class ExchangeProcessor implements Processor {
 
 	private TProtocol protocol;
 	private TMemoryInputTransport inputTransport;
 
 	private String pre;
 
-	public ExchageProcessor() {
+	public ExchangeProcessor() {
 		inputTransport = new TMemoryInputTransport();
 		protocol = new TBinaryProtocol(inputTransport);
 	}

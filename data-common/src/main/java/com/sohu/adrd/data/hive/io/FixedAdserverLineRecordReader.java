@@ -22,11 +22,11 @@ import org.apache.commons.logging.Log;
 import com.sohu.adrd.data.common.AdrdDataUtil;
 import com.sohu.adrd.data.common.FormatResult;
 
-public class AdserverLineRecordReader implements
+public class FixedAdserverLineRecordReader implements
 		RecordReader<LongWritable, Text> {
 
 	private static final Log LOG = LogFactory
-			.getLog(AdserverLineRecordReader.class.getName());
+			.getLog(FixedAdserverLineRecordReader.class.getName());
 
 	private CompressionCodecFactory compressionCodecs = null;
 	private long start;
@@ -58,7 +58,7 @@ public class AdserverLineRecordReader implements
 		}
 	}
 
-	public AdserverLineRecordReader(Configuration job, FileSplit split,
+	public FixedAdserverLineRecordReader(Configuration job, FileSplit split,
 			String[] schema) throws IOException {
 		this.schema = schema;
 		this.maxLineLength = job.getInt("mapred.linerecordreader.maxlength",
@@ -91,7 +91,7 @@ public class AdserverLineRecordReader implements
 		this.pos = start;
 	}
 
-	public AdserverLineRecordReader(InputStream in, long offset,
+	public FixedAdserverLineRecordReader(InputStream in, long offset,
 			long endOffset, int maxLineLength) {
 		this.maxLineLength = maxLineLength;
 		this.in = new LineReader(in);
@@ -100,7 +100,7 @@ public class AdserverLineRecordReader implements
 		this.end = endOffset;
 	}
 
-	public AdserverLineRecordReader(InputStream in, long offset,
+	public FixedAdserverLineRecordReader(InputStream in, long offset,
 			long endOffset, Configuration job) throws IOException {
 		this.maxLineLength = job.getInt("mapred.linerecordreader.maxlength",
 				Integer.MAX_VALUE);

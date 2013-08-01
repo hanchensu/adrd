@@ -23,16 +23,16 @@ import org.apache.hadoop.mapred.Reporter;
 import com.sohu.adrd.data.common.LogSchema;
 
 
-public class CountinfoInputFormat extends FileInputFormat<LongWritable, Text>
+public class FixedCountinfoInputFormat extends FileInputFormat<LongWritable, Text>
 {
 
-	private static final Log LOG = LogFactory.getLog(CountinfoInputFormat.class);
+	private static final Log LOG = LogFactory.getLog(FixedCountinfoInputFormat.class);
 
 	@Override
 	public RecordReader<LongWritable, Text> getRecordReader(InputSplit split,
 			JobConf job, Reporter reporter) throws IOException {
 		
-		return new AdserverLineRecordReader(job, (FileSplit) split,LogSchema.COUNTINFO_SCHEMA);
+		return new RawAdserverLineRecordReader(job, (FileSplit) split,LogSchema.COUNTINFO_SCHEMA);
 	}
 
 	protected boolean isSplitable(FileSystem fs, Path filename) {
