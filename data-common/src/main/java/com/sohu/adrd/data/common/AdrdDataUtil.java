@@ -1,5 +1,9 @@
 package com.sohu.adrd.data.common;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +12,7 @@ import org.apache.thrift.TException;
 import org.apache.thrift.TSerializer;
 import org.apache.thrift.protocol.TBinaryProtocol;
 
+import com.sohu.adrd.data.sessionlog.plugin.util.CountinfoMaker;
 import com.sohu.adrd.data.sessionlog.thrift.operation.CountinfoOperation;
 import com.sohu.adrd.data.sessionlog.thrift.operation.OperationType;
 
@@ -226,7 +231,19 @@ public class AdrdDataUtil {
 	
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(new File("D:/worktmp/countinfo.txt")));
+		String str;
+		while ((str = br.readLine()) != null) {
+			System.out.println(str);
+			for(String attr:AdrdDataUtil.format(str, LogSchema.COUNTINFO_SCHEMA).strs) {
+			System.out.println(attr);
+			}
+			
+		}
+		
+		
+		br.close();
 		
 	}
 	

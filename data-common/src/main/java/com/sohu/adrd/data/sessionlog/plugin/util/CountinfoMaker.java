@@ -199,9 +199,9 @@ public class CountinfoMaker {
 		String str;
 		while ((str = br.readLine()) != null) {
 			System.out.println(str);
+			System.out.println(AdrdDataUtil.format(str, LogSchema.COUNTINFO_SCHEMA).errorcode);
 			CountinfoOperation countinfo = CountinfoMaker.makeCountinfo(str);
-			//System.out.println(countinfo.bidType);
-			System.out.println(AdrdDataUtil.prettyErr(countinfo.statusCode,LogSchema.COUNTINFO_SCHEMA));
+
 			
 		}
 		

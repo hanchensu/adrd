@@ -14,10 +14,9 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import net.sf.json.JSONException;
-import net.sf.json.JSONObject;
 
 import org.apache.hadoop.io.BytesWritable;
+import org.json.JSONObject;
 
 public class Util {
 	private static ThreadLocal<SimpleDateFormat> Usformaters = new ThreadLocal<SimpleDateFormat>();
@@ -68,11 +67,8 @@ public class Util {
 		String jsonLog = log.substring(index);
 		
 		try{
-			JSONObject json = JSONObject.fromObject(jsonLog);
+			JSONObject json = new JSONObject(jsonLog);
 			
-			if(json == null) {
-				return new FormatResult(null, "jsonFormatError");
-			}
 			for(Iterator iter = json.keys();iter.hasNext();){
 				String key = (String)iter.next();
 				String value = json.getString(key);
