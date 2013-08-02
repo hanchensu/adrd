@@ -198,9 +198,9 @@ public class AdrdDataUtil {
 		for(int i = 0; i < 64;i++) {
 			if((num & (1L << i)) != 0L) {
 				if(i < schema.length) {
-					res += i+":"+ LogSchema.COUNTINFO_SCHEMA[i]+"; ";
+					res += i+":"+ LogSchema.COUNTINFO_SCHEMA[i]+";";
 				} else {
-					res += i+"; ";
+					res += i+";";
 				}
 			}
 		}
