@@ -10,6 +10,7 @@ import org.apache.pig.data.Tuple;
 import org.apache.thrift.TException;
 
 import com.sohu.adrd.data.common.Util;
+import com.sohu.adrd.data.sessionlog.thrift.operation.CMOperation;
 import com.sohu.adrd.data.sessionlog.thrift.operation.CountinfoOperation;
 import com.sohu.adrd.data.sessionlog.thrift.operation.ExOperation;
 import com.sohu.adrd.data.sessionlog.thrift.operation.PVOperation;
@@ -31,6 +32,7 @@ public class DataUtil {
 	public static final String CG_ACTION = "action";
 	public static final String CG_ERR = "err";
 	public static final String CG_EXCHANGE = "exchange";
+	public static final String CG_CM = "cookiemapping";
 
 	public static final String OPERATION_SPLIT = "\1";
 	public static final String OBJECT_SPLIT = "\2";
@@ -160,6 +162,23 @@ public class DataUtil {
 					}
 					list.add(CG_EXCHANGE, exchangeList);
 				}
+			} else if ( cg.equalsIgnoreCase(CG_CM)){
+				
+				data = (DataByteArray) value.get(index);
+				if (data != null && (length = data.size()) > 0) {
+					buffer = data.get();
+					protocol.getTransport().reset(buffer, 0, length);
+					ArrayList<CMOperation> opList = null;
+					while (protocol.getTransport().getBufferPosition() < length - 1) {
+						CMOperation operation = new CMOperation();
+						operation.read(protocol.getProtocol());
+						if (opList == null)
+							opList = new ArrayList<CMOperation>();
+						opList.add(operation);
+					}
+					list.add(CG_CM, opList);
+				}
+				
 			} else {
 				throw new UnsupportedOperationException("not supported cg:"
 						+ cg);

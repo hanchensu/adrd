@@ -25,6 +25,8 @@ public class LogSchema {
 			"TIME_STAMP", "TMODE", "TMP_HEIGHT", "TMP_WIDTH", "TURN",
 			"USER_AGENT", "USER_IP", "USER_REGION", "WIDTH", "YYID", "eCPM",
 			"eCPM2" };
+	
+	public static final String[] CM_SCHEMA = { "LogTime", "LogLevel", "EXTDATA","EXUID","MID","SUV","TAGS","Ver","YYID"};
 
 	public static final String[] EX_SCHEMA = { "LogTime", "LogLevel", "DSPID",
 			"BIDID", "IMPID", "MONITORKEY", "SUV", "ADID", "ADPID", "ADSIZE",

@@ -175,6 +175,7 @@ public class ExMaker {
 				setError(ex, 59);
 			}
 		}
+		
 		//set timestamp
 		SimpleDateFormat format = new SimpleDateFormat(
 				"yyyy-MM-dd HH:mm:ss,SSS");
@@ -183,6 +184,7 @@ public class ExMaker {
 			date = format.parse(ex.getLogTime());
 			ex.setTimestamp(date.getTime() / 1000L);
 		} catch (Exception e) {
+			ex.setTimestamp(1);
 			setError(ex, 58);
 		}
 		

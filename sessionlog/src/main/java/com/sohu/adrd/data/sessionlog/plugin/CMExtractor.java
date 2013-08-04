@@ -22,16 +22,15 @@ import org.apache.thrift.transport.TMemoryInputTransport;
 
 import com.sohu.adrd.data.common.AdrdDataUtil;
 import com.sohu.adrd.data.common.Util;
-import com.sohu.adrd.data.sessionlog.plugin.util.CountinfoMaker;
-import com.sohu.adrd.data.sessionlog.plugin.util.ExMaker;
-import com.sohu.adrd.data.sessionlog.thrift.operation.ExOperation;
+import com.sohu.adrd.data.sessionlog.plugin.util.CMMaker;
+import com.sohu.adrd.data.sessionlog.thrift.operation.CMOperation;
 import com.sohu.adrd.data.sessionlog.thrift.operation.OperationType;
 import com.sohu.adrd.data.sessionlog.util.Extractor;
 import com.sohu.adrd.data.sessionlog.util.ExtractorEntry;
 import com.sohu.adrd.data.sessionlog.util.ReuseMemoryBuffer;
 
 
-public class ExchangeExtractor implements Extractor {
+public class CMExtractor implements Extractor {
 	
 	
 	private TProtocol protocol;
@@ -39,7 +38,7 @@ public class ExchangeExtractor implements Extractor {
 	private ReuseMemoryBuffer transport;
 	private List<ExtractorEntry> entryList;
 	
-	public ExchangeExtractor() {
+	public CMExtractor() {
 		transport = new ReuseMemoryBuffer(2048);
 		protocol = new TBinaryProtocol(transport);
 		entryList = new ArrayList<ExtractorEntry>();
@@ -49,29 +48,28 @@ public class ExchangeExtractor implements Extractor {
 		transport.reuse();
 		entryList.clear();
 		
-		ExOperation ex = ExMaker.makeEx(strs);
+		CMOperation operation = CMMaker.makeCM(strs);
 		
-		String userkey = Util.isNotBlank(ex.getSuv()) ? ex.suv : "NulL";
-		
+		String userkey = AdrdDataUtil.makeUserId(operation.yyid, operation.suv, null, null);
 		
 		
 		ExtractorEntry entry = new ExtractorEntry();
 		entry.setUserKey(userkey);
-		entry.setTimestamp(ex.getTimestamp());
+		entry.setTimestamp(operation.getTimestamp());
 		
-		OperationType opType = OperationType.EXCHANGE;
+		OperationType opType = OperationType.CM;
 		
 		entry.setOperation(opType);
-		entry = writeFields(entry, ex);
+		entry = writeFields(entry, operation);
 		
 		entryList.add(entry);
 		offset = 0;
 		return entryList;
 	}
 	
-	public ExtractorEntry writeFields(ExtractorEntry entry, ExOperation info) {
+	public ExtractorEntry writeFields(ExtractorEntry entry, CMOperation operation) {
 		try {
-			info.write(protocol);
+			operation.write(protocol);
 		} catch (TException e) {
 		}
 		entry.setValue(transport.getArray(), offset, transport.length() - offset);
@@ -82,32 +80,7 @@ public class ExchangeExtractor implements Extractor {
 	
 	public static void main(String args[]) throws IOException {
 		
-		BufferedReader br = new BufferedReader(new FileReader(new File("D:/worktmp/countinfo.txt")));
-		String str;
-		while ((str = br.readLine()) != null) {
-			List<ExtractorEntry> entryList = new ExchangeExtractor().extract(new CountinfoFormator().format(str).strs);
-			System.out.println(CountinfoMaker.makeCountinfo(new CountinfoFormator().format(str)));
-			for(ExtractorEntry entry : entryList) {
-				System.out.println(entry.getOffset()+"\t"+entry.getLength());
-				
-				ByteArrayOutputStream buffer = null;
-				DataOutputStream output = null;
-				
-				if (output == null) {
-					buffer = new ByteArrayOutputStream(512);
-					output = new DataOutputStream(buffer);
-				}
-				
-				output.write(entry.getOperation().getOperateId());
-				output.writeLong(entry.getTimestamp());
-				output.write(entry.getData(), entry.getOffset(), entry.getLength());
-				
-				
-				System.out.println(entry.getUserKey()+"\t"+entry.getTimestamp()+"\t"+buffer.toByteArray().length);
-			}
-				
-		}
-		br.close();
+		
 	}
 	
 }

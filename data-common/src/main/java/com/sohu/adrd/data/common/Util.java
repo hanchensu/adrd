@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
 
 
 import org.apache.hadoop.io.BytesWritable;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Util {
@@ -86,6 +87,8 @@ public class Util {
 		
 		return new FormatResult(resList,"Normal");
 	}
+	
+	
 	
 	public static void trastoId(long v, BytesWritable data) {
 		byte writeBuffer[] = null;
@@ -174,23 +177,16 @@ public class Util {
 	
 	
 	public static void main(String args[]) throws IOException {
-//		BufferedReader br = new BufferedReader(new FileReader(new File("D:/worktmp/gtr.txt")));
-//		String regex = "\"([\\p{Print}]*?)\"[\\p{Blank}]*:[\\p{Blank}]*((\"[\\p{Print}]*?\")|([\\p{Print}]*?))[\\p{Blank}]*[,\\}]";
-//		Pattern pattern = Pattern.compile(regex);
-//		
-//		String str;
-//		while ((str = br.readLine()) != null) {
-//			Matcher match = pattern.matcher(str);
-//			while (match.find()) {
-//				String key = match.group(1);
-//				String quoted = match.group(3);
-//				String value = quoted != null ? quoted.substring(1, quoted.length()-1):match.group(4);
-//				key = key.trim();
-//				value = value.trim();
-//				System.out.print("\""+key+"\",");
-//			}
-//		}
-//		br.close();
-		System.out.println(indexOf("LogTime", LogSchema.COUNTINFO_SCHEMA));
+		BufferedReader br = new BufferedReader(new FileReader(new File("D:/worktmp/cm.txt")));
+		String str;
+		while ((str = br.readLine()) != null) {
+			List<String> res = AdrdDataUtil.format(str, LogSchema.CM_SCHEMA).strs;
+			for(String attr : res) {
+				System.out.println(attr);
+			}
+		}
+		br.close();
+				
+
 	}
 }

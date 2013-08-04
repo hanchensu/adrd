@@ -31,7 +31,7 @@ import com.sohu.adrd.data.sessionlog.util.ExtractorEntry;
 import com.sohu.adrd.data.sessionlog.util.ReuseMemoryBuffer;
 
 
-public class ExchangeExtractor implements Extractor {
+public class CMProcessor implements Extractor {
 	
 	
 	private TProtocol protocol;
@@ -39,7 +39,7 @@ public class ExchangeExtractor implements Extractor {
 	private ReuseMemoryBuffer transport;
 	private List<ExtractorEntry> entryList;
 	
-	public ExchangeExtractor() {
+	public CMProcessor() {
 		transport = new ReuseMemoryBuffer(2048);
 		protocol = new TBinaryProtocol(transport);
 		entryList = new ArrayList<ExtractorEntry>();
@@ -53,11 +53,23 @@ public class ExchangeExtractor implements Extractor {
 		
 		String userkey = Util.isNotBlank(ex.getSuv()) ? ex.suv : "NulL";
 		
+		String timestr = ex.getLogTime();
 		
+		long timestamp = 1L;
+		
+		SimpleDateFormat format = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm:ss,SSS");
+		Date date;
+		try {
+			date = format.parse(timestr);
+			timestamp = date.getTime() / 1000L;
+		} catch (ParseException e) {
+			
+		}
 		
 		ExtractorEntry entry = new ExtractorEntry();
 		entry.setUserKey(userkey);
-		entry.setTimestamp(ex.getTimestamp());
+		entry.setTimestamp(timestamp);
 		
 		OperationType opType = OperationType.EXCHANGE;
 		
@@ -85,7 +97,7 @@ public class ExchangeExtractor implements Extractor {
 		BufferedReader br = new BufferedReader(new FileReader(new File("D:/worktmp/countinfo.txt")));
 		String str;
 		while ((str = br.readLine()) != null) {
-			List<ExtractorEntry> entryList = new ExchangeExtractor().extract(new CountinfoFormator().format(str).strs);
+			List<ExtractorEntry> entryList = new CMProcessor().extract(new CountinfoFormator().format(str).strs);
 			System.out.println(CountinfoMaker.makeCountinfo(new CountinfoFormator().format(str)));
 			for(ExtractorEntry entry : entryList) {
 				System.out.println(entry.getOffset()+"\t"+entry.getLength());
