@@ -102,7 +102,7 @@ public class CMMaker {
 		while ((str = br.readLine()) != null) {
 			System.out.println(str);
 			CMOperation cm = CMMaker.makeCM(str);
-			System.out.println(cm.getTimestamp());
+			System.out.println(cm.exUID+" "+cm.mID);
 			for(String tag : cm.tags) {
 				System.out.println(tag);
 			}
