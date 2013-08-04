@@ -49,6 +49,7 @@ public class CMMaker {
 	public static CMOperation makeCM(List<String> strs) {
 		
 		CMOperation operation = new CMOperation();
+		operation.setRepeat(1);
 
 		if (strs != null) {
 			for (int i = 0; i < LogSchema.CM_SCHEMA.length; i++) {

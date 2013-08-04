@@ -87,7 +87,9 @@ public class ExMaker {
 	public static ExOperation makeEx(List<String> strs) {
 
 		ExOperation ex = new ExOperation();
-
+		
+		ex.setRepeat(1);
+		
 		if (strs != null) {
 			for (int i = 0; i < LogSchema.EX_SCHEMA.length; i++) {
 

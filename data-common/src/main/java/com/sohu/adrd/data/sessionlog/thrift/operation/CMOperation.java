@@ -40,6 +40,7 @@ public class CMOperation implements org.apache.thrift.TBase<CMOperation, CMOpera
   private static final org.apache.thrift.protocol.TField TIMESTAMP_FIELD_DESC = new org.apache.thrift.protocol.TField("timestamp", org.apache.thrift.protocol.TType.I64, (short)8);
   private static final org.apache.thrift.protocol.TField LOG_TIME_FIELD_DESC = new org.apache.thrift.protocol.TField("logTime", org.apache.thrift.protocol.TType.STRING, (short)9);
   private static final org.apache.thrift.protocol.TField LOG_LEVEL_FIELD_DESC = new org.apache.thrift.protocol.TField("logLevel", org.apache.thrift.protocol.TType.STRING, (short)10);
+  private static final org.apache.thrift.protocol.TField REPEAT_FIELD_DESC = new org.apache.thrift.protocol.TField("repeat", org.apache.thrift.protocol.TType.I32, (short)11);
 
   private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
   static {
@@ -57,6 +58,7 @@ public class CMOperation implements org.apache.thrift.TBase<CMOperation, CMOpera
   public long timestamp; // optional
   public String logTime; // optional
   public String logLevel; // optional
+  public int repeat; // optional
 
   /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
   public enum _Fields implements org.apache.thrift.TFieldIdEnum {
@@ -69,7 +71,8 @@ public class CMOperation implements org.apache.thrift.TBase<CMOperation, CMOpera
     YYID((short)7, "yyid"),
     TIMESTAMP((short)8, "timestamp"),
     LOG_TIME((short)9, "logTime"),
-    LOG_LEVEL((short)10, "logLevel");
+    LOG_LEVEL((short)10, "logLevel"),
+    REPEAT((short)11, "repeat");
 
     private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
@@ -104,6 +107,8 @@ public class CMOperation implements org.apache.thrift.TBase<CMOperation, CMOpera
           return LOG_TIME;
         case 10: // LOG_LEVEL
           return LOG_LEVEL;
+        case 11: // REPEAT
+          return REPEAT;
         default:
           return null;
       }
@@ -145,8 +150,9 @@ public class CMOperation implements org.apache.thrift.TBase<CMOperation, CMOpera
 
   // isset id assignments
   private static final int __TIMESTAMP_ISSET_ID = 0;
-  private BitSet __isset_bit_vector = new BitSet(1);
-  private _Fields optionals[] = {_Fields.EXT_DATA,_Fields.EX_UID,_Fields.M_ID,_Fields.SUV,_Fields.TAGS,_Fields.VER,_Fields.YYID,_Fields.TIMESTAMP,_Fields.LOG_TIME,_Fields.LOG_LEVEL};
+  private static final int __REPEAT_ISSET_ID = 1;
+  private BitSet __isset_bit_vector = new BitSet(2);
+  private _Fields optionals[] = {_Fields.EXT_DATA,_Fields.EX_UID,_Fields.M_ID,_Fields.SUV,_Fields.TAGS,_Fields.VER,_Fields.YYID,_Fields.TIMESTAMP,_Fields.LOG_TIME,_Fields.LOG_LEVEL,_Fields.REPEAT};
   public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
   static {
     Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
@@ -171,6 +177,8 @@ public class CMOperation implements org.apache.thrift.TBase<CMOperation, CMOpera
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
     tmpMap.put(_Fields.LOG_LEVEL, new org.apache.thrift.meta_data.FieldMetaData("logLevel", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+    tmpMap.put(_Fields.REPEAT, new org.apache.thrift.meta_data.FieldMetaData("repeat", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
     metaDataMap = Collections.unmodifiableMap(tmpMap);
     org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(CMOperation.class, metaDataMap);
   }
@@ -216,6 +224,7 @@ public class CMOperation implements org.apache.thrift.TBase<CMOperation, CMOpera
     if (other.isSetLogLevel()) {
       this.logLevel = other.logLevel;
     }
+    this.repeat = other.repeat;
   }
 
   public CMOperation deepCopy() {
@@ -235,6 +244,8 @@ public class CMOperation implements org.apache.thrift.TBase<CMOperation, CMOpera
     this.timestamp = 0;
     this.logTime = null;
     this.logLevel = null;
+    setRepeatIsSet(false);
+    this.repeat = 0;
   }
 
   public String getExtData() {
@@ -491,6 +502,29 @@ public class CMOperation implements org.apache.thrift.TBase<CMOperation, CMOpera
     }
   }
 
+  public int getRepeat() {
+    return this.repeat;
+  }
+
+  public CMOperation setRepeat(int repeat) {
+    this.repeat = repeat;
+    setRepeatIsSet(true);
+    return this;
+  }
+
+  public void unsetRepeat() {
+    __isset_bit_vector.clear(__REPEAT_ISSET_ID);
+  }
+
+  /** Returns true if field repeat is set (has been assigned a value) and false otherwise */
+  public boolean isSetRepeat() {
+    return __isset_bit_vector.get(__REPEAT_ISSET_ID);
+  }
+
+  public void setRepeatIsSet(boolean value) {
+    __isset_bit_vector.set(__REPEAT_ISSET_ID, value);
+  }
+
   public void setFieldValue(_Fields field, Object value) {
     switch (field) {
     case EXT_DATA:
@@ -573,6 +607,14 @@ public class CMOperation implements org.apache.thrift.TBase<CMOperation, CMOpera
       }
       break;
 
+    case REPEAT:
+      if (value == null) {
+        unsetRepeat();
+      } else {
+        setRepeat((Integer)value);
+      }
+      break;
+
     }
   }
 
@@ -608,6 +650,9 @@ public class CMOperation implements org.apache.thrift.TBase<CMOperation, CMOpera
     case LOG_LEVEL:
       return getLogLevel();
 
+    case REPEAT:
+      return Integer.valueOf(getRepeat());
+
     }
     throw new IllegalStateException();
   }
@@ -639,6 +684,8 @@ public class CMOperation implements org.apache.thrift.TBase<CMOperation, CMOpera
       return isSetLogTime();
     case LOG_LEVEL:
       return isSetLogLevel();
+    case REPEAT:
+      return isSetRepeat();
     }
     throw new IllegalStateException();
   }
@@ -743,6 +790,15 @@ public class CMOperation implements org.apache.thrift.TBase<CMOperation, CMOpera
       if (!(this_present_logLevel && that_present_logLevel))
         return false;
       if (!this.logLevel.equals(that.logLevel))
+        return false;
+    }
+
+    boolean this_present_repeat = true && this.isSetRepeat();
+    boolean that_present_repeat = true && that.isSetRepeat();
+    if (this_present_repeat || that_present_repeat) {
+      if (!(this_present_repeat && that_present_repeat))
+        return false;
+      if (this.repeat != that.repeat)
         return false;
     }
 
@@ -862,6 +918,16 @@ public class CMOperation implements org.apache.thrift.TBase<CMOperation, CMOpera
         return lastComparison;
       }
     }
+    lastComparison = Boolean.valueOf(isSetRepeat()).compareTo(typedOther.isSetRepeat());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetRepeat()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.repeat, typedOther.repeat);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
     return 0;
   }
 
@@ -975,6 +1041,12 @@ public class CMOperation implements org.apache.thrift.TBase<CMOperation, CMOpera
       } else {
         sb.append(this.logLevel);
       }
+      first = false;
+    }
+    if (isSetRepeat()) {
+      if (!first) sb.append(", ");
+      sb.append("repeat:");
+      sb.append(this.repeat);
       first = false;
     }
     sb.append(")");
@@ -1111,6 +1183,14 @@ public class CMOperation implements org.apache.thrift.TBase<CMOperation, CMOpera
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
+          case 11: // REPEAT
+            if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
+              struct.repeat = iprot.readI32();
+              struct.setRepeatIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
           default:
             org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
         }
@@ -1201,6 +1281,11 @@ public class CMOperation implements org.apache.thrift.TBase<CMOperation, CMOpera
           oprot.writeFieldEnd();
         }
       }
+      if (struct.isSetRepeat()) {
+        oprot.writeFieldBegin(REPEAT_FIELD_DESC);
+        oprot.writeI32(struct.repeat);
+        oprot.writeFieldEnd();
+      }
       oprot.writeFieldStop();
       oprot.writeStructEnd();
     }
@@ -1249,7 +1334,10 @@ public class CMOperation implements org.apache.thrift.TBase<CMOperation, CMOpera
       if (struct.isSetLogLevel()) {
         optionals.set(9);
       }
-      oprot.writeBitSet(optionals, 10);
+      if (struct.isSetRepeat()) {
+        optionals.set(10);
+      }
+      oprot.writeBitSet(optionals, 11);
       if (struct.isSetExtData()) {
         oprot.writeString(struct.extData);
       }
@@ -1286,12 +1374,15 @@ public class CMOperation implements org.apache.thrift.TBase<CMOperation, CMOpera
       if (struct.isSetLogLevel()) {
         oprot.writeString(struct.logLevel);
       }
+      if (struct.isSetRepeat()) {
+        oprot.writeI32(struct.repeat);
+      }
     }
 
     @Override
     public void read(org.apache.thrift.protocol.TProtocol prot, CMOperation struct) throws org.apache.thrift.TException {
       TTupleProtocol iprot = (TTupleProtocol) prot;
-      BitSet incoming = iprot.readBitSet(10);
+      BitSet incoming = iprot.readBitSet(11);
       if (incoming.get(0)) {
         struct.extData = iprot.readString();
         struct.setExtDataIsSet(true);
@@ -1340,6 +1431,10 @@ public class CMOperation implements org.apache.thrift.TBase<CMOperation, CMOpera
       if (incoming.get(9)) {
         struct.logLevel = iprot.readString();
         struct.setLogLevelIsSet(true);
+      }
+      if (incoming.get(10)) {
+        struct.repeat = iprot.readI32();
+        struct.setRepeatIsSet(true);
       }
     }
   }

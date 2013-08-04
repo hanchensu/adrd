@@ -123,6 +123,8 @@ public class CountinfoMaker {
 	public static CountinfoOperation makeCountinfo(List<String> strs) {
 
 		CountinfoOperation countinfo = new CountinfoOperation();
+		
+		countinfo.setRepeat(1);
 
 		if (strs != null) {
 			for (int i = 0; i < LogSchema.COUNTINFO_SCHEMA.length; i++) {
