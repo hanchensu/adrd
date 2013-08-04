@@ -12,7 +12,9 @@ import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.thrift.TException;
@@ -22,104 +24,83 @@ import org.apache.thrift.transport.TMemoryInputTransport;
 
 import com.sohu.adrd.data.common.AdrdDataUtil;
 import com.sohu.adrd.data.common.Util;
-import com.sohu.adrd.data.sessionlog.plugin.util.CountinfoMaker;
-import com.sohu.adrd.data.sessionlog.plugin.util.ExMaker;
-import com.sohu.adrd.data.sessionlog.thrift.operation.ExOperation;
+import com.sohu.adrd.data.sessionlog.thrift.operation.CMOperation;
 import com.sohu.adrd.data.sessionlog.thrift.operation.OperationType;
 import com.sohu.adrd.data.sessionlog.util.Extractor;
 import com.sohu.adrd.data.sessionlog.util.ExtractorEntry;
+import com.sohu.adrd.data.sessionlog.util.Processor;
+import com.sohu.adrd.data.sessionlog.util.ProcessorEntry;
 import com.sohu.adrd.data.sessionlog.util.ReuseMemoryBuffer;
 
 
-public class CMProcessor implements Extractor {
+public class CMProcessor implements Processor {
 	
 	
 	private TProtocol protocol;
-	private int offset = 0;	
-	private ReuseMemoryBuffer transport;
-	private List<ExtractorEntry> entryList;
-	
+	private TMemoryInputTransport inputTransport;
+
+	private String pre;
+
 	public CMProcessor() {
-		transport = new ReuseMemoryBuffer(2048);
-		protocol = new TBinaryProtocol(transport);
-		entryList = new ArrayList<ExtractorEntry>();
+		inputTransport = new TMemoryInputTransport();
+		protocol = new TBinaryProtocol(inputTransport);
 	}
-	
-	public List<ExtractorEntry> extract(List<String> strs) {
-		transport.reuse();
-		entryList.clear();
-		
-		ExOperation ex = ExMaker.makeEx(strs);
-		
-		String userkey = Util.isNotBlank(ex.getSuv()) ? ex.suv : "NulL";
-		
-		String timestr = ex.getLogTime();
-		
-		long timestamp = 1L;
-		
-		SimpleDateFormat format = new SimpleDateFormat(
-				"yyyy-MM-dd HH:mm:ss,SSS");
-		Date date;
-		try {
-			date = format.parse(timestr);
-			timestamp = date.getTime() / 1000L;
-		} catch (ParseException e) {
-			
-		}
-		
-		ExtractorEntry entry = new ExtractorEntry();
-		entry.setUserKey(userkey);
-		entry.setTimestamp(timestamp);
-		
-		OperationType opType = OperationType.EXCHANGE;
-		
-		entry.setOperation(opType);
-		entry = writeFields(entry, ex);
-		
-		entryList.add(entry);
-		offset = 0;
-		return entryList;
+
+	public List<OperationType> acceptTypes() {
+		return Arrays.asList(OperationType.CM);
 	}
-	
-	public ExtractorEntry writeFields(ExtractorEntry entry, ExOperation info) {
-		try {
-			info.write(protocol);
-		} catch (TException e) {
-		}
-		entry.setValue(transport.getArray(), offset, transport.length() - offset);
-		offset = transport.length();
-		return entry;
-	}
-	
-	
-	public static void main(String args[]) throws IOException {
-		
-		BufferedReader br = new BufferedReader(new FileReader(new File("D:/worktmp/countinfo.txt")));
-		String str;
-		while ((str = br.readLine()) != null) {
-			List<ExtractorEntry> entryList = new CMProcessor().extract(new CountinfoFormator().format(str).strs);
-			System.out.println(CountinfoMaker.makeCountinfo(new CountinfoFormator().format(str)));
-			for(ExtractorEntry entry : entryList) {
-				System.out.println(entry.getOffset()+"\t"+entry.getLength());
-				
-				ByteArrayOutputStream buffer = null;
-				DataOutputStream output = null;
-				
-				if (output == null) {
-					buffer = new ByteArrayOutputStream(512);
-					output = new DataOutputStream(buffer);
+
+	public Iterator<ProcessorEntry> process(Iterator<ProcessorEntry> it) {
+		List<ProcessorEntry> pelist = new ArrayList<ProcessorEntry>();
+		CMOperation info = new CMOperation();
+
+		while (it.hasNext()) {
+			ProcessorEntry entry = it.next();
+			inputTransport.reset(entry.getData(), entry.getOffset(),
+					entry.getLength());
+			try {
+
+				info.clear();
+				info.read(protocol);
+
+				if (pelist.size() == 0) {
+					entry.setTag("NORMAL");
+					pelist.add(entry);
+					pre = info.toString() + entry.getTimestamp(); // logtime and log content
+				} else {
+					String str = info.toString() + entry.getTimestamp();
+					if (str.equals(pre)) { // duplicate in flume
+						lastAddOne(pelist); // last entry's repeat in pelist add one
+					} else {
+						entry.setTag("NORMAL");
+						pelist.add(entry);
+						pre = info.toString() + entry.getTimestamp();
+					}
+
 				}
-				
-				output.write(entry.getOperation().getOperateId());
-				output.writeLong(entry.getTimestamp());
-				output.write(entry.getData(), entry.getOffset(), entry.getLength());
-				
-				
-				System.out.println(entry.getUserKey()+"\t"+entry.getTimestamp()+"\t"+buffer.toByteArray().length);
+
+			} catch (TException e) {
+				entry.setTag("DELETE");
 			}
-				
 		}
-		br.close();
+		return pelist.iterator();
+	}
+
+	private void lastAddOne(List<ProcessorEntry> pelist) throws TException {
+		TMemoryInputTransport readTransport = new TMemoryInputTransport();
+		TProtocol readProtocol = new TBinaryProtocol(readTransport);
+		CMOperation lastinfo = new CMOperation();
+		ProcessorEntry lastEntry = pelist.get(pelist.size() - 1);
+		readTransport.reset(lastEntry.getData(), lastEntry.getOffset(),
+				lastEntry.getLength());
+		lastinfo.read(readProtocol);
+		lastinfo.repeat++;
+
+		ReuseMemoryBuffer writeTransport = new ReuseMemoryBuffer(2048);
+		TProtocol writeProtocol = new TBinaryProtocol(writeTransport);
+		lastinfo.write(writeProtocol);
+		pelist.get(pelist.size() - 1).setData(writeTransport.getArray(),
+				writeTransport.length());
 	}
 	
 }
