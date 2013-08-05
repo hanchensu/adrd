@@ -5,7 +5,6 @@ Created on 2013-6-2
 '''
 from sessionlog.ttypes import AdInfoOperation
 import base64
-
 from thrift.protocol import TBinaryProtocol
 from thrift.TSerialization import deserialize
 

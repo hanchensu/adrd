@@ -11,9 +11,9 @@ from thrift.Thrift import TType, TMessageType, TException, TApplicationException
 from thrift.transport import TTransport
 from thrift.protocol import TBinaryProtocol, TProtocol
 try:
-  from thrift.protocol import fastbinary
+    from thrift.protocol import fastbinary
 except:
-  fastbinary = None
+    fastbinary = None
 
 
 
