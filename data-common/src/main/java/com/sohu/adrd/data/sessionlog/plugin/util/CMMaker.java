@@ -64,21 +64,22 @@ public class CMMaker {
 					
 					operation.setFieldValue(field, valueStr);
 					
-				} else {
-					try {
-						
-						JSONArray tagsJsonArray = new JSONArray(strs.get(indexOf("TAGS")));
-						operation.setTags(new ArrayList<String>());
-						for(int j = 0; j < tagsJsonArray.length(); j++) {
-							String tag = tagsJsonArray.getString(j);
-							operation.tags.add(tag);
-							
-						}
-					} catch (JSONException e) {
+				} 
+				
+				try {
+					
+					JSONArray tagsJsonArray = new JSONArray(strs.get(indexOf("TAGS")));
+					operation.setTags(new ArrayList<String>());
+					for(int j = 0; j < tagsJsonArray.length(); j++) {
+						String tag = tagsJsonArray.getString(j);
+						operation.tags.add(tag);
 						
 					}
+				} catch (JSONException e) {
 					
 				}
+					
+				
 			}
 		}
 		

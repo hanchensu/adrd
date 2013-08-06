@@ -105,17 +105,15 @@ public class ExMaker {
 						setError(ex,i);
 					}
 				} else if (type == TType.STRING) {
+					ex.setFieldValue(field, valueStr);
 					if(!verifiers[i].isValid(valueStr)) {
-						ex.setFieldValue(field, valueStr);
-					} else {
 						setError(ex,i);
 					}
 				} else if (type == TType.I32) {
 					try {
 						int value = Integer.parseInt(valueStr);
+						ex.setFieldValue(field, value);
 						if(!verifiers[i].isValid(value)) {
-							ex.setFieldValue(field, value);
-						} else {
 							setError(ex,i);
 						}
 					} catch (NumberFormatException e) {
@@ -124,9 +122,8 @@ public class ExMaker {
 				} else if (type == TType.I64) {
 					try {
 						long value = Long.parseLong(valueStr);
+						ex.setFieldValue(field, value);
 						if(!verifiers[i].isValid(value)) {
-							ex.setFieldValue(field, value);
-						} else {
 							setError(ex,i);
 						}
 					} catch (NumberFormatException e) {
@@ -135,9 +132,8 @@ public class ExMaker {
 				} else if (type == TType.DOUBLE) {
 					try {
 						double value = Double.parseDouble(valueStr);
+						ex.setFieldValue(field, value);
 						if(!verifiers[i].isValid(value)) {
-							ex.setFieldValue(field, value);
-						} else {
 							setError(ex,i);
 						}
 					} catch (NumberFormatException e) {
