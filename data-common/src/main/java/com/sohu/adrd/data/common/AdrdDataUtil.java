@@ -8,9 +8,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.thrift.TException;
-import org.apache.thrift.TSerializer;
-import org.apache.thrift.protocol.TBinaryProtocol;
 
 import com.sohu.adrd.data.sessionlog.plugin.util.CountinfoMaker;
 import com.sohu.adrd.data.sessionlog.thrift.operation.CountinfoOperation;
@@ -220,17 +217,7 @@ public class AdrdDataUtil {
 //		return res + binary;
 	}
 	
-	public static byte[] serilize(CountinfoOperation adinfo) throws IOException {
-		TSerializer serializer = new TSerializer(new TBinaryProtocol.Factory());
-		try {
-			byte[] byteArray = serializer.serialize(adinfo);
-			return byteArray;
-		} catch (TException e) {
-			throw new IOException("Serilizer: Serilize error");
-		}
-	
-	}
-	
+
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(new File("D:/worktmp/countinfo.txt")));
 		String str;

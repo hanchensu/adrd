@@ -13,21 +13,16 @@ import com.sohu.adrd.data.pig.udf.log.LogLoader;
 public class GtrReturnLogLoader extends LogLoader {
 	public GtrReturnLogLoader(String projection) {
 		this.projection = projection;
-		
-	}
-	
-	public static final String[] SCHEMA = LogSchema.GTR_RETURN_SCHEMA;
-	
-	@Override
-	protected String[] getSchema() {
-		return SCHEMA;
+
 	}
 
+	public static final String[] SCHEMA = LogSchema.GTR_RETURN_SCHEMA;
+
 	@Override
-protected FormatResult format(String str) {
-		
+	protected FormatResult format(String str) {
+
 		List<String> result = new ArrayList<String>();
-		
+
 		if (Util.isBlank(str)) // filter illegal
 			return new FormatResult(null, "BlankLine");
 
@@ -41,7 +36,7 @@ protected FormatResult format(String str) {
 		} catch (Exception e) {
 			return new FormatResult(null, "LogTimeErr");
 		}
-		
+
 		return Util.jsonFormat(SCHEMA, result, str);
 	}
 }

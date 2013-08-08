@@ -15,10 +15,7 @@ public class GtrSendLogLoader extends LogLoader {
 	}
 	public static final String[] SCHEMA = LogSchema.GTR_SEND_SCHEMA;
 	
-	@Override
-	protected String[] getSchema() {
-		return SCHEMA;
-	}
+	
 
 	@Override
 	protected FormatResult format(String str) {

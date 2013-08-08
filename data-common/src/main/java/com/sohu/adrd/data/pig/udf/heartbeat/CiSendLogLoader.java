@@ -20,10 +20,7 @@ public class CiSendLogLoader extends LogLoader {
 	
 	private static final String[] SCHEMA = LogSchema.CI_SEND_SCHEMA;
 	
-	@Override
-	protected String[] getSchema() {
-		return SCHEMA;
-	}
+
 
 	@Override
 	protected FormatResult format(String str) {

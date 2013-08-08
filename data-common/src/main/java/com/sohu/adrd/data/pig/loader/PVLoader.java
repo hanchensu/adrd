@@ -1,4 +1,4 @@
-package com.sohu.adrd.data.pig.udf.log;
+package com.sohu.adrd.data.pig.loader;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -27,7 +27,7 @@ import com.sohu.adrd.data.common.FormatResult;
 import com.sohu.adrd.data.common.Util;
 import com.sohu.adrd.data.mapreduce.InputPathFilter;
 
-public class PvLogLoader extends LoadFunc {
+public class PVLoader extends LoadFunc {
 	
 	private RecordReader reader;
 	private final TupleFactory tupleFactory = TupleFactory.getInstance();

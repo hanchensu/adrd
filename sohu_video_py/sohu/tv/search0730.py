@@ -8,6 +8,7 @@ import datetime
 import codecs
 import os
 import string
+import plot
 
 def deltaDay(date,delta):
     now = datetime.datetime.strptime(date,'%Y%m%d')
@@ -60,15 +61,21 @@ for filename in searchFiles:
 
 
 #make search_cnt
-
+index = 0
 for x in album:
+    index = index + 1
     searches = []
     datePlayBegin = x[2]
     dateSearchBegin = deltaDay(datePlayBegin, -searchBefore)
-    print x[1]+'___'+x[2]+':'
+    
     for i in range(0, searchDuration):
         searches.append(searchMap.get(tuple([x[1],deltaDay(dateSearchBegin,i)])))
-    print searches
+    
+    if index == 18:
+        print x[1]+'___'+x[2]+':'
+        print range(1,len(searches)+1)
+        print searches
+        plot.draw(range(1,len(searches)+1), searches,7)
 
 
 
