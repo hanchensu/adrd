@@ -50,15 +50,17 @@ public class PVLoader extends LoadFunc {
 			
 			FormatResult fs = new PvlogFormator().format(line);
 			
-			Tuple tuple = tupleFactory.newTuple(3);
+			Tuple tuple = tupleFactory.newTuple(8);
 			
-			tuple.set(0, fs.strs.get(0));
-			tuple.set(1, fs.strs.get(1));
-			tuple.set(2, fs.strs.get(7));
+			
+			for(int i = 0; i < 8; i ++) {
+				tuple.set(i, fs.strs == null ? null : fs.strs.get(i));
+			}
+			
 			return tuple;
 			
-		} catch (Exception e) {
-			return null;
+		} catch (InterruptedException e) {
+			throw new ExecException(e);
 		}
 	}
 	
