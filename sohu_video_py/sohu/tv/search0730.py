@@ -162,9 +162,7 @@ for x in album:
     print init, real, forecast, (forecast-real)*1.0/min(forecast,real)
     
     delta = (forecast-real)*1.0/min(forecast,real)
-    if delta < 0:
-        delta*=-1
-    sum+=delta
+    sum+=abs(delta)
 
 print sum / len(album)
     
