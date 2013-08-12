@@ -8,7 +8,9 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.apache.pig.EvalFunc;
+import org.apache.pig.data.DataType;
 import org.apache.pig.data.Tuple;
+import org.apache.pig.impl.logicalLayer.schema.Schema;
 
 import com.sohu.adrd.data.common.Util;
 
@@ -57,6 +59,25 @@ public class FiltTag extends EvalFunc<Tuple> {
 		}
 		
 	}
+	
+	
+	public Schema outputSchema(Schema input) {
+		try {
+			List<Schema.FieldSchema> fieldSchemas = new ArrayList<Schema.FieldSchema>();
+			
+			Schema.FieldSchema fieldSchema = new Schema.FieldSchema("userid",DataType.CHARARRAY);
+			fieldSchemas.add(fieldSchema);
+		    
+		    fieldSchema = new Schema.FieldSchema("tag",DataType.CHARARRAY);
+			fieldSchemas.add(fieldSchema);
+			
+			
+			return new Schema(fieldSchemas);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
 	
 	public List<String> getCacheFiles() {
 		List<String> list = new ArrayList<String>();

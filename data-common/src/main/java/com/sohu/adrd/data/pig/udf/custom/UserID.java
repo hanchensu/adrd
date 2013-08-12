@@ -21,6 +21,7 @@ public class UserID extends EvalFunc<String> {
 		String agent = (String) input.get(3);
 		if (!"_blank".equals(str) && Util.isNotBlank(str)) {
 			String s = Util.isNotBlank(agent) ? str + agent : str;
+			s = Util.getMD5(s);
 			if (s == null) return null;
 			else return s;
 		}

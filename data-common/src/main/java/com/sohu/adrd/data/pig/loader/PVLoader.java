@@ -47,17 +47,22 @@ public class PVLoader extends LoadFunc {
 			}
 			Text value = (Text) reader.getCurrentValue();
 			String line = value.toString();
-			
-			FormatResult fs = new PvlogFormator().format(line);
-			
-			Tuple tuple = tupleFactory.newTuple(8);
-			
-			
-			for(int i = 0; i < 8; i ++) {
-				tuple.set(i, fs.strs == null ? null : fs.strs.get(i));
+			try {
+				FormatResult fs = new PvlogFormator().format(line);
+				Tuple tuple = tupleFactory.newTuple(9);
+				for(int i = 0; i < 8; i ++) {
+					tuple.set(i, fs.strs == null ? null : fs.strs.get(i));
+				}
+				tuple.set(8, line);
+				
+				return tuple;
+			}catch(Exception e) {
+				Tuple tuple = tupleFactory.newTuple(1);
+				tuple.set(0, null);
+				return tuple;
 			}
 			
-			return tuple;
+			
 			
 		} catch (InterruptedException e) {
 			throw new ExecException(e);
