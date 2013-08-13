@@ -25,17 +25,17 @@ public class RevenueCalculate {
 		double revenue = 0.0;
 		//RTB广告类型，只能按照第一高价计费
 		if ("5".equals(adtype) && "price2".equals(priceType)) {
-			revenue = calculateRevenue(bidType, bidType2, bidPrice, bidPrice2,
+			revenue = calculateRevenue(String.valueOf(bidType), String.valueOf(bidType2), bidPrice, bidPrice2,
 					ecpm, ecpm2, recordType, "price1");
 
 		} else {
-			revenue = calculateRevenue(bidType, bidType2, bidPrice, bidPrice2,
+			revenue = calculateRevenue(String.valueOf(bidType), String.valueOf(bidType2), bidPrice, bidPrice2,
 					ecpm, ecpm2, recordType, priceType);
 		}
 		return revenue;
 	}
 
-	private static double calculateRevenue(int bidType, int bidType2,
+	private static double calculateRevenue(String bidType, String bidType2,
 			double bidPrice, double bidPrice2, double ecpm, double ecpm2,
 			String recordType, String priceType) {
 		double revenue = 0.0;
