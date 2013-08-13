@@ -11,7 +11,6 @@ public class CMLoader extends LogLoader {
 		this.projection = projection;
 	}
 	
-
 	public FormatResult format(String str) {
 		SCHEMA = LogSchema.CM_SCHEMA;
 		return AdrdDataUtil.format(str, SCHEMA);

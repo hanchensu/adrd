@@ -11,7 +11,6 @@ public class CountinfoLoader extends LogLoader {
 		this.projection = projection;
 	}
 	
-
 	public FormatResult format(String str) {
 		SCHEMA = LogSchema.COUNTINFO_SCHEMA;
 		return AdrdDataUtil.format(str, SCHEMA);

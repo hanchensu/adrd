@@ -84,7 +84,9 @@ public class UserTagLoader extends LoadFunc {
 				UserWritable key = reader.getCurrentKey();
 				String userid = key.getuserid();
 				if(userid == null) {
-					return null;
+					Tuple tuple = tupleFactory.newTuple(1);
+					tuple.set(0, null);
+					return tuple;
 				}
 				
 				Tuple tuple = tupleFactory.newTuple(2);
@@ -95,12 +97,10 @@ public class UserTagLoader extends LoadFunc {
 				for(java.util.Iterator<Long> iter = tagList.iterator();iter.hasNext();) {
 					long tagall = iter.next();
 					long tag = tagall&tag_mask;
-//					if(userTagsWhiteList.containsKey(String.valueOf(tag))) {
-						Tuple tagTuple = tupleFactory.newTuple(1);
-						tagTuple.set(0, String.valueOf(tag));
-						tuples.add(tagTuple);
-//					}
-					
+
+					Tuple tagTuple = tupleFactory.newTuple(1);
+					tagTuple.set(0, String.valueOf(tag));
+					tuples.add(tagTuple);
 				}
 				
 				DataBag tags = bagFactory.newDefaultBag(tuples);
@@ -114,15 +114,6 @@ public class UserTagLoader extends LoadFunc {
 			throw new ExecException(e);
 		}
 			
-	}
-	
-	public static void main(String[] args) {
-		long value1 = 0x344e729000000L;
-		long value2 = 0x344ed6a900000L;
-		long value3 = 0x344ed6af40000L;
-		System.out.println(String.valueOf(value1));
-		System.out.println(String.valueOf(value2));
-		System.out.println(String.valueOf(value3));
 	}
 	
 
