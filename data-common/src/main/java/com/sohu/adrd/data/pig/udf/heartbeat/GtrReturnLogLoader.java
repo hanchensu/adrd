@@ -8,7 +8,7 @@ import org.apache.pig.newplan.logical.relational.LogicalSchema;
 import com.sohu.adrd.data.common.FormatResult;
 import com.sohu.adrd.data.common.LogSchema;
 import com.sohu.adrd.data.common.Util;
-import com.sohu.adrd.data.pig.udf.log.LogLoader;
+import com.sohu.adrd.data.pig.loader.LogLoader;
 
 public class GtrReturnLogLoader extends LogLoader {
 	public GtrReturnLogLoader(String projection) {

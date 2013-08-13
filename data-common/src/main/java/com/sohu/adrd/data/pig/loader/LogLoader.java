@@ -1,4 +1,4 @@
-package com.sohu.adrd.data.pig.udf.log;
+package com.sohu.adrd.data.pig.loader;
 
 import java.io.IOException;
 import java.util.List;

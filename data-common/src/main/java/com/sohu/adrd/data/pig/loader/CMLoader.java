@@ -3,7 +3,6 @@ package com.sohu.adrd.data.pig.loader;
 import com.sohu.adrd.data.common.AdrdDataUtil;
 import com.sohu.adrd.data.common.FormatResult;
 import com.sohu.adrd.data.common.LogSchema;
-import com.sohu.adrd.data.pig.udf.log.LogLoader;
 
 public class CMLoader extends LogLoader {
 	
