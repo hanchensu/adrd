@@ -67,15 +67,21 @@ public class PVUDF extends EvalFunc<DataBag> {
 	    			FieldValueMetaData meta = entry.getValue().valueMetaData;
 	    			Object value = op.getFieldValue(field);
 	    			switch (meta.type) {
+	    			case TType.BYTE:
+	    				tuple.set(index, Integer.valueOf((Byte)value));
+	    				break;
 	    		    case TType.I32 :
 	    		    	tuple.set(index, Integer.valueOf((Integer)value));
 	    		    	break;
 	    		    case TType.I64 :
 	    		    	tuple.set(index, Long.valueOf((Long)value));
 	    		    	break;
+	    		    case TType.DOUBLE :
+	    		    	tuple.set(index, Double.valueOf((Double)value));
+	    		    	break;
 	    		    case TType.STRING :
 	    		    	if (Util.isBlank((String)value)) tuple.set(index, "");
-	    		    	else tuple.set(index, value);
+	    		    	else tuple.set(index, (String)value);
 	    		    	break;
 	    		    default :
 	    		    	tuple.set(index, value);
@@ -98,11 +104,17 @@ public class PVUDF extends EvalFunc<DataBag> {
     			_Fields field = entry.getKey();
     			FieldValueMetaData meta = entry.getValue().valueMetaData;
     			switch (meta.type) {
-    		    case TType.I32 :
+    			case TType.BYTE :
+    				fieldSchema = new Schema.FieldSchema(field.getFieldName(),DataType.INTEGER);
+    				break;
+    			case TType.I32 :
     		    	fieldSchema = new Schema.FieldSchema(field.getFieldName(),DataType.INTEGER);
     		    	break;
     		    case TType.I64 :
     		    	fieldSchema = new Schema.FieldSchema(field.getFieldName(),DataType.LONG);
+    		    	break;
+    		    case TType.DOUBLE :
+    		    	fieldSchema = new Schema.FieldSchema(field.getFieldName(),DataType.DOUBLE);
     		    	break;
     		    case TType.STRING :
     		    	fieldSchema = new Schema.FieldSchema(field.getFieldName(),DataType.CHARARRAY);
@@ -110,13 +122,16 @@ public class PVUDF extends EvalFunc<DataBag> {
     		    default :
     		    	fieldSchema = new Schema.FieldSchema(field.getFieldName(),DataType.BYTEARRAY);
     			}
+    			fieldSchemas.add(fieldSchema);
     		}
-			fieldSchemas.add(fieldSchema);
+			
 			Schema scehma = new Schema(fieldSchemas);
 			return new Schema(new Schema.FieldSchema(input.getField(0).alias+"Bag",scehma,DataType.BAG));
 		} catch (FrontendException e) {
 			return null;
 		}
 	}
+	
+	
 
 }

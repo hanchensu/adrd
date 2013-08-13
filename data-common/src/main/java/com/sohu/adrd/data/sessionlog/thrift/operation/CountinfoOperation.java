@@ -59,30 +59,28 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
   private static final org.apache.thrift.protocol.TField YY_ID_FIELD_DESC = new org.apache.thrift.protocol.TField("yyId", org.apache.thrift.protocol.TType.STRING, (short)27);
   private static final org.apache.thrift.protocol.TField REPEAT_FIELD_DESC = new org.apache.thrift.protocol.TField("repeat", org.apache.thrift.protocol.TType.I32, (short)28);
   private static final org.apache.thrift.protocol.TField SUPPORT_FLASH_FIELD_DESC = new org.apache.thrift.protocol.TField("supportFlash", org.apache.thrift.protocol.TType.STRING, (short)29);
-  private static final org.apache.thrift.protocol.TField E_FIELD_DESC = new org.apache.thrift.protocol.TField("e", org.apache.thrift.protocol.TType.DOUBLE, (short)30);
-  private static final org.apache.thrift.protocol.TField C_FIELD_DESC = new org.apache.thrift.protocol.TField("c", org.apache.thrift.protocol.TType.DOUBLE, (short)31);
-  private static final org.apache.thrift.protocol.TField PAGE_ID_FIELD_DESC = new org.apache.thrift.protocol.TField("pageId", org.apache.thrift.protocol.TType.STRING, (short)32);
-  private static final org.apache.thrift.protocol.TField STATUS_CODE_FIELD_DESC = new org.apache.thrift.protocol.TField("statusCode", org.apache.thrift.protocol.TType.I64, (short)33);
-  private static final org.apache.thrift.protocol.TField ADVERTISER_ID_FIELD_DESC = new org.apache.thrift.protocol.TField("advertiserId", org.apache.thrift.protocol.TType.STRING, (short)34);
-  private static final org.apache.thrift.protocol.TField BID_PRICE_FIELD_DESC = new org.apache.thrift.protocol.TField("bidPrice", org.apache.thrift.protocol.TType.DOUBLE, (short)35);
-  private static final org.apache.thrift.protocol.TField BID_TYPE_FIELD_DESC = new org.apache.thrift.protocol.TField("bidType", org.apache.thrift.protocol.TType.I32, (short)36);
-  private static final org.apache.thrift.protocol.TField BID_PRICE2_FIELD_DESC = new org.apache.thrift.protocol.TField("bidPrice2", org.apache.thrift.protocol.TType.DOUBLE, (short)37);
-  private static final org.apache.thrift.protocol.TField BID_TYPE2_FIELD_DESC = new org.apache.thrift.protocol.TField("bidType2", org.apache.thrift.protocol.TType.I32, (short)38);
-  private static final org.apache.thrift.protocol.TField JS_VERSION_FIELD_DESC = new org.apache.thrift.protocol.TField("jsVersion", org.apache.thrift.protocol.TType.STRING, (short)39);
-  private static final org.apache.thrift.protocol.TField CTR_FIELD_DESC = new org.apache.thrift.protocol.TField("ctr", org.apache.thrift.protocol.TType.DOUBLE, (short)40);
-  private static final org.apache.thrift.protocol.TField CTR2_FIELD_DESC = new org.apache.thrift.protocol.TField("ctr2", org.apache.thrift.protocol.TType.DOUBLE, (short)41);
-  private static final org.apache.thrift.protocol.TField E_CPM_FIELD_DESC = new org.apache.thrift.protocol.TField("eCPM", org.apache.thrift.protocol.TType.DOUBLE, (short)42);
-  private static final org.apache.thrift.protocol.TField E_CPM2_FIELD_DESC = new org.apache.thrift.protocol.TField("eCPM2", org.apache.thrift.protocol.TType.DOUBLE, (short)43);
-  private static final org.apache.thrift.protocol.TField ADGROUP_MK_FIELD_DESC = new org.apache.thrift.protocol.TField("adgroupMK", org.apache.thrift.protocol.TType.STRING, (short)44);
-  private static final org.apache.thrift.protocol.TField ADVERTISER_ID_MK_FIELD_DESC = new org.apache.thrift.protocol.TField("advertiserIdMK", org.apache.thrift.protocol.TType.STRING, (short)45);
-  private static final org.apache.thrift.protocol.TField AD_SCORE_FIELD_DESC = new org.apache.thrift.protocol.TField("adScore", org.apache.thrift.protocol.TType.STRING, (short)46);
-  private static final org.apache.thrift.protocol.TField CAMPAIGN_ID_MK_FIELD_DESC = new org.apache.thrift.protocol.TField("campaignIdMK", org.apache.thrift.protocol.TType.STRING, (short)47);
-  private static final org.apache.thrift.protocol.TField ED_CONTENT_FIELD_DESC = new org.apache.thrift.protocol.TField("edContent", org.apache.thrift.protocol.TType.STRING, (short)48);
-  private static final org.apache.thrift.protocol.TField ED_STATUS_FIELD_DESC = new org.apache.thrift.protocol.TField("edStatus", org.apache.thrift.protocol.TType.STRING, (short)49);
-  private static final org.apache.thrift.protocol.TField LINE_ID_MK_FIELD_DESC = new org.apache.thrift.protocol.TField("lineIdMK", org.apache.thrift.protocol.TType.STRING, (short)50);
-  private static final org.apache.thrift.protocol.TField MATERIAL_MK_FIELD_DESC = new org.apache.thrift.protocol.TField("materialMK", org.apache.thrift.protocol.TType.STRING, (short)51);
-  private static final org.apache.thrift.protocol.TField LOG_TIME_FIELD_DESC = new org.apache.thrift.protocol.TField("logTime", org.apache.thrift.protocol.TType.STRING, (short)52);
-  private static final org.apache.thrift.protocol.TField LOG_LEVEL_FIELD_DESC = new org.apache.thrift.protocol.TField("logLevel", org.apache.thrift.protocol.TType.STRING, (short)53);
+  private static final org.apache.thrift.protocol.TField PAGE_ID_FIELD_DESC = new org.apache.thrift.protocol.TField("pageId", org.apache.thrift.protocol.TType.STRING, (short)30);
+  private static final org.apache.thrift.protocol.TField STATUS_CODE_FIELD_DESC = new org.apache.thrift.protocol.TField("statusCode", org.apache.thrift.protocol.TType.I64, (short)31);
+  private static final org.apache.thrift.protocol.TField ADVERTISER_ID_FIELD_DESC = new org.apache.thrift.protocol.TField("advertiserId", org.apache.thrift.protocol.TType.STRING, (short)32);
+  private static final org.apache.thrift.protocol.TField BID_PRICE_FIELD_DESC = new org.apache.thrift.protocol.TField("bidPrice", org.apache.thrift.protocol.TType.DOUBLE, (short)33);
+  private static final org.apache.thrift.protocol.TField BID_TYPE_FIELD_DESC = new org.apache.thrift.protocol.TField("bidType", org.apache.thrift.protocol.TType.I32, (short)34);
+  private static final org.apache.thrift.protocol.TField BID_PRICE2_FIELD_DESC = new org.apache.thrift.protocol.TField("bidPrice2", org.apache.thrift.protocol.TType.DOUBLE, (short)35);
+  private static final org.apache.thrift.protocol.TField BID_TYPE2_FIELD_DESC = new org.apache.thrift.protocol.TField("bidType2", org.apache.thrift.protocol.TType.I32, (short)36);
+  private static final org.apache.thrift.protocol.TField JS_VERSION_FIELD_DESC = new org.apache.thrift.protocol.TField("jsVersion", org.apache.thrift.protocol.TType.STRING, (short)37);
+  private static final org.apache.thrift.protocol.TField CTR_FIELD_DESC = new org.apache.thrift.protocol.TField("ctr", org.apache.thrift.protocol.TType.DOUBLE, (short)38);
+  private static final org.apache.thrift.protocol.TField CTR2_FIELD_DESC = new org.apache.thrift.protocol.TField("ctr2", org.apache.thrift.protocol.TType.DOUBLE, (short)39);
+  private static final org.apache.thrift.protocol.TField E_CPM_FIELD_DESC = new org.apache.thrift.protocol.TField("eCPM", org.apache.thrift.protocol.TType.DOUBLE, (short)40);
+  private static final org.apache.thrift.protocol.TField E_CPM2_FIELD_DESC = new org.apache.thrift.protocol.TField("eCPM2", org.apache.thrift.protocol.TType.DOUBLE, (short)41);
+  private static final org.apache.thrift.protocol.TField ADGROUP_MK_FIELD_DESC = new org.apache.thrift.protocol.TField("adgroupMK", org.apache.thrift.protocol.TType.STRING, (short)42);
+  private static final org.apache.thrift.protocol.TField ADVERTISER_ID_MK_FIELD_DESC = new org.apache.thrift.protocol.TField("advertiserIdMK", org.apache.thrift.protocol.TType.STRING, (short)43);
+  private static final org.apache.thrift.protocol.TField AD_SCORE_FIELD_DESC = new org.apache.thrift.protocol.TField("adScore", org.apache.thrift.protocol.TType.STRING, (short)44);
+  private static final org.apache.thrift.protocol.TField CAMPAIGN_ID_MK_FIELD_DESC = new org.apache.thrift.protocol.TField("campaignIdMK", org.apache.thrift.protocol.TType.STRING, (short)45);
+  private static final org.apache.thrift.protocol.TField ED_CONTENT_FIELD_DESC = new org.apache.thrift.protocol.TField("edContent", org.apache.thrift.protocol.TType.STRING, (short)46);
+  private static final org.apache.thrift.protocol.TField ED_STATUS_FIELD_DESC = new org.apache.thrift.protocol.TField("edStatus", org.apache.thrift.protocol.TType.STRING, (short)47);
+  private static final org.apache.thrift.protocol.TField LINE_ID_MK_FIELD_DESC = new org.apache.thrift.protocol.TField("lineIdMK", org.apache.thrift.protocol.TType.STRING, (short)48);
+  private static final org.apache.thrift.protocol.TField MATERIAL_MK_FIELD_DESC = new org.apache.thrift.protocol.TField("materialMK", org.apache.thrift.protocol.TType.STRING, (short)49);
+  private static final org.apache.thrift.protocol.TField LOG_TIME_FIELD_DESC = new org.apache.thrift.protocol.TField("logTime", org.apache.thrift.protocol.TType.STRING, (short)50);
+  private static final org.apache.thrift.protocol.TField LOG_LEVEL_FIELD_DESC = new org.apache.thrift.protocol.TField("logLevel", org.apache.thrift.protocol.TType.STRING, (short)51);
 
   private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
   static {
@@ -119,8 +117,6 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
   public String yyId; // optional
   public int repeat; // optional
   public String supportFlash; // optional
-  public double e; // optional
-  public double c; // optional
   public String pageId; // optional
   public long statusCode; // optional
   public String advertiserId; // optional
@@ -175,30 +171,28 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
     YY_ID((short)27, "yyId"),
     REPEAT((short)28, "repeat"),
     SUPPORT_FLASH((short)29, "supportFlash"),
-    E((short)30, "e"),
-    C((short)31, "c"),
-    PAGE_ID((short)32, "pageId"),
-    STATUS_CODE((short)33, "statusCode"),
-    ADVERTISER_ID((short)34, "advertiserId"),
-    BID_PRICE((short)35, "bidPrice"),
-    BID_TYPE((short)36, "bidType"),
-    BID_PRICE2((short)37, "bidPrice2"),
-    BID_TYPE2((short)38, "bidType2"),
-    JS_VERSION((short)39, "jsVersion"),
-    CTR((short)40, "ctr"),
-    CTR2((short)41, "ctr2"),
-    E_CPM((short)42, "eCPM"),
-    E_CPM2((short)43, "eCPM2"),
-    ADGROUP_MK((short)44, "adgroupMK"),
-    ADVERTISER_ID_MK((short)45, "advertiserIdMK"),
-    AD_SCORE((short)46, "adScore"),
-    CAMPAIGN_ID_MK((short)47, "campaignIdMK"),
-    ED_CONTENT((short)48, "edContent"),
-    ED_STATUS((short)49, "edStatus"),
-    LINE_ID_MK((short)50, "lineIdMK"),
-    MATERIAL_MK((short)51, "materialMK"),
-    LOG_TIME((short)52, "logTime"),
-    LOG_LEVEL((short)53, "logLevel");
+    PAGE_ID((short)30, "pageId"),
+    STATUS_CODE((short)31, "statusCode"),
+    ADVERTISER_ID((short)32, "advertiserId"),
+    BID_PRICE((short)33, "bidPrice"),
+    BID_TYPE((short)34, "bidType"),
+    BID_PRICE2((short)35, "bidPrice2"),
+    BID_TYPE2((short)36, "bidType2"),
+    JS_VERSION((short)37, "jsVersion"),
+    CTR((short)38, "ctr"),
+    CTR2((short)39, "ctr2"),
+    E_CPM((short)40, "eCPM"),
+    E_CPM2((short)41, "eCPM2"),
+    ADGROUP_MK((short)42, "adgroupMK"),
+    ADVERTISER_ID_MK((short)43, "advertiserIdMK"),
+    AD_SCORE((short)44, "adScore"),
+    CAMPAIGN_ID_MK((short)45, "campaignIdMK"),
+    ED_CONTENT((short)46, "edContent"),
+    ED_STATUS((short)47, "edStatus"),
+    LINE_ID_MK((short)48, "lineIdMK"),
+    MATERIAL_MK((short)49, "materialMK"),
+    LOG_TIME((short)50, "logTime"),
+    LOG_LEVEL((short)51, "logLevel");
 
     private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
@@ -271,53 +265,49 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
           return REPEAT;
         case 29: // SUPPORT_FLASH
           return SUPPORT_FLASH;
-        case 30: // E
-          return E;
-        case 31: // C
-          return C;
-        case 32: // PAGE_ID
+        case 30: // PAGE_ID
           return PAGE_ID;
-        case 33: // STATUS_CODE
+        case 31: // STATUS_CODE
           return STATUS_CODE;
-        case 34: // ADVERTISER_ID
+        case 32: // ADVERTISER_ID
           return ADVERTISER_ID;
-        case 35: // BID_PRICE
+        case 33: // BID_PRICE
           return BID_PRICE;
-        case 36: // BID_TYPE
+        case 34: // BID_TYPE
           return BID_TYPE;
-        case 37: // BID_PRICE2
+        case 35: // BID_PRICE2
           return BID_PRICE2;
-        case 38: // BID_TYPE2
+        case 36: // BID_TYPE2
           return BID_TYPE2;
-        case 39: // JS_VERSION
+        case 37: // JS_VERSION
           return JS_VERSION;
-        case 40: // CTR
+        case 38: // CTR
           return CTR;
-        case 41: // CTR2
+        case 39: // CTR2
           return CTR2;
-        case 42: // E_CPM
+        case 40: // E_CPM
           return E_CPM;
-        case 43: // E_CPM2
+        case 41: // E_CPM2
           return E_CPM2;
-        case 44: // ADGROUP_MK
+        case 42: // ADGROUP_MK
           return ADGROUP_MK;
-        case 45: // ADVERTISER_ID_MK
+        case 43: // ADVERTISER_ID_MK
           return ADVERTISER_ID_MK;
-        case 46: // AD_SCORE
+        case 44: // AD_SCORE
           return AD_SCORE;
-        case 47: // CAMPAIGN_ID_MK
+        case 45: // CAMPAIGN_ID_MK
           return CAMPAIGN_ID_MK;
-        case 48: // ED_CONTENT
+        case 46: // ED_CONTENT
           return ED_CONTENT;
-        case 49: // ED_STATUS
+        case 47: // ED_STATUS
           return ED_STATUS;
-        case 50: // LINE_ID_MK
+        case 48: // LINE_ID_MK
           return LINE_ID_MK;
-        case 51: // MATERIAL_MK
+        case 49: // MATERIAL_MK
           return MATERIAL_MK;
-        case 52: // LOG_TIME
+        case 50: // LOG_TIME
           return LOG_TIME;
-        case 53: // LOG_LEVEL
+        case 51: // LOG_LEVEL
           return LOG_LEVEL;
         default:
           return null;
@@ -368,19 +358,17 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
   private static final int __LATENCY_ISSET_ID = 6;
   private static final int __TIMESTAMP_ISSET_ID = 7;
   private static final int __REPEAT_ISSET_ID = 8;
-  private static final int __E_ISSET_ID = 9;
-  private static final int __C_ISSET_ID = 10;
-  private static final int __STATUSCODE_ISSET_ID = 11;
-  private static final int __BIDPRICE_ISSET_ID = 12;
-  private static final int __BIDTYPE_ISSET_ID = 13;
-  private static final int __BIDPRICE2_ISSET_ID = 14;
-  private static final int __BIDTYPE2_ISSET_ID = 15;
-  private static final int __CTR_ISSET_ID = 16;
-  private static final int __CTR2_ISSET_ID = 17;
-  private static final int __ECPM_ISSET_ID = 18;
-  private static final int __ECPM2_ISSET_ID = 19;
-  private BitSet __isset_bit_vector = new BitSet(20);
-  private _Fields optionals[] = {_Fields.AD_ID,_Fields.ADP_ID,_Fields.AD_POS,_Fields.ADP_X,_Fields.ADP_Y,_Fields.AD_TYPE,_Fields.BROWSER,_Fields.CLICK_X,_Fields.CLICK_Y,_Fields.CONTENT_URL,_Fields.EXT,_Fields.FREQ,_Fields.GET_URL,_Fields.IMPRESSION_ID,_Fields.LATENCY,_Fields.MONITOR_KEY,_Fields.OS,_Fields.REFER,_Fields.REGION,_Fields.REQ_TYPE,_Fields.RESOLUTION,_Fields.SUV,_Fields.TIMESTAMP,_Fields.TURN,_Fields.USER_AGENT,_Fields.USER_IP,_Fields.YY_ID,_Fields.REPEAT,_Fields.SUPPORT_FLASH,_Fields.E,_Fields.C,_Fields.PAGE_ID,_Fields.STATUS_CODE,_Fields.ADVERTISER_ID,_Fields.BID_PRICE,_Fields.BID_TYPE,_Fields.BID_PRICE2,_Fields.BID_TYPE2,_Fields.JS_VERSION,_Fields.CTR,_Fields.CTR2,_Fields.E_CPM,_Fields.E_CPM2,_Fields.ADGROUP_MK,_Fields.ADVERTISER_ID_MK,_Fields.AD_SCORE,_Fields.CAMPAIGN_ID_MK,_Fields.ED_CONTENT,_Fields.ED_STATUS,_Fields.LINE_ID_MK,_Fields.MATERIAL_MK,_Fields.LOG_TIME,_Fields.LOG_LEVEL};
+  private static final int __STATUSCODE_ISSET_ID = 9;
+  private static final int __BIDPRICE_ISSET_ID = 10;
+  private static final int __BIDTYPE_ISSET_ID = 11;
+  private static final int __BIDPRICE2_ISSET_ID = 12;
+  private static final int __BIDTYPE2_ISSET_ID = 13;
+  private static final int __CTR_ISSET_ID = 14;
+  private static final int __CTR2_ISSET_ID = 15;
+  private static final int __ECPM_ISSET_ID = 16;
+  private static final int __ECPM2_ISSET_ID = 17;
+  private BitSet __isset_bit_vector = new BitSet(18);
+  private _Fields optionals[] = {_Fields.AD_ID,_Fields.ADP_ID,_Fields.AD_POS,_Fields.ADP_X,_Fields.ADP_Y,_Fields.AD_TYPE,_Fields.BROWSER,_Fields.CLICK_X,_Fields.CLICK_Y,_Fields.CONTENT_URL,_Fields.EXT,_Fields.FREQ,_Fields.GET_URL,_Fields.IMPRESSION_ID,_Fields.LATENCY,_Fields.MONITOR_KEY,_Fields.OS,_Fields.REFER,_Fields.REGION,_Fields.REQ_TYPE,_Fields.RESOLUTION,_Fields.SUV,_Fields.TIMESTAMP,_Fields.TURN,_Fields.USER_AGENT,_Fields.USER_IP,_Fields.YY_ID,_Fields.REPEAT,_Fields.SUPPORT_FLASH,_Fields.PAGE_ID,_Fields.STATUS_CODE,_Fields.ADVERTISER_ID,_Fields.BID_PRICE,_Fields.BID_TYPE,_Fields.BID_PRICE2,_Fields.BID_TYPE2,_Fields.JS_VERSION,_Fields.CTR,_Fields.CTR2,_Fields.E_CPM,_Fields.E_CPM2,_Fields.ADGROUP_MK,_Fields.ADVERTISER_ID_MK,_Fields.AD_SCORE,_Fields.CAMPAIGN_ID_MK,_Fields.ED_CONTENT,_Fields.ED_STATUS,_Fields.LINE_ID_MK,_Fields.MATERIAL_MK,_Fields.LOG_TIME,_Fields.LOG_LEVEL};
   public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
   static {
     Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
@@ -442,10 +430,6 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
     tmpMap.put(_Fields.SUPPORT_FLASH, new org.apache.thrift.meta_data.FieldMetaData("supportFlash", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
-    tmpMap.put(_Fields.E, new org.apache.thrift.meta_data.FieldMetaData("e", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
-        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.DOUBLE)));
-    tmpMap.put(_Fields.C, new org.apache.thrift.meta_data.FieldMetaData("c", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
-        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.DOUBLE)));
     tmpMap.put(_Fields.PAGE_ID, new org.apache.thrift.meta_data.FieldMetaData("pageId", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
     tmpMap.put(_Fields.STATUS_CODE, new org.apache.thrift.meta_data.FieldMetaData("statusCode", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
@@ -572,8 +556,6 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
     if (other.isSetSupportFlash()) {
       this.supportFlash = other.supportFlash;
     }
-    this.e = other.e;
-    this.c = other.c;
     if (other.isSetPageId()) {
       this.pageId = other.pageId;
     }
@@ -668,10 +650,6 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
     setRepeatIsSet(false);
     this.repeat = 0;
     this.supportFlash = null;
-    setEIsSet(false);
-    this.e = 0.0;
-    setCIsSet(false);
-    this.c = 0.0;
     this.pageId = null;
     setStatusCodeIsSet(false);
     this.statusCode = 0;
@@ -1390,52 +1368,6 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
     if (!value) {
       this.supportFlash = null;
     }
-  }
-
-  public double getE() {
-    return this.e;
-  }
-
-  public CountinfoOperation setE(double e) {
-    this.e = e;
-    setEIsSet(true);
-    return this;
-  }
-
-  public void unsetE() {
-    __isset_bit_vector.clear(__E_ISSET_ID);
-  }
-
-  /** Returns true if field e is set (has been assigned a value) and false otherwise */
-  public boolean isSetE() {
-    return __isset_bit_vector.get(__E_ISSET_ID);
-  }
-
-  public void setEIsSet(boolean value) {
-    __isset_bit_vector.set(__E_ISSET_ID, value);
-  }
-
-  public double getC() {
-    return this.c;
-  }
-
-  public CountinfoOperation setC(double c) {
-    this.c = c;
-    setCIsSet(true);
-    return this;
-  }
-
-  public void unsetC() {
-    __isset_bit_vector.clear(__C_ISSET_ID);
-  }
-
-  /** Returns true if field c is set (has been assigned a value) and false otherwise */
-  public boolean isSetC() {
-    return __isset_bit_vector.get(__C_ISSET_ID);
-  }
-
-  public void setCIsSet(boolean value) {
-    __isset_bit_vector.set(__C_ISSET_ID, value);
   }
 
   public String getPageId() {
@@ -2191,22 +2123,6 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
       }
       break;
 
-    case E:
-      if (value == null) {
-        unsetE();
-      } else {
-        setE((Double)value);
-      }
-      break;
-
-    case C:
-      if (value == null) {
-        unsetC();
-      } else {
-        setC((Double)value);
-      }
-      break;
-
     case PAGE_ID:
       if (value == null) {
         unsetPageId();
@@ -2475,12 +2391,6 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
     case SUPPORT_FLASH:
       return getSupportFlash();
 
-    case E:
-      return Double.valueOf(getE());
-
-    case C:
-      return Double.valueOf(getC());
-
     case PAGE_ID:
       return getPageId();
 
@@ -2616,10 +2526,6 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
       return isSetRepeat();
     case SUPPORT_FLASH:
       return isSetSupportFlash();
-    case E:
-      return isSetE();
-    case C:
-      return isSetC();
     case PAGE_ID:
       return isSetPageId();
     case STATUS_CODE:
@@ -2939,24 +2845,6 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
       if (!(this_present_supportFlash && that_present_supportFlash))
         return false;
       if (!this.supportFlash.equals(that.supportFlash))
-        return false;
-    }
-
-    boolean this_present_e = true && this.isSetE();
-    boolean that_present_e = true && that.isSetE();
-    if (this_present_e || that_present_e) {
-      if (!(this_present_e && that_present_e))
-        return false;
-      if (this.e != that.e)
-        return false;
-    }
-
-    boolean this_present_c = true && this.isSetC();
-    boolean that_present_c = true && that.isSetC();
-    if (this_present_c || that_present_c) {
-      if (!(this_present_c && that_present_c))
-        return false;
-      if (this.c != that.c)
         return false;
     }
 
@@ -3464,26 +3352,6 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
         return lastComparison;
       }
     }
-    lastComparison = Boolean.valueOf(isSetE()).compareTo(typedOther.isSetE());
-    if (lastComparison != 0) {
-      return lastComparison;
-    }
-    if (isSetE()) {
-      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.e, typedOther.e);
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-    }
-    lastComparison = Boolean.valueOf(isSetC()).compareTo(typedOther.isSetC());
-    if (lastComparison != 0) {
-      return lastComparison;
-    }
-    if (isSetC()) {
-      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.c, typedOther.c);
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-    }
     lastComparison = Boolean.valueOf(isSetPageId()).compareTo(typedOther.isSetPageId());
     if (lastComparison != 0) {
       return lastComparison;
@@ -3977,18 +3845,6 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
       }
       first = false;
     }
-    if (isSetE()) {
-      if (!first) sb.append(", ");
-      sb.append("e:");
-      sb.append(this.e);
-      first = false;
-    }
-    if (isSetC()) {
-      if (!first) sb.append(", ");
-      sb.append("c:");
-      sb.append(this.c);
-      first = false;
-    }
     if (isSetPageId()) {
       if (!first) sb.append(", ");
       sb.append("pageId:");
@@ -4449,23 +4305,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 30: // E
-            if (schemeField.type == org.apache.thrift.protocol.TType.DOUBLE) {
-              struct.e = iprot.readDouble();
-              struct.setEIsSet(true);
-            } else { 
-              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-            }
-            break;
-          case 31: // C
-            if (schemeField.type == org.apache.thrift.protocol.TType.DOUBLE) {
-              struct.c = iprot.readDouble();
-              struct.setCIsSet(true);
-            } else { 
-              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-            }
-            break;
-          case 32: // PAGE_ID
+          case 30: // PAGE_ID
             if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
               struct.pageId = iprot.readString();
               struct.setPageIdIsSet(true);
@@ -4473,7 +4313,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 33: // STATUS_CODE
+          case 31: // STATUS_CODE
             if (schemeField.type == org.apache.thrift.protocol.TType.I64) {
               struct.statusCode = iprot.readI64();
               struct.setStatusCodeIsSet(true);
@@ -4481,7 +4321,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 34: // ADVERTISER_ID
+          case 32: // ADVERTISER_ID
             if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
               struct.advertiserId = iprot.readString();
               struct.setAdvertiserIdIsSet(true);
@@ -4489,7 +4329,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 35: // BID_PRICE
+          case 33: // BID_PRICE
             if (schemeField.type == org.apache.thrift.protocol.TType.DOUBLE) {
               struct.bidPrice = iprot.readDouble();
               struct.setBidPriceIsSet(true);
@@ -4497,7 +4337,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 36: // BID_TYPE
+          case 34: // BID_TYPE
             if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
               struct.bidType = iprot.readI32();
               struct.setBidTypeIsSet(true);
@@ -4505,7 +4345,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 37: // BID_PRICE2
+          case 35: // BID_PRICE2
             if (schemeField.type == org.apache.thrift.protocol.TType.DOUBLE) {
               struct.bidPrice2 = iprot.readDouble();
               struct.setBidPrice2IsSet(true);
@@ -4513,7 +4353,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 38: // BID_TYPE2
+          case 36: // BID_TYPE2
             if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
               struct.bidType2 = iprot.readI32();
               struct.setBidType2IsSet(true);
@@ -4521,7 +4361,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 39: // JS_VERSION
+          case 37: // JS_VERSION
             if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
               struct.jsVersion = iprot.readString();
               struct.setJsVersionIsSet(true);
@@ -4529,7 +4369,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 40: // CTR
+          case 38: // CTR
             if (schemeField.type == org.apache.thrift.protocol.TType.DOUBLE) {
               struct.ctr = iprot.readDouble();
               struct.setCtrIsSet(true);
@@ -4537,7 +4377,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 41: // CTR2
+          case 39: // CTR2
             if (schemeField.type == org.apache.thrift.protocol.TType.DOUBLE) {
               struct.ctr2 = iprot.readDouble();
               struct.setCtr2IsSet(true);
@@ -4545,7 +4385,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 42: // E_CPM
+          case 40: // E_CPM
             if (schemeField.type == org.apache.thrift.protocol.TType.DOUBLE) {
               struct.eCPM = iprot.readDouble();
               struct.setECPMIsSet(true);
@@ -4553,7 +4393,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 43: // E_CPM2
+          case 41: // E_CPM2
             if (schemeField.type == org.apache.thrift.protocol.TType.DOUBLE) {
               struct.eCPM2 = iprot.readDouble();
               struct.setECPM2IsSet(true);
@@ -4561,7 +4401,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 44: // ADGROUP_MK
+          case 42: // ADGROUP_MK
             if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
               struct.adgroupMK = iprot.readString();
               struct.setAdgroupMKIsSet(true);
@@ -4569,7 +4409,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 45: // ADVERTISER_ID_MK
+          case 43: // ADVERTISER_ID_MK
             if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
               struct.advertiserIdMK = iprot.readString();
               struct.setAdvertiserIdMKIsSet(true);
@@ -4577,7 +4417,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 46: // AD_SCORE
+          case 44: // AD_SCORE
             if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
               struct.adScore = iprot.readString();
               struct.setAdScoreIsSet(true);
@@ -4585,7 +4425,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 47: // CAMPAIGN_ID_MK
+          case 45: // CAMPAIGN_ID_MK
             if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
               struct.campaignIdMK = iprot.readString();
               struct.setCampaignIdMKIsSet(true);
@@ -4593,7 +4433,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 48: // ED_CONTENT
+          case 46: // ED_CONTENT
             if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
               struct.edContent = iprot.readString();
               struct.setEdContentIsSet(true);
@@ -4601,7 +4441,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 49: // ED_STATUS
+          case 47: // ED_STATUS
             if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
               struct.edStatus = iprot.readString();
               struct.setEdStatusIsSet(true);
@@ -4609,7 +4449,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 50: // LINE_ID_MK
+          case 48: // LINE_ID_MK
             if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
               struct.lineIdMK = iprot.readString();
               struct.setLineIdMKIsSet(true);
@@ -4617,7 +4457,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 51: // MATERIAL_MK
+          case 49: // MATERIAL_MK
             if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
               struct.materialMK = iprot.readString();
               struct.setMaterialMKIsSet(true);
@@ -4625,7 +4465,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 52: // LOG_TIME
+          case 50: // LOG_TIME
             if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
               struct.logTime = iprot.readString();
               struct.setLogTimeIsSet(true);
@@ -4633,7 +4473,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 53: // LOG_LEVEL
+          case 51: // LOG_LEVEL
             if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
               struct.logLevel = iprot.readString();
               struct.setLogLevelIsSet(true);
@@ -4840,16 +4680,6 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
           oprot.writeString(struct.supportFlash);
           oprot.writeFieldEnd();
         }
-      }
-      if (struct.isSetE()) {
-        oprot.writeFieldBegin(E_FIELD_DESC);
-        oprot.writeDouble(struct.e);
-        oprot.writeFieldEnd();
-      }
-      if (struct.isSetC()) {
-        oprot.writeFieldBegin(C_FIELD_DESC);
-        oprot.writeDouble(struct.c);
-        oprot.writeFieldEnd();
       }
       if (struct.pageId != null) {
         if (struct.isSetPageId()) {
@@ -5092,79 +4922,73 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
       if (struct.isSetSupportFlash()) {
         optionals.set(28);
       }
-      if (struct.isSetE()) {
+      if (struct.isSetPageId()) {
         optionals.set(29);
       }
-      if (struct.isSetC()) {
+      if (struct.isSetStatusCode()) {
         optionals.set(30);
       }
-      if (struct.isSetPageId()) {
+      if (struct.isSetAdvertiserId()) {
         optionals.set(31);
       }
-      if (struct.isSetStatusCode()) {
+      if (struct.isSetBidPrice()) {
         optionals.set(32);
       }
-      if (struct.isSetAdvertiserId()) {
+      if (struct.isSetBidType()) {
         optionals.set(33);
       }
-      if (struct.isSetBidPrice()) {
+      if (struct.isSetBidPrice2()) {
         optionals.set(34);
       }
-      if (struct.isSetBidType()) {
+      if (struct.isSetBidType2()) {
         optionals.set(35);
       }
-      if (struct.isSetBidPrice2()) {
+      if (struct.isSetJsVersion()) {
         optionals.set(36);
       }
-      if (struct.isSetBidType2()) {
+      if (struct.isSetCtr()) {
         optionals.set(37);
       }
-      if (struct.isSetJsVersion()) {
+      if (struct.isSetCtr2()) {
         optionals.set(38);
       }
-      if (struct.isSetCtr()) {
+      if (struct.isSetECPM()) {
         optionals.set(39);
       }
-      if (struct.isSetCtr2()) {
+      if (struct.isSetECPM2()) {
         optionals.set(40);
       }
-      if (struct.isSetECPM()) {
+      if (struct.isSetAdgroupMK()) {
         optionals.set(41);
       }
-      if (struct.isSetECPM2()) {
+      if (struct.isSetAdvertiserIdMK()) {
         optionals.set(42);
       }
-      if (struct.isSetAdgroupMK()) {
+      if (struct.isSetAdScore()) {
         optionals.set(43);
       }
-      if (struct.isSetAdvertiserIdMK()) {
+      if (struct.isSetCampaignIdMK()) {
         optionals.set(44);
       }
-      if (struct.isSetAdScore()) {
+      if (struct.isSetEdContent()) {
         optionals.set(45);
       }
-      if (struct.isSetCampaignIdMK()) {
+      if (struct.isSetEdStatus()) {
         optionals.set(46);
       }
-      if (struct.isSetEdContent()) {
+      if (struct.isSetLineIdMK()) {
         optionals.set(47);
       }
-      if (struct.isSetEdStatus()) {
+      if (struct.isSetMaterialMK()) {
         optionals.set(48);
       }
-      if (struct.isSetLineIdMK()) {
+      if (struct.isSetLogTime()) {
         optionals.set(49);
       }
-      if (struct.isSetMaterialMK()) {
+      if (struct.isSetLogLevel()) {
         optionals.set(50);
       }
-      if (struct.isSetLogTime()) {
-        optionals.set(51);
-      }
-      if (struct.isSetLogLevel()) {
-        optionals.set(52);
-      }
-      oprot.writeBitSet(optionals, 53);
+      oprot.writeBitSet(optionals, 51);
       if (struct.isSetAdId()) {
         oprot.writeString(struct.adId);
       }
@@ -5252,12 +5076,6 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
       if (struct.isSetSupportFlash()) {
         oprot.writeString(struct.supportFlash);
       }
-      if (struct.isSetE()) {
-        oprot.writeDouble(struct.e);
-      }
-      if (struct.isSetC()) {
-        oprot.writeDouble(struct.c);
-      }
       if (struct.isSetPageId()) {
         oprot.writeString(struct.pageId);
       }
@@ -5329,7 +5147,7 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
     @Override
     public void read(org.apache.thrift.protocol.TProtocol prot, CountinfoOperation struct) throws org.apache.thrift.TException {
       TTupleProtocol iprot = (TTupleProtocol) prot;
-      BitSet incoming = iprot.readBitSet(53);
+      BitSet incoming = iprot.readBitSet(51);
       if (incoming.get(0)) {
         struct.adId = iprot.readString();
         struct.setAdIdIsSet(true);
@@ -5447,98 +5265,90 @@ public class CountinfoOperation implements org.apache.thrift.TBase<CountinfoOper
         struct.setSupportFlashIsSet(true);
       }
       if (incoming.get(29)) {
-        struct.e = iprot.readDouble();
-        struct.setEIsSet(true);
-      }
-      if (incoming.get(30)) {
-        struct.c = iprot.readDouble();
-        struct.setCIsSet(true);
-      }
-      if (incoming.get(31)) {
         struct.pageId = iprot.readString();
         struct.setPageIdIsSet(true);
       }
-      if (incoming.get(32)) {
+      if (incoming.get(30)) {
         struct.statusCode = iprot.readI64();
         struct.setStatusCodeIsSet(true);
       }
-      if (incoming.get(33)) {
+      if (incoming.get(31)) {
         struct.advertiserId = iprot.readString();
         struct.setAdvertiserIdIsSet(true);
       }
-      if (incoming.get(34)) {
+      if (incoming.get(32)) {
         struct.bidPrice = iprot.readDouble();
         struct.setBidPriceIsSet(true);
       }
-      if (incoming.get(35)) {
+      if (incoming.get(33)) {
         struct.bidType = iprot.readI32();
         struct.setBidTypeIsSet(true);
       }
-      if (incoming.get(36)) {
+      if (incoming.get(34)) {
         struct.bidPrice2 = iprot.readDouble();
         struct.setBidPrice2IsSet(true);
       }
-      if (incoming.get(37)) {
+      if (incoming.get(35)) {
         struct.bidType2 = iprot.readI32();
         struct.setBidType2IsSet(true);
       }
-      if (incoming.get(38)) {
+      if (incoming.get(36)) {
         struct.jsVersion = iprot.readString();
         struct.setJsVersionIsSet(true);
       }
-      if (incoming.get(39)) {
+      if (incoming.get(37)) {
         struct.ctr = iprot.readDouble();
         struct.setCtrIsSet(true);
       }
-      if (incoming.get(40)) {
+      if (incoming.get(38)) {
         struct.ctr2 = iprot.readDouble();
         struct.setCtr2IsSet(true);
       }
-      if (incoming.get(41)) {
+      if (incoming.get(39)) {
         struct.eCPM = iprot.readDouble();
         struct.setECPMIsSet(true);
       }
-      if (incoming.get(42)) {
+      if (incoming.get(40)) {
         struct.eCPM2 = iprot.readDouble();
         struct.setECPM2IsSet(true);
       }
-      if (incoming.get(43)) {
+      if (incoming.get(41)) {
         struct.adgroupMK = iprot.readString();
         struct.setAdgroupMKIsSet(true);
       }
-      if (incoming.get(44)) {
+      if (incoming.get(42)) {
         struct.advertiserIdMK = iprot.readString();
         struct.setAdvertiserIdMKIsSet(true);
       }
-      if (incoming.get(45)) {
+      if (incoming.get(43)) {
         struct.adScore = iprot.readString();
         struct.setAdScoreIsSet(true);
       }
-      if (incoming.get(46)) {
+      if (incoming.get(44)) {
         struct.campaignIdMK = iprot.readString();
         struct.setCampaignIdMKIsSet(true);
       }
-      if (incoming.get(47)) {
+      if (incoming.get(45)) {
         struct.edContent = iprot.readString();
         struct.setEdContentIsSet(true);
       }
-      if (incoming.get(48)) {
+      if (incoming.get(46)) {
         struct.edStatus = iprot.readString();
         struct.setEdStatusIsSet(true);
       }
-      if (incoming.get(49)) {
+      if (incoming.get(47)) {
         struct.lineIdMK = iprot.readString();
         struct.setLineIdMKIsSet(true);
       }
-      if (incoming.get(50)) {
+      if (incoming.get(48)) {
         struct.materialMK = iprot.readString();
         struct.setMaterialMKIsSet(true);
       }
-      if (incoming.get(51)) {
+      if (incoming.get(49)) {
         struct.logTime = iprot.readString();
         struct.setLogTimeIsSet(true);
       }
-      if (incoming.get(52)) {
+      if (incoming.get(50)) {
         struct.logLevel = iprot.readString();
         struct.setLogLevelIsSet(true);
       }
