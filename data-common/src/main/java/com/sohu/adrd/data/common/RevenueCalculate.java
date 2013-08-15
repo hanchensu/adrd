@@ -1,3 +1,4 @@
+
 package com.sohu.adrd.data.common;
 
 
@@ -102,3 +103,4 @@ public class RevenueCalculate {
 	}
 
 }
+
