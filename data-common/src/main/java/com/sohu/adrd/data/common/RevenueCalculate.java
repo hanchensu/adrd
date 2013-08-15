@@ -1,5 +1,7 @@
 package com.sohu.adrd.data.common;
 
+
+
 /**
  * @author huazhongwang@sohu-inc.com
  * @date 2013-8-13 обнГ2:53:20
@@ -95,7 +97,8 @@ public class RevenueCalculate {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		System.out.println("Price:" + calculateRevenue(2, 2, 70, 80, 
+				93.0609, 87.9363, "adclick","1", "price2"));
 	}
 
 }
