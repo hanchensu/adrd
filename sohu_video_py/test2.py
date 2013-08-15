@@ -7,5 +7,5 @@ import sys
 import string
 
 res = ''
-for line in open('user_tags_level1 (3).txt'):
-    print line.split()[0]  
+for line in open('mkey.txt'):
+    print "mkey == '"+line[0:len(line)-1] + "' OR "  
