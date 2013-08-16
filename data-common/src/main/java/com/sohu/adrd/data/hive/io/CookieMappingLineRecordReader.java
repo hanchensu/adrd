@@ -17,19 +17,17 @@ import com.sohu.adrd.data.common.AdrdDataUtil;
 import com.sohu.adrd.data.common.FormatResult;
 import com.sohu.adrd.data.common.LogSchema;
 
-public class AdserverLineRecordReader extends BaseLineRecordReader{
+public class CookieMappingLineRecordReader extends BaseLineRecordReader{
 
-	private String[] schema;
-	
-	public AdserverLineRecordReader(Configuration job, FileSplit split, String[] schema) throws IOException {
+	public CookieMappingLineRecordReader(Configuration job, FileSplit split) throws IOException {
 		super(job, split);
-		this.schema = schema;
 	}
 	
 	@Override
 	public void transform(Text value) {
-		FormatResult res = AdrdDataUtil.format(value.toString(), schema);
+		FormatResult res = AdrdDataUtil.format(value.toString(), LogSchema.CM_SCHEMA);
 	}
+
 	fuck
 
 }
