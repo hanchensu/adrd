@@ -8,4 +8,6 @@ import string
 
 res = ''
 for line in open('mkey.txt'):
-    print "mkey == '"+line[0:len(line)-1] + "' OR "  
+    print "mkey == '"+line[0:len(line)-1] + "' OR " 
+    
+ 

@@ -76,5 +76,5 @@ def draw(x,y,z):
     ax.plot(xxa,yya,color='g',linestyle='-',marker='')
     
     # ax.legend()
-#     plt.show()
+    plt.show()
     return matAA
