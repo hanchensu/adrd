@@ -27,7 +27,7 @@ import com.sohu.ADRD.AudienceTargeting.type.basic.UserWritable;
 import com.sohu.adrd.data.common.LogSchema;
 import com.sohu.adrd.data.mapred.SkipLineRecordReader;
 
-public class UserTagInputFormat extends BaseSequenceFileInputFormat<UserWritable, TagsWritable>
+public class UserTagsInputFormat extends BaseSequenceFileInputFormat<UserWritable, TagsWritable>
 		implements InputFormat<UserWritable, BytesWritable> {
 
 	@Override
@@ -35,7 +35,7 @@ public class UserTagInputFormat extends BaseSequenceFileInputFormat<UserWritable
 			Reporter reporter) throws IOException {
 		reporter.setStatus(split.toString());
 
-	    return new UserTagRecordReader(job, (FileSplit) split);
+	    return new UserTagsRecordReader(job, (FileSplit) split);
 	}
 
 }

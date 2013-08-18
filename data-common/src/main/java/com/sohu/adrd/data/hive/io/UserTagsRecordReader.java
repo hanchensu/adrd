@@ -29,9 +29,9 @@ import com.sohu.adrd.data.common.Util;
  * @schema {user:string, tags:list<string>}
  *
  */
-public class UserTagRecordReader extends BaseSequenceRecordReader<UserWritable, TagsWritable>{
+public class UserTagsRecordReader extends BaseSequenceRecordReader<UserWritable, TagsWritable>{
 
-	public UserTagRecordReader(Configuration conf, FileSplit split)
+	public UserTagsRecordReader(Configuration conf, FileSplit split)
 			throws IOException {
 		super(conf, split);
 	}
