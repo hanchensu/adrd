@@ -32,7 +32,7 @@ public class AdserverRecordReader extends BaseLineRecordReader{
 		FormatResult res = AdrdDataUtil.format(value.toString(), schema);
 		String recordStr = AdrdDataHive.toHiveStr(res.strs, AdrdDataHive.FIELD_DELIMITER);
 		String recordStatus = res.errorcode;
-		value.set(recordStatus+AdrdDataHive.FIELD_DELIMITER+recordStr);
+		value.set(recordStatus+AdrdDataHive.FIELD_DELIMITER+value.toString()+AdrdDataHive.FIELD_DELIMITER+recordStr);
 	}
 
 }

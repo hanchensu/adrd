@@ -53,7 +53,7 @@ public class CookieMappingRecordReader extends BaseLineRecordReader{
 				
 			}
 			String recordStr = AdrdDataHive.toHiveStr(res.strs, AdrdDataHive.FIELD_DELIMITER);
-			value.set(res.errorcode+AdrdDataHive.FIELD_DELIMITER+recordStr);
+			value.set(res.errorcode+AdrdDataHive.FIELD_DELIMITER+value.toString()+AdrdDataHive.FIELD_DELIMITER+recordStr);
 		}
 	}
 
