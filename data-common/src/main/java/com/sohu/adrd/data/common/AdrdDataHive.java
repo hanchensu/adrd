@@ -3,8 +3,6 @@ package com.sohu.adrd.data.common;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.pig.parser.QueryParser.null_check_cond_return;
-
 public class AdrdDataHive {
 	public static final String NULL_STR = "_NULL_";
 	public static final String FIELD_DELIMITER = "\001";
