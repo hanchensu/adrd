@@ -16,11 +16,10 @@ import org.apache.hadoop.mapred.JobConf;
 import org.apache.hadoop.mapred.RecordReader;
 import org.apache.hadoop.mapred.Reporter;
 
-
-public abstract class BaseInputFormat extends FileInputFormat<LongWritable, Text>
+public abstract class BaseTextInputFormat extends FileInputFormat<LongWritable, Text>
 		implements InputFormat<LongWritable, Text> {
 
-	private static final Log LOG = LogFactory.getLog(BaseInputFormat.class);
+	private static final Log LOG = LogFactory.getLog(BaseTextInputFormat.class);
 
 	@Override
 	public abstract RecordReader<LongWritable, Text> getRecordReader(InputSplit split,

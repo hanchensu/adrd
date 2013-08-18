@@ -23,13 +23,13 @@ import org.apache.hadoop.util.ReflectionUtils;
 import com.sohu.adrd.data.common.LogSchema;
 import com.sohu.adrd.data.mapred.SkipLineRecordReader;
 
-public class CountinfoInputFormat extends BaseInputFormat
+public class CountinfoInputFormat extends BaseTextInputFormat
 		implements InputFormat<LongWritable, Text> {
 	@Override
 	public RecordReader<LongWritable, Text> getRecordReader(InputSplit split,
 			JobConf job, Reporter arg2) throws IOException {
 		try {
-			return new AdserverLineRecordReader(job, (FileSplit) split, LogSchema.COUNTINFO_SCHEMA);
+			return new AdserverRecordReader(job, (FileSplit) split, LogSchema.COUNTINFO_SCHEMA);
 		} catch (IOException e) {
 			return new SkipLineRecordReader(job, (FileSplit) split);
 		}

@@ -13,15 +13,16 @@ import org.apache.commons.lang.math.Fraction;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 
+import com.sohu.adrd.data.common.AdrdDataHive;
 import com.sohu.adrd.data.common.AdrdDataUtil;
 import com.sohu.adrd.data.common.FormatResult;
 import com.sohu.adrd.data.common.LogSchema;
 
-public class AdserverLineRecordReader extends BaseLineRecordReader{
+public class AdserverRecordReader extends BaseLineRecordReader{
 
 	private String[] schema;
 	
-	public AdserverLineRecordReader(Configuration job, FileSplit split, String[] schema) throws IOException {
+	public AdserverRecordReader(Configuration job, FileSplit split, String[] schema) throws IOException {
 		super(job, split);
 		this.schema = schema;
 	}
@@ -29,7 +30,9 @@ public class AdserverLineRecordReader extends BaseLineRecordReader{
 	@Override
 	public void transform(Text value) {
 		FormatResult res = AdrdDataUtil.format(value.toString(), schema);
+		String recordStr = AdrdDataHive.toHiveStr(res.strs, AdrdDataHive.FIELD_DELIMITER);
+		String recordStatus = res.errorcode;
+		value.set(recordStatus+AdrdDataHive.FIELD_DELIMITER+recordStr);
 	}
-	fuck
 
 }
