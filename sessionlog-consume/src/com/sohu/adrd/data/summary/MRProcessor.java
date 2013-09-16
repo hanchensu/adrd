@@ -24,6 +24,7 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.hive.ql.io.RCFileInputFormat;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.zebra.mapreduce.TableInputFormat;
 import org.apache.hadoop.mapreduce.Job;
@@ -31,6 +32,8 @@ import org.apache.hadoop.util.GenericOptionsParser;
 import org.apache.hadoop.util.Tool;
 
 import com.sohu.adrd.data.mapreduce.InputPathFilter;
+import com.twitter.elephantbird.mapreduce.input.MapReduceInputFormatWrapper;
+import com.twitter.elephantbird.mapreduce.output.RCFileOutputFormat;
 
 
 
@@ -63,7 +66,10 @@ public abstract class MRProcessor implements Tool {
 	public int run(String[] args) throws Exception {
 		parseArgv(args);	
 		setJars();
+	
 		Job job = new Job(_conf, this.getClass().getSimpleName());
+		RCFileOutputFormat.setColumnNumber(_conf, 2);
+		
 		job.setJarByClass(this.getClass());
 
 		// these four configuration can be overwritted in configJob()
@@ -103,7 +109,8 @@ public abstract class MRProcessor implements Tool {
 		else
 		{
 			//MultipleInputs.addInputPath();
-			job.setInputFormatClass(TextInputFormat.class);
+			MapReduceInputFormatWrapper.setInputFormat(RCFileInputFormat.class, job);
+			
 			for(String sub:_input.split(",")) {
 				String expand = pathExpand(sub);
 				System.out.println("Add Input Path: "+expand);

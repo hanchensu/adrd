@@ -43,22 +43,26 @@ public class VideoSearch extends MRProcessor {
 				throws IOException, InterruptedException {
 			
 			List<SearchOperation> searchList = new ArrayList<SearchOperation>();
+			List<String> albums = new ArrayList<String>();
 			
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("album0904"), "UTF-8"));
+			String str;
+			while ((str = br.readLine()) != null) {
+				albums.add(str.trim());
+			}
+			br.close();
 		
-			
 			decode(key, value);
-			
-
-		
-			
 		
 			searchList = (List<SearchOperation>) list.get(CG_SEARCH);
 			
 			if(searchList!=null) {
 				for(SearchOperation info: searchList) {
-					String queryword = info.getKeywords();
-					if(queryword.contains("平原烽火")) {
-						context.write(new Text(info.getDomain()), new LongWritable(1));
+					for(String album:albums) {
+						String queryword = info.getKeywords();
+						if(queryword.contains(album)) {
+							context.write(new Text(album+"\t"+info.getDomain()), new LongWritable(1));
+						}
 					}
 				}
 			}		
