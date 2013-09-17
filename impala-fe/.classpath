@@ -30,9 +30,6 @@
 	<classpathentry kind="lib" path="D:/impala/javalib/hive-service-0.10.0-cdh4.3.0.jar"/>
 	<classpathentry kind="lib" path="D:/impala/javalib/hive-shims-0.10.0-cdh4.3.0.jar"/>
 	<classpathentry kind="lib" path="D:/impala/javalib/jdo2-api-2.3-ec.jar"/>
-	<classpathentry kind="lib" path="D:/impala/javalib/libfb303-0.9.0.jar"/>
-	<classpathentry kind="lib" path="D:/impala/javalib/libthrift-0.9.0.jar"/>
-	<classpathentry kind="lib" path="D:/impala/javalib/libthrift-0.9.0-javadoc.jar"/>
 	<classpathentry kind="lib" path="D:/impala/javalib/postgresql-9.0-801.jdbc4.jar"/>
 	<classpathentry kind="lib" path="D:/impala/javalib/sentry-binding-hive-1.1.0.jar"/>
 	<classpathentry kind="lib" path="D:/impala/javalib/sentry-core-1.1.0.jar"/>
@@ -43,5 +40,8 @@
 	<classpathentry kind="lib" path="D:/impala/javalib/hadoop-mapreduce-client-core-2.0.0-cdh4.3.0.jar"/>
 	<classpathentry kind="lib" path="D:/impala/javalib/hbase-0.94.6-cdh4.3.0.jar"/>
 	<classpathentry kind="lib" path="D:/impala/javalib/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="D:/impala/javalib/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="D:/impala/javalib/commons-lang-2.5.jar"/>
+	<classpathentry kind="lib" path="D:/impala/javalib/commons-codec-1.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
