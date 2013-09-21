@@ -249,8 +249,9 @@ public class AnalysisContext {
       AnalysisResult result = new AnalysisResult();
       result.stmt = (StatementBase) parser.parse().value;
       
-//	  result.analyzer = new Analyzer(catalog, defaultDatabase, user);
+	  result.analyzer = new Analyzer(new Catalog(), "default", new User("shc"));
+	  System.out.println(result.analyzer.getUser().getName());
     
-      System.out.println(((SlotRef)((SelectStmt)result.stmt).getSelectList().getItems().get(0).getExpr().getChild(1).getChild(1)).getColumnName());
+//      System.out.println(((SlotRef)((SelectStmt)result.stmt).getSelectList().getItems().get(0).getExpr().getChild(1).getChild(1)).getColumnName());
 	}
 }
