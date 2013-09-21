@@ -45,5 +45,6 @@
 	<classpathentry kind="lib" path="D:/impala/javalib/slf4j-api-1.6.1.jar"/>
 	<classpathentry kind="lib" path="D:/impala/javalib/slf4j-log4j12-1.6.1.jar"/>
 	<classpathentry kind="lib" path="D:/impala/javalib/java-cup-0.11a.jar"/>
+	<classpathentry kind="lib" path="D:/impala/javalib/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

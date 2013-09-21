@@ -240,4 +240,17 @@ public class AnalysisContext {
       throw new AnalysisException(parser.getErrorMsg(stmt), e);
     }
   }
+  
+  public static void main(String[] args) throws Exception {
+		String stmt = "select 5*(c + d) as fuck,max(b) from shc where a > 10 AND b < 10 group by a";
+		SqlScanner input = new SqlScanner(new StringReader(stmt));
+	    SqlParser parser = new SqlParser(input);
+	   
+      AnalysisResult result = new AnalysisResult();
+      result.stmt = (StatementBase) parser.parse().value;
+      
+//	  result.analyzer = new Analyzer(catalog, defaultDatabase, user);
+    
+      System.out.println(((SlotRef)((SelectStmt)result.stmt).getSelectList().getItems().get(0).getExpr().getChild(1).getChild(1)).getColumnName());
+	}
 }
