@@ -242,14 +242,15 @@ public class AnalysisContext {
   }
   
   public static void main(String[] args) throws Exception {
-		String stmt = "select 5*(c + d) as fuck,max(b) from shc a where a > 10 AND b < 10 group by a";
+//		String stmt = "select 5*(c + d) as f,max(b) from shc a where a > 10 AND b < 10 group by a";
+		String stmt = "show tables;";
 		SqlScanner input = new SqlScanner(new StringReader(stmt));
 	    SqlParser parser = new SqlParser(input);
 	   
       AnalysisResult result = new AnalysisResult();
       result.stmt = (StatementBase) parser.parse().value;
       
-	  result.analyzer = new Analyzer(new Catalog(), "default", new User("shc"));
+	  result.analyzer = new Analyzer(new Catalog(), "default", new User("hive"));
 	  result.stmt.analyze(result.analyzer);
 	  System.out.println(result.analyzer);
     

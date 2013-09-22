@@ -48,7 +48,7 @@
 	<classpathentry kind="lib" path="D:/impala/javalib/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="lib" path="D:/impala/javalib/commons-pool-1.5.4.jar"/>
 	<classpathentry kind="lib" path="D:/impala/javalib/commons-configuration-1.6.jar"/>
-	<classpathentry kind="lib" path="D:/impala/javalib/hadoop-common-0.22.0.jar"/>
 	<classpathentry kind="lib" path="D:/impala/javalib/hadoop-auth-2.0.0-20120425.062639-4.jar"/>
+	<classpathentry kind="lib" path="D:/impala/hive-site.xml"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
