@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import java_cup.internal_error;
+
 import org.apache.hadoop.hive.ql.parse.HiveParser.ifExists_return;
 
 import com.cloudera.impala.authorization.User;
@@ -250,7 +252,7 @@ public class AnalysisContext {
   public static void main(String[] args) throws Exception {
 //		String stmt = "select 5*(c + d) as f,max(b) from shc a where a > 10 AND b < 10 group by a";
 //	  String stmt = "SELECT a, AVG(Distinct b), MAX(d),COUNT(f) FROM shctest WHERE a=5 AND (b<10 OR c>3) AND c>4 GROUP BY a HAVING MAX(e) < 10";
-	  String stmt = "SELECT g,h FROM shctest LEFT OUTER JOIN shctest2 ON shctest.a = shctest2.a WHERE shctest.b = 4 OR shctest.c = 3";
+	  String stmt = "SELECT g,h FROM shctest2 LEFT OUTER JOIN shctest ON shctest.a = shctest2.a WHERE shctest.b = 4 OR shctest.c = 3";
 	  SqlScanner input = new SqlScanner(new StringReader(stmt));
 	  SqlParser parser = new SqlParser(input);
 	   
@@ -281,10 +283,11 @@ public class AnalysisContext {
 	
 	 System.out.println(result.analyzer.getDescTbl().getTupleDescs().size());
 	 
+	 
 	
 	 
 	 Iterator<Map.Entry<SlotId, List<ExprId>>> iterator = result.analyzer.slotPredicates.entrySet().iterator();
-	 System.out.println("---(main) result.analyzer.slotPredicates: ---");
+	 System.out.println("\n---(main) result.analyzer.slotPredicates: ---");
 	 while(iterator.hasNext()) {
 		 Map.Entry<SlotId, List<ExprId>> entry = iterator.next();
 		 System.out.println("(main) Slot"+entry.getKey().asInt()+": ");
@@ -295,7 +298,7 @@ public class AnalysisContext {
 	 
 	 
 	 Iterator<Map.Entry<TupleId, List<ExprId>>> iterator2 = result.analyzer.tuplePredicates.entrySet().iterator();
-	 System.out.println("---(main) result.analyzer.tuplePredicates: ---");
+	 System.out.println("\n---(main) result.analyzer.tuplePredicates: ---");
 	 while(iterator2.hasNext()) {
 		 Map.Entry<TupleId, List<ExprId>> entry = iterator2.next();
 		 System.out.println("(main) Tuple"+entry.getKey().asInt()+": ");
@@ -306,7 +309,7 @@ public class AnalysisContext {
 	 
 	 
 	 Iterator<Map.Entry<TupleId, List<ExprId>>> iterator3 = result.analyzer.eqJoinConjuncts.entrySet().iterator();
-	 System.out.println("---(main) result.analyzer.eqJoinConjuncts: ---");
+	 System.out.println("\n---(main) result.analyzer.eqJoinConjuncts: ---");
 	 while(iterator3.hasNext()) {
 		 Map.Entry<TupleId, List<ExprId>> entry = iterator3.next();
 		 System.out.println("(main) Tuple"+entry.getKey().asInt()+": ");
@@ -317,33 +320,43 @@ public class AnalysisContext {
 	 
 	 
 	 Iterator<Map.Entry<TupleId, TableRef>> iterator4 = result.analyzer.outerJoinedTupleIds.entrySet().iterator();
-	 System.out.println("---(main) result.analyzer.outerJoinTupleIds: ---");
+	 System.out.println("\n---(main) result.analyzer.outerJoinTupleIds: ---");
 	 while(iterator4.hasNext()) {
 		 Map.Entry<TupleId, TableRef> entry = iterator4.next();
-		 System.out.println("(main) Tuple"+entry.getKey().asInt()+": ");
-		 System.out.println("	"+entry.getValue().toSql());
+		 System.out.println("(main) Tuple"+entry.getKey().asInt()+": "+entry.getValue().toSql());
 		 
 	 }
 	 
 	 
 	 
 	 Iterator<Entry<TableRef, List<ExprId>>> iterator5 = result.analyzer.conjunctsByOjClause.entrySet().iterator();
-	 System.out.println("---(main) result.analyzer.conjunctsByOjClause: ---");
+	 System.out.println("\n---(main) result.analyzer.conjunctsByOjClause: ---");
 	 while(iterator5.hasNext()) {
 		 Map.Entry<TableRef, List<ExprId>> entry = iterator5.next();
-		 System.out.println("(main) TableRef"+entry.getKey().toSql()+": ");
+		 System.out.println("(main) TableRef: "+entry.getKey().toSql());
 		 for(ExprId id : entry.getValue()) {
 			 System.out.println("	"+result.analyzer.conjuncts.get(id).toSql());
 		 }
 	 }
-	
 	 
+	 
+	 Iterator<Entry<ExprId,TableRef>> iterator8 = result.analyzer.ojClauseByConjunct.entrySet().iterator();
+	 System.out.println("\n---(main) result.analyzer.ojClauseByConjunct: ---");
+	 while(iterator8.hasNext()) {
+		 Map.Entry<ExprId,TableRef> entry = iterator8.next();
+		 System.out.println("(main) ojClauseByConjunct: "+result.analyzer.conjuncts.get(entry.getKey()).toSql()+"#Tuple"+entry.getValue().getId()+":"+entry.getValue().toSql());
+		 
+	 }
+	
+	System.out.println("\n---(main) getWhereClause().getConjuncts(): ---");
 	for(Expr expr: ((SelectStmt)result.stmt).getWhereClause().getConjuncts()) {
-		System.out.println("---(main) getWhereClause().getConjuncts(): ---"+ expr.toSql());
+		System.out.println("(main) Conjuncts: "+ expr.toSql());
 	}
+	
+	System.out.println("\n---(main) result.stmt.getTableRefs(): ---");
 	for(TableRef expr: ((SelectStmt)result.stmt).getTableRefs()) {
 		System.out.println("(main) tableRef: "+ expr.toSql());
-		System.out.println("	"+expr.getJoinOp());
+		System.out.println("	JoinOp: "+expr.getJoinOp());
 		if(expr.getJoinHints()!=null) {
 			for(String hint:expr.getJoinHints()) {
 				System.out.println(" join hint:"+hint);
@@ -355,6 +368,30 @@ public class AnalysisContext {
 		}
 	}
 	
+	
+	Iterator<Map.Entry<TupleId, TupleDescriptor>> iterator6 = result.analyzer.getDescTbl().tupleDescs.entrySet().iterator();
+	System.out.println("\n---(main) result.analyzer.DescriptorTable.tupleDescs: ---");
+	 while(iterator6.hasNext()) {
+		Map.Entry<TupleId,TupleDescriptor> entry = iterator6.next();
+		 System.out.println("(main) tupleDescs: "+entry.getKey().asInt()+"#"+entry.getValue().debugString());
+	}
+	
+	 
+	Iterator<Map.Entry<SlotId, SlotDescriptor>> iterator7 = result.analyzer.getDescTbl().slotDescs.entrySet().iterator();
+		System.out.println("\n---(main) result.analyzer.DescriptorTable.slotDescs: ---");
+		 while(iterator7.hasNext()) {
+			Map.Entry<SlotId, SlotDescriptor> entry = iterator7.next();
+			 System.out.println("(main) slotDescs: "+entry.getKey().asInt()+"#"+entry.getValue().debugString());
+	}
+	
+		 
+		 result.analyzer.computeEquivClasses();
+		 for(int i = 0; i < result.analyzer.valueTransfer.length; i++) {
+			 for(int j = 0; j < result.analyzer.valueTransfer[i].length; j++) {
+				 System.out.print(result.analyzer.valueTransfer[i][j]+" ");
+			 }
+			 System.out.println("\n");
+		 }
 	
 	}
   

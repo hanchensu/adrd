@@ -31,8 +31,8 @@ import com.google.common.collect.Sets;
  *
  */
 public class DescriptorTable {
-  private final HashMap<TupleId, TupleDescriptor> tupleDescs;
-  private final HashMap<SlotId, SlotDescriptor> slotDescs;
+  public final HashMap<TupleId, TupleDescriptor> tupleDescs;
+  public final HashMap<SlotId, SlotDescriptor> slotDescs;
   // List of referenced tables with no associated TupleDescriptor to ship to the BE.
   // For example, the output table of an insert query.
   private final List<Table> referencedTables;

@@ -132,7 +132,7 @@ public class Analyzer {
 
   // valueTransfer[slotA][slotB] is true if slotB always has the same value as slotA
   // or the tuple containing slotB is NULL
-  private boolean[][] valueTransfer;
+  public boolean[][] valueTransfer;
 
   // map from equivalence class id to the list of its member slots
   private final Map<EquivalenceClassId, ArrayList<SlotId>> equivClassMembers;
@@ -642,6 +642,7 @@ public class Analyzer {
         if (tblRef.getId() == getTupleId(slotIds.first)) {
           innerSlot = slotIds.first;
           outerSlot = slotIds.second;
+         
         } else if (tblRef.getId() == getTupleId(slotIds.second)) {
           innerSlot = slotIds.second;
           outerSlot = slotIds.first;
@@ -651,7 +652,8 @@ public class Analyzer {
           // actually be true
           continue;
         }
-
+        
+        System.out.println("Analyzer.computeValueTransferGraph: inner_"+innerSlot.asInt()+"# outer_"+outerSlot.asInt());
         if (tblRef.getJoinOp() == JoinOperator.FULL_OUTER_JOIN) {
           // full outer joins don't guarantee any value transfer
           continue;
@@ -757,6 +759,9 @@ public class Analyzer {
       }
       LOG.info("equiv class: id=" + id.toString() + " members=("
           + Joiner.on(" ").join(strings) + ")");
+      
+      System.out.println("equiv class: id=" + id.toString() + " members=("
+              + Joiner.on(" ").join(strings) + ")");
     }
   }
 
