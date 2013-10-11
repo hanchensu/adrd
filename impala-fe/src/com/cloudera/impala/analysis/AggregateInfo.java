@@ -28,6 +28,7 @@ import com.cloudera.impala.thrift.TPartitionType;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
+import com.sun.tools.javac.code.Type.ForAll;
 
 /**
  * Encapsulates all the information needed to compute the aggregate functions of a single
@@ -121,9 +122,12 @@ public class AggregateInfo {
     ArrayList<AggregateExpr> distinctAggExprs = Lists.newArrayList();
     if (aggExprs != null) {
       for (AggregateExpr aggExpr: aggExprs) {
+    	  System.out.print("AggInfo.create aggExpr: "+ aggExpr.toSql());
         if (aggExpr.isDistinct()) {
+        	System.out.print(" Dist");
           distinctAggExprs.add(aggExpr);
         }
+        System.out.println(" ");
       }
     }
 
@@ -180,6 +184,9 @@ public class AggregateInfo {
       ArrayList<AggregateExpr> distinctAggExprs, Analyzer analyzer)
       throws AnalysisException, InternalException {
     Preconditions.checkState(!distinctAggExprs.isEmpty());
+    for(Expr disagg: distinctAggExprs) {
+    System.out.println("createDistinctAggInfo distinctAggExpr: "+disagg.toSql());
+    }
     // make sure that all DISTINCT params are the same;
     // ignore top-level implicit casts in the comparison, we might have inserted
     // those during analysis
@@ -206,6 +213,14 @@ public class AggregateInfo {
 
     // remove DISTINCT aggregate functions from aggExprs
     aggregateExprs.removeAll(distinctAggExprs);
+    
+    for(Expr expr: groupingExprs){
+    	System.out.println("createDistinctAggInfo groupingExprs: "+ expr.toSql());
+    }
+    
+    for(Expr expr: aggregateExprs){
+    	System.out.println("createDistinctAggInfo aggExprs: "+ expr.toSql());
+    }
 
     aggTupleDesc = createAggTupleDesc(analyzer.getDescTbl());
     createMergeAggInfo(analyzer);
@@ -415,6 +430,8 @@ public class AggregateInfo {
         // We need the nested IF to make sure that we do not count
         // column-value combinations if any of the distinct columns are NULL.
         // This behavior is consistent with MySQL.
+
+    	  
         Expr ifExpr = createCountDistinctAggExprParam(origGroupingExprs.size(),
             origGroupingExprs.size() + inputExpr.getChildren().size() - 1,
             inputDesc.getSlots());
@@ -428,6 +445,8 @@ public class AggregateInfo {
         aggExpr = new AggregateExpr(AggregateExpr.Operator.COUNT, false, false,
             Lists.newArrayList(ifExpr));
       } else {
+    	  
+    	  
         // SUM(DISTINCT <expr>) -> SUM(<last grouping slot>);
         // (MIN(DISTINCT ...) and MAX(DISTINCT ...) have their DISTINCT turned
         // off during analysis, and AVG() is changed to SUM()/COUNT())
@@ -447,6 +466,8 @@ public class AggregateInfo {
       // we're aggregating an output slot of the 1st agg phase
       Expr aggExprParam =
           new SlotRef(inputDesc.getSlots().get(i + getGroupingExprs().size()));
+      
+      
       List<Expr> aggExprParamList = Lists.newArrayList(aggExprParam);
       AggregateExpr aggExpr = null;
       if (inputExpr.getOp() == AggregateExpr.Operator.COUNT) {
@@ -543,6 +564,7 @@ public class AggregateInfo {
       }
       aggTupleSMap.lhs.add(expr.clone(null));
       aggTupleSMap.rhs.add(new SlotRef(slotD));
+      
     }
     LOG.debug("aggtuple=" + result.debugString());
     return result;

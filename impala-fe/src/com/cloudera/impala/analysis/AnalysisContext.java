@@ -15,6 +15,12 @@
 package com.cloudera.impala.analysis;
 
 import java.io.StringReader;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import org.apache.hadoop.hive.ql.parse.HiveParser.ifExists_return;
 
 import com.cloudera.impala.authorization.User;
 import com.cloudera.impala.catalog.AuthorizationException;
@@ -243,17 +249,140 @@ public class AnalysisContext {
   
   public static void main(String[] args) throws Exception {
 //		String stmt = "select 5*(c + d) as f,max(b) from shc a where a > 10 AND b < 10 group by a";
-		String stmt = "show tables;";
-		SqlScanner input = new SqlScanner(new StringReader(stmt));
-	    SqlParser parser = new SqlParser(input);
+//	  String stmt = "SELECT a, AVG(Distinct b), MAX(d),COUNT(f) FROM shctest WHERE a=5 AND (b<10 OR c>3) AND c>4 GROUP BY a HAVING MAX(e) < 10";
+	  String stmt = "SELECT g,h FROM shctest LEFT OUTER JOIN shctest2 ON shctest.a = shctest2.a WHERE shctest.b = 4 OR shctest.c = 3";
+	  SqlScanner input = new SqlScanner(new StringReader(stmt));
+	  SqlParser parser = new SqlParser(input);
 	   
       AnalysisResult result = new AnalysisResult();
       result.stmt = (StatementBase) parser.parse().value;
       
-	  result.analyzer = new Analyzer(new Catalog(), "default", new User("hive"));
+	  result.analyzer = new Analyzer(new Catalog(), "default", new User("impala"));
 	  result.stmt.analyze(result.analyzer);
-	  System.out.println(result.analyzer);
-    
-//      System.out.println(((SlotRef)((SelectStmt)result.stmt).getSelectList().getItems().get(0).getExpr().getChild(1).getChild(1)).getColumnName());
+	  
+//	  System.out.println("main: "+ ((SelectStmt)result.stmt).getAggInfo().getAggregateExprs().get(0).toSql());
+//	 aggInfoDebugString(((SelectStmt)result.stmt).getAggInfo(), "(main) agginfo");
+//	 aggInfoDebugString(((SelectStmt)result.stmt).getAggInfo().getMergeAggInfo(), "(main) mergeinfo");
+//	 aggInfoDebugString(((SelectStmt)result.stmt).getAggInfo().getSecondPhaseDistinctAggInfo(), "(main) 2nd agginfo");
+	 for(SelectListItem seleExpr : ((SelectStmt)result.stmt).getSelectList().getItems()) {
+		 System.out.println("(main) selectItem: "+seleExpr.toSql());
+	 }
+	 
+	 for(Expr seleExpr : ((SelectStmt)result.stmt).getResultExprs()) {
+		 System.out.println("(main) resultExpr: "+seleExpr.getClass());
+	 }
+	 
+//	 System.out.println(((SelectStmt)result.stmt).getWhereClause().toSql());
+	 
+	 for(TupleDescriptor td : result.analyzer.getDescTbl().getTupleDescs()) {
+//		 tdDebugString(td);
+		 System.out.println("(main) "+td.debugString());
+	 }
+	
+	 System.out.println(result.analyzer.getDescTbl().getTupleDescs().size());
+	 
+	
+	 
+	 Iterator<Map.Entry<SlotId, List<ExprId>>> iterator = result.analyzer.slotPredicates.entrySet().iterator();
+	 System.out.println("---(main) result.analyzer.slotPredicates: ---");
+	 while(iterator.hasNext()) {
+		 Map.Entry<SlotId, List<ExprId>> entry = iterator.next();
+		 System.out.println("(main) Slot"+entry.getKey().asInt()+": ");
+		 for(ExprId id : entry.getValue()) {
+			 System.out.println("	"+result.analyzer.conjuncts.get(id).toSql());
+		 }
+	 }
+	 
+	 
+	 Iterator<Map.Entry<TupleId, List<ExprId>>> iterator2 = result.analyzer.tuplePredicates.entrySet().iterator();
+	 System.out.println("---(main) result.analyzer.tuplePredicates: ---");
+	 while(iterator2.hasNext()) {
+		 Map.Entry<TupleId, List<ExprId>> entry = iterator2.next();
+		 System.out.println("(main) Tuple"+entry.getKey().asInt()+": ");
+		 for(ExprId id : entry.getValue()) {
+			 System.out.println("	"+result.analyzer.conjuncts.get(id).toSql());
+		 }
+	 }
+	 
+	 
+	 Iterator<Map.Entry<TupleId, List<ExprId>>> iterator3 = result.analyzer.eqJoinConjuncts.entrySet().iterator();
+	 System.out.println("---(main) result.analyzer.eqJoinConjuncts: ---");
+	 while(iterator3.hasNext()) {
+		 Map.Entry<TupleId, List<ExprId>> entry = iterator3.next();
+		 System.out.println("(main) Tuple"+entry.getKey().asInt()+": ");
+		 for(ExprId id : entry.getValue()) {
+			 System.out.println("	"+result.analyzer.conjuncts.get(id).toSql());
+		 }
+	 }
+	 
+	 
+	 Iterator<Map.Entry<TupleId, TableRef>> iterator4 = result.analyzer.outerJoinedTupleIds.entrySet().iterator();
+	 System.out.println("---(main) result.analyzer.outerJoinTupleIds: ---");
+	 while(iterator4.hasNext()) {
+		 Map.Entry<TupleId, TableRef> entry = iterator4.next();
+		 System.out.println("(main) Tuple"+entry.getKey().asInt()+": ");
+		 System.out.println("	"+entry.getValue().toSql());
+		 
+	 }
+	 
+	 
+	 
+	 Iterator<Entry<TableRef, List<ExprId>>> iterator5 = result.analyzer.conjunctsByOjClause.entrySet().iterator();
+	 System.out.println("---(main) result.analyzer.conjunctsByOjClause: ---");
+	 while(iterator5.hasNext()) {
+		 Map.Entry<TableRef, List<ExprId>> entry = iterator5.next();
+		 System.out.println("(main) TableRef"+entry.getKey().toSql()+": ");
+		 for(ExprId id : entry.getValue()) {
+			 System.out.println("	"+result.analyzer.conjuncts.get(id).toSql());
+		 }
+	 }
+	
+	 
+	for(Expr expr: ((SelectStmt)result.stmt).getWhereClause().getConjuncts()) {
+		System.out.println("---(main) getWhereClause().getConjuncts(): ---"+ expr.toSql());
 	}
+	for(TableRef expr: ((SelectStmt)result.stmt).getTableRefs()) {
+		System.out.println("(main) tableRef: "+ expr.toSql());
+		System.out.println("	"+expr.getJoinOp());
+		if(expr.getJoinHints()!=null) {
+			for(String hint:expr.getJoinHints()) {
+				System.out.println(" join hint:"+hint);
+			}
+		}
+		if(expr.getLeftTblRef() != null) {
+			
+			System.out.println("	leftRef: "+expr.getLeftTblRef().toSql());
+		}
+	}
+	
+	
+	}
+  
+  
+ 
+  public static void tdDebugString(TupleDescriptor tupleDescriptor) {
+	  for(SlotDescriptor sr: tupleDescriptor.getSlots()) {
+		  System.out.print(sr.debugString()+"__");
+	  }
+	  System.out.println("end");
+  }
+  
+  public static void aggInfoDebugString(AggregateInfo agginfo, String name) {
+	  for(Expr expr: agginfo.getAggregateExprs()){
+		  System.out.println(name+" aggexpr: "+ expr.toSql());
+	  }
+	  
+	  for(Expr expr: agginfo.getGroupingExprs()){
+		  System.out.println(name+" groupexpr: "+ expr.toSql());
+	  }
+	  
+	  for(Expr expr: agginfo.getSMap().lhs) {
+		  System.out.println(name+" SMap lhs: "+ expr.toSql());
+	  }
+	  
+	  for(Expr expr: agginfo.getSMap().rhs) {
+		  System.out.println(name+" SMap rhs: "+ expr.toSql());
+	  }
+  }
+  
 }

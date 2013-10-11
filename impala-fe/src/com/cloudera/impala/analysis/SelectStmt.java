@@ -378,11 +378,21 @@ public class SelectStmt extends QueryStmt {
     ArrayList<AggregateExpr> aggExprs = collectAggExprs();
     Expr.SubstitutionMap avgSMap = createAvgSMap(aggExprs, analyzer);
 
+//    System.out.println("analyzeAggregation lhs: "+avgSMap.lhs.get(0).toSql());
+//    System.out.println("analyzeAggregation rhs: "+avgSMap.rhs.get(0).toSql());
     // substitute AVG before constructing AggregateInfo
+    
+    
     Expr.substituteList(aggExprs, avgSMap);
     ArrayList<AggregateExpr> nonAvgAggExprs = Lists.newArrayList();
     Expr.collectList(aggExprs, AggregateExpr.class, nonAvgAggExprs);
+    for(Expr agg: aggExprs) {
+    	System.out.println("analyzeAggregation aggExprs: "+agg.toSql());
+    }
     aggExprs = nonAvgAggExprs;
+    for(Expr agg: aggExprs) {
+    	System.out.println("analyzeAggregation noaggExprs: "+agg.toSql());
+    }
     try {
       createAggInfo(groupingExprsCopy, aggExprs, analyzer);
     } catch (InternalException e) {
@@ -397,7 +407,15 @@ public class SelectStmt extends QueryStmt {
     Expr.SubstitutionMap combinedSMap =
         Expr.SubstitutionMap.combine(avgSMap, finalAggInfo.getSMap());
     LOG.debug("combined smap: " + combinedSMap.debugString());
-
+    
+    for(Expr expr: combinedSMap.lhs) {
+    	System.out.println("combinedSMap lhs: "+expr.toSql());
+    }
+    
+    for(Expr expr: combinedSMap.rhs) {
+    	System.out.println("combinedSMap rhs: "+expr.toSql());
+    }
+    
     // change select list, having and ordering exprs to point to agg output
     Expr.substituteList(resultExprs, combinedSMap);
     LOG.debug("post-agg selectListExprs: " + Expr.debugString(resultExprs));
@@ -506,6 +524,9 @@ public class SelectStmt extends QueryStmt {
       aggInfo =
           AggregateInfo.create(Expr.cloneList(resultExprs, null), null, null, analyzer);
     } else {
+    	for(Expr aggExpr: aggExprs) {
+    		System.out.println("createAggInfo aggExpr: "+aggExpr.toSql());
+    	}
       aggInfo = AggregateInfo.create(groupingExprs, aggExprs, null, analyzer);
     }
   }

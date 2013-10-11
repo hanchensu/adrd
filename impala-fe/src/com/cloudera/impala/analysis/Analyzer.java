@@ -94,13 +94,13 @@ public class Analyzer {
   private final Map<String, SlotDescriptor> slotRefMap = Maps.newHashMap();
 
   // all registered conjuncts (map from id to Predicate)
-  private final Map<ExprId, Expr> conjuncts = Maps.newHashMap();
+  public final Map<ExprId, Expr> conjuncts = Maps.newHashMap();
 
   // map from tuple id to list of conjuncts referencing tuple
-  private final Map<TupleId, List<ExprId> > tuplePredicates = Maps.newHashMap();
+  public final Map<TupleId, List<ExprId> > tuplePredicates = Maps.newHashMap();
 
   // map from slot id to list of conjuncts referencing slot
-  private final Map<SlotId, List<ExprId> > slotPredicates = Maps.newHashMap();
+  public final Map<SlotId, List<ExprId> > slotPredicates = Maps.newHashMap();
 
   // eqJoinPredicates[tid] contains all conjuncts of the form
   // "<lhs> = <rhs>" in which either lhs or rhs is fully bound by tid
@@ -108,7 +108,7 @@ public class Analyzer {
   // conditions between two tablerefs).
   // A predicate such as "t1.a = t2.b" has two entries, one for 't1' and
   // another one for 't2'.
-  private final Map<TupleId, List<ExprId> > eqJoinConjuncts = Maps.newHashMap();
+  public final Map<TupleId, List<ExprId> > eqJoinConjuncts = Maps.newHashMap();
 
   // set of conjuncts that have been assigned to some PlanNode
   private final Set<ExprId> assignedConjuncts =
@@ -116,19 +116,19 @@ public class Analyzer {
 
   // map from outer-joined tuple id, ie, one that is nullable in this select block,
   // to the last Join clause (represented by its rhs table ref) that outer-joined it
-  private final Map<TupleId, TableRef> outerJoinedTupleIds = Maps.newHashMap();
+  public final Map<TupleId, TableRef> outerJoinedTupleIds = Maps.newHashMap();
 
   // map from right-hand side table ref of an outer join to the list of
   // conjuncts in its On clause
-  private final Map<TableRef, List<ExprId>> conjunctsByOjClause = Maps.newHashMap();
+  public final Map<TableRef, List<ExprId>> conjunctsByOjClause = Maps.newHashMap();
 
   // map from registered conjunct to its containing outer join On clause (represented
   // by its right-hand side table ref); only conjuncts that can only be correctly
   // evaluated by the originating outer join are registered here
-  private final Map<ExprId, TableRef> ojClauseByConjunct = Maps.newHashMap();
+  public final Map<ExprId, TableRef> ojClauseByConjunct = Maps.newHashMap();
 
   // all conjuncts of the Where clause
-  private final Set<ExprId> whereClauseConjuncts = Sets.newHashSet();
+  public final Set<ExprId> whereClauseConjuncts = Sets.newHashSet();
 
   // valueTransfer[slotA][slotB] is true if slotB always has the same value as slotA
   // or the tuple containing slotB is NULL
@@ -447,6 +447,7 @@ public class Analyzer {
 
     // update tuplePredicates
     for (TupleId id : tupleIds) {
+    	System.out.println("registerConjunct "+e.toSql()+" tupleId: "+id);
       if (!tuplePredicates.containsKey(id)) {
         List<ExprId> conjunctIds = Lists.newArrayList();
         conjunctIds.add(e.getId());
@@ -458,6 +459,7 @@ public class Analyzer {
 
     // update slotPredicates
     for (SlotId id : slotIds) {
+    	System.out.println("registerConjunct "+e.toSql()+" slotId: "+id);
       if (!slotPredicates.containsKey(id)) {
         List<ExprId> conjunctIds = Lists.newArrayList();
         conjunctIds.add(e.getId());
