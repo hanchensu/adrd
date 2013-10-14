@@ -14,6 +14,7 @@
 
 package com.cloudera.impala.planner;
 
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -41,13 +42,19 @@ import com.cloudera.impala.analysis.SlotDescriptor;
 import com.cloudera.impala.analysis.SlotId;
 import com.cloudera.impala.analysis.SlotRef;
 import com.cloudera.impala.analysis.SortInfo;
+import com.cloudera.impala.analysis.SqlParser;
+import com.cloudera.impala.analysis.SqlScanner;
+import com.cloudera.impala.analysis.StatementBase;
 import com.cloudera.impala.analysis.TableRef;
 import com.cloudera.impala.analysis.TupleDescriptor;
 import com.cloudera.impala.analysis.TupleId;
 import com.cloudera.impala.analysis.UnionStmt;
+import com.cloudera.impala.analysis.AnalysisContext.AnalysisResult;
 import com.cloudera.impala.analysis.UnionStmt.Qualifier;
 import com.cloudera.impala.analysis.UnionStmt.UnionOperand;
 import com.cloudera.impala.analysis.ValuesStmt;
+import com.cloudera.impala.authorization.User;
+import com.cloudera.impala.catalog.Catalog;
 import com.cloudera.impala.catalog.HdfsTable;
 import com.cloudera.impala.catalog.PrimitiveType;
 import com.cloudera.impala.common.AnalysisException;
@@ -77,6 +84,24 @@ public class Planner {
 
   private final IdGenerator<PlanNodeId> nodeIdGenerator = new IdGenerator<PlanNodeId>();
 
+  
+  public static void main(String[] args) throws Exception {
+	  String stmt = "SELECT g,h FROM shctest LEFT OUTER JOIN shctest2 ON shctest.a = shctest2.a WHERE shctest.b = 4 OR shctest.c = 3";
+	  SqlScanner input = new SqlScanner(new StringReader(stmt));
+	  SqlParser parser = new SqlParser(input);
+	   
+      AnalysisResult result = new AnalysisResult();
+      result.stmt = (StatementBase) parser.parse().value;
+      
+	  result.analyzer = new Analyzer(new Catalog(), "default", new User("impala"));
+	  result.stmt.analyze(result.analyzer);
+	  
+	  TQueryOptions tq = new TQueryOptions();
+	  tq.setDefault_order_by_limit(10);
+	  
+	  Planner planner = new Planner();
+	  planner.createPlanFragments(result, tq);
+}
   /**
    * Create plan fragments for an analyzed statement, given a set of execution options.
    * The fragments are returned in a list such that element i of that list can
@@ -797,6 +822,11 @@ public class Planner {
     for (TableRef tblRef: selectStmt.getTableRefs()) {
       rowTuples.addAll(tblRef.getMaterializedTupleIds());
     }
+    
+    System.out.println("\n---(createSelectPlan) createSelectPlan rowTuples---");
+    for(TupleId id:rowTuples) {
+    	System.out.println("	rowTuples:" + id);
+    }
 
     // create left-deep sequence of binary hash joins; assign node ids as we go along
     TableRef tblRef = selectStmt.getTableRefs().get(0);
@@ -1173,9 +1203,13 @@ public class Planner {
       // relationship is already captured via another predicate; we still
       // return those predicates in joinPredicates so they get marked as assigned
       Pair<SlotId, SlotId> joinSlots = ((Predicate) e).getEqSlots();
+      System.out.println("\n---(getHashLookupJoinConjuncts) joinSlots---");
       if (joinSlots != null) {
+    	  System.out.println("	joinSlot:"+joinSlots.first.asInt());
+    	  System.out.println("	joinSlot:"+joinSlots.second.asInt());
         EquivalenceClassId id1 = analyzer.getEquivClassId(joinSlots.first);
         EquivalenceClassId id2 = analyzer.getEquivClassId(joinSlots.second);
+        
         // both slots need not be in the same equiv class, due to outer joins
         // null check: we don't have equiv classes for anything in subqueries
         if (id1 != null && id2 != null && id1.equals(id2)
@@ -1240,6 +1274,17 @@ public class Planner {
                         "conjunctive equality predicate between the two tables",
                         outerRef.getAliasAsName(), innerRef.getAliasAsName()));
     }
+    
+    System.out.println("\n---(createHashJoinNode) createHashJoinNode().eqJoinPredicates: ---");
+	for(Expr expr: eqJoinPredicates) {
+		System.out.println("	eqJoinPredicate: "+ expr.toSql());
+	}
+	
+	System.out.println("\n---(createHashJoinNode) createHashJoinNode().eqJoinConjuncts: ---");
+	for(Pair<Expr, Expr> exprs: eqJoinConjuncts) {
+		System.out.println("	eqJoinConjunct: "+ exprs.first.toSql()+"#" + exprs.second.toSql());
+	}
+    
     analyzer.markConjunctsAssigned(eqJoinPredicates);
 
     List<Expr> ojConjuncts = Lists.newArrayList();
@@ -1249,6 +1294,11 @@ public class Planner {
       ojConjuncts = analyzer.getUnassignedOjConjuncts(innerRef);
       analyzer.markConjunctsAssigned(ojConjuncts);
     }
+    
+    System.out.println("\n---(createHashJoinNode) createHashJoinNode().ojConjuncts: ---");
+	for(Expr expr: ojConjuncts) {
+		System.out.println("	ojConjunct: "+ expr.toSql());
+	}
 
     HashJoinNode result =
         new HashJoinNode(

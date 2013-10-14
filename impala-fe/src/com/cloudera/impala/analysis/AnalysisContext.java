@@ -50,8 +50,8 @@ public class AnalysisContext {
   }
 
   static public class AnalysisResult {
-    private StatementBase stmt;
-    private Analyzer analyzer;
+    public StatementBase stmt;
+    public Analyzer analyzer;
 
     public boolean isAlterTableStmt() {
       return stmt instanceof AlterTableStmt;
@@ -252,7 +252,7 @@ public class AnalysisContext {
   public static void main(String[] args) throws Exception {
 //		String stmt = "select 5*(c + d) as f,max(b) from shc a where a > 10 AND b < 10 group by a";
 //	  String stmt = "SELECT a, AVG(Distinct b), MAX(d),COUNT(f) FROM shctest WHERE a=5 AND (b<10 OR c>3) AND c>4 GROUP BY a HAVING MAX(e) < 10";
-	  String stmt = "SELECT g,h FROM shctest2 LEFT OUTER JOIN shctest ON shctest.a = shctest2.a WHERE shctest.b = 4 OR shctest.c = 3";
+	  String stmt = "SELECT g,h FROM shctest FULL OUTER JOIN shctest2 ON shctest.a = shctest2.a WHERE shctest.b = 4 OR shctest.c = 3";
 	  SqlScanner input = new SqlScanner(new StringReader(stmt));
 	  SqlParser parser = new SqlParser(input);
 	   
@@ -385,6 +385,7 @@ public class AnalysisContext {
 	}
 	
 		 
+		 
 		 result.analyzer.computeEquivClasses();
 		 for(int i = 0; i < result.analyzer.valueTransfer.length; i++) {
 			 for(int j = 0; j < result.analyzer.valueTransfer[i].length; j++) {
@@ -392,6 +393,13 @@ public class AnalysisContext {
 			 }
 			 System.out.println("\n");
 		 }
+		 
+		 Iterator<Map.Entry<TupleId, TableRef>> iterator9 = result.analyzer.outerJoinedTupleIds.entrySet().iterator();
+			System.out.println("\n---(main) result.analyzer.outerJoinedTupleIds: ---");
+			 while(iterator9.hasNext()) {
+				Map.Entry<TupleId, TableRef> entry = iterator9.next();
+				 System.out.println("(main) outerJoinedTupleIds: "+entry.getKey().asInt()+"#"+entry.getValue().getTable().getName()+"_"+entry.getValue().getLeftTblRef().getTable().getName());
+		}
 	
 	}
   
