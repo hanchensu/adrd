@@ -1,11 +1,11 @@
 ----------------------------------------------------------------
-2013-10-12 15:29:28.419 GMT:
- Booting Derby version The Apache Software Foundation - Apache Derby - 10.4.2.0 - (689064): instance a816c00e-0141-ad49-5bc8-000006c0cb60
-on database directory C:\Users\Tekchen\Documents\GitHub\adrd\impala-fe\metastore_db  
+2013-10-14 02:19:23.661 GMT:
+ Booting Derby version The Apache Software Foundation - Apache Derby - 10.4.2.0 - (689064): instance a816c00e-0141-b4c2-bdd7-000003e14560
+on database directory C:\Users\hanchensu\git\adrd\impala-fe\metastore_db  
 
 Database Class Loader started - derby.database.classpath=''
-2013-10-12 15:29:29.374 GMT Thread[main,5,main] (XID = 679), (SESSIONID = 0), (DATABASE = metastore_db), (DRDAID = null), Cleanup action starting
-2013-10-12 15:29:29.374 GMT Thread[main,5,main] (XID = 679), (SESSIONID = 0), (DATABASE = metastore_db), (DRDAID = null), Failed Statement is: DROP FUNCTION NUCLEUS_ASCII
+2013-10-14 02:19:23.970 GMT Thread[main,5,main] (XID = 680), (SESSIONID = 0), (DATABASE = metastore_db), (DRDAID = null), Cleanup action starting
+2013-10-14 02:19:23.970 GMT Thread[main,5,main] (XID = 680), (SESSIONID = 0), (DATABASE = metastore_db), (DRDAID = null), Failed Statement is: DROP FUNCTION NUCLEUS_ASCII
 java.lang.NullPointerException
 	at java.io.StringReader.<init>(StringReader.java:50)
 	at org.apache.derby.impl.services.uuid.BasicUUID.<init>(Unknown Source)
@@ -28,7 +28,7 @@ java.lang.NullPointerException
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
 	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-	at java.lang.reflect.Constructor.newInstance(Constructor.java:525)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526)
 	at org.datanucleus.plugin.NonManagedPluginRegistry.createExecutableExtension(NonManagedPluginRegistry.java:588)
 	at org.datanucleus.plugin.PluginManager.createExecutableExtension(PluginManager.java:300)
 	at org.datanucleus.ObjectManagerFactoryImpl.initialiseStoreManager(ObjectManagerFactoryImpl.java:161)
@@ -38,7 +38,7 @@ java.lang.NullPointerException
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:601)
+	at java.lang.reflect.Method.invoke(Method.java:606)
 	at javax.jdo.JDOHelper$16.run(JDOHelper.java:1956)
 	at java.security.AccessController.doPrivileged(Native Method)
 	at javax.jdo.JDOHelper.invoke(JDOHelper.java:1951)
