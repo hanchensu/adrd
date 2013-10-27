@@ -127,7 +127,7 @@ def test(classifyFile, testres, lamda):
     
     p1=1/(math.exp(p2_log-p1_log)+1)
     
-    outputFile.write(str(1-p1)+'\t'+real+'\n')
+    outputFile.write(str(p1)+'\t'+real+'\n')
   
   
 train('D:/worktmp/people/lab-data.txt', '1', 0)
