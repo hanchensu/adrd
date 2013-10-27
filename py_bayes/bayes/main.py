@@ -11,12 +11,12 @@ cntClass = {}
 DEFAULT = '0'
 MAX_IDX = 6998 + 5
 
-NUM_ALL=9
-NUM_TEST=3
+NUM_ALL = 8
+NUM_TEST = 5
 
 FEA_THRESHOLD = 0.1
 
-testSet=[]
+testSet = []
 
 def line2Record(line, classIdx):
   res = []
@@ -99,26 +99,16 @@ def cnt(col, clas, value):
   return cntFeas[col][clas][value]
 
 
-def test(classifyFile, lamda):
+def test(classifyFile, testres, lamda):
   
-  A = 0
-  B = 0;
-  C = 0;
-  D = 0;
   count = 0
-#   for line in open(classifyFile):
+  outputFile = open(testres,'w+')
   for line in testSet:
-    p1 = 0;
-    p2 = 0;
+    p1_log = 0;
+    p2_log = 0;
     count += 1
-    print count,len(testSet)
+    print count, len(testSet)
        
-#     if count % NUM_ALL != NUM_TEST:
-#       continue
-    
-#     if count > 2000:
-#       break
-    
     record = line2Record(line, '1')
     real = record[0]
     vector = record[1]
@@ -126,43 +116,22 @@ def test(classifyFile, lamda):
     for i in range(2, MAX_IDX + 1):
       idx = '%d' % i
       if idx in cols:
-        c1 = cnt(idx, '1', vector[idx])/float(cntClass['1'])
-        c2 = cnt(idx, '2', vector[idx])/float(cntClass['2'])
+        c1 = cnt(idx, '1', vector[idx]) / float(cntClass['1'])
+        c2 = cnt(idx, '2', vector[idx]) / float(cntClass['2'])
         if (c1 < FEA_THRESHOLD and c2 < FEA_THRESHOLD): 
           continue
-        p1 += math.log((cnt(idx, '1', vector[idx]) + lamda)) - math.log(cntClass['1'] + lamda * distinctNums(idx, True))
-        p2 += math.log((cnt(idx, '2', vector[idx]) + lamda)) - math.log(cntClass['2'] + lamda * distinctNums(idx, True))
-#         print "class1:",cnt(idx, '1', vector[idx]), cntClass['1'], cnt(idx, '1', vector[idx])/float(cntClass['1']),math.log((cnt(idx, '1', vector[idx]) + lamda)) - math.log(cntClass['1'] + lamda * distinctNums(idx, True))
-#         print "class2:",cnt(idx, '2', vector[idx]), cntClass['2'], cnt(idx, '2', vector[idx])/float(cntClass['2']),math.log((cnt(idx, '2', vector[idx]) + lamda)) - math.log(cntClass['2'] + lamda * distinctNums(idx, True))
-#         print p1,p2
-
-#       else:
-#         p1 += math.log((cnt(idx, '1', DEFAULT) + lamda)) - math.log(cntClass['1'] + lamda * distinctNums(idx, True))
-#         p2 += math.log((cnt(idx, '2', DEFAULT) + lamda)) - math.log(cntClass['2'] + lamda * distinctNums(idx, True))
-#         print "class1:",cnt(idx, '1', DEFAULT), cntClass['1'], cnt(idx, '1', DEFAULT)/float(cntClass['1']), math.log((cnt(idx, '1', DEFAULT) + lamda)) - math.log(cntClass['1'] + lamda * distinctNums(idx, True))
-#         print "class2:",cnt(idx, '2', DEFAULT), cntClass['2'], cnt(idx, '2', DEFAULT)/float(cntClass['2']), math.log((cnt(idx, '2', DEFAULT) + lamda)) - math.log(cntClass['2'] + lamda * distinctNums(idx, True))
-#       print "step:",p1,p2
-    p1 += math.log((cntClass['1'] + lamda)) - math.log(sum(cntClass.values()) + len(cntClass) * lamda)
-    p2 += math.log((cntClass['2'] + lamda)) - math.log(sum(cntClass.values()) + len(cntClass) * lamda)
+        p1_log += math.log((cnt(idx, '1', vector[idx]) + lamda)) - math.log(cntClass['1'] + lamda * distinctNums(idx, True))
+        p2_log += math.log((cnt(idx, '2', vector[idx]) + lamda)) - math.log(cntClass['2'] + lamda * distinctNums(idx, True))
+    p1_log += math.log((cntClass['1'] + lamda)) - math.log(sum(cntClass.values()) + len(cntClass) * lamda)
+    p2_log += math.log((cntClass['2'] + lamda)) - math.log(sum(cntClass.values()) + len(cntClass) * lamda)
     
-    if p1 > p2:
-      res = '1'
-    else:
-      res = '2'
-    if res == '1' and real == '1':
-      A += 1
-    if res == '2' and real == '1':
-      B += 1
-    if res == '1' and real == '2':
-      C += 1
-    if res == '2' and real == '2':
-      D += 1
-  print  A, B, C, D
-  print (A+D)/float(A+B+C+D)
-      
+    p1=1/(math.exp(p2_log-p1_log)+1)
     
-
-train('D:/worktmp/people/lab-data.txt', '1',0)
-test('D:/worktmp/people/lab-data.txt', 1)
-
+    outputFile.write(str(1-p1)+'\t'+real+'\n')
   
+  
+train('D:/worktmp/people/lab-data.txt', '1', 0)
+test('D:/worktmp/people/lab-data.txt','D:/worktmp/people/testres.txt', 1)
+
+# outputFile = open('D:/worktmp/people/testres.txt','w')
+# outputFile.write(str(0.1)+'\t'+'shc')

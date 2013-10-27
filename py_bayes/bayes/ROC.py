@@ -5,6 +5,7 @@ Created on Oct 25, 2013
 '''
 
 import matplotlib.pyplot as plt
+import string
 from numpy import *
 
 def plotROC(predStrengths, classLabels, posLabel):
@@ -17,7 +18,10 @@ def plotROC(predStrengths, classLabels, posLabel):
   fig = plt.figure()
   fig.clf()
   ax = plt.subplot(111)
+  count = 0
   for index in sortedIndicies.tolist():
+    print count
+    count += 1
     if classLabels[index] == posLabel:
       delX = 0; delY = yStep;
     else:
@@ -31,7 +35,62 @@ def plotROC(predStrengths, classLabels, posLabel):
   ax.axis([0, 1, 0, 1])
   plt.show()
   print "the Area Under the Curve is: ", ySum * xStep
+
+def plotROC2(sortedTestFile, posLabel):
+    
+  predStrengths = []
+  classLabels = []
+  for line in open(sortedTestFile):
+    predStrengths.append(line.split()[0])
+    classLabels.append(line.split()[1])
+
+# def plotROC2(predStrengths, classLabels, posLabel):
   
-testlst = [0.1, 0.05, 0.4, 0.2]
-clasLabel = [0,1,0,1]
-plotROC(testlst,clasLabel,1)
+  numPosClas = sum(array(classLabels) == posLabel)
+  print 
+  yStep = 1 / float(numPosClas)
+  xStep = 1 / float(len(classLabels) - numPosClas)
+  fig = plt.figure()
+  fig.clf()
+  ax = plt.subplot(111)
+  
+ 
+  lastPre = predStrengths[0]
+  area = 0.0
+  
+  pointStart = (1.0, 1.0)
+  pointEnd = (1.0, 1.0)
+  
+  count = 0
+  for index in range(0, len(classLabels)):
+    print count
+    count += 1
+    
+    if classLabels[index] == posLabel:
+      delX = 0; delY = yStep;
+    else:
+      delX = xStep; delY = 0
+    pointEnd = (pointEnd[0]-delX, pointEnd[1]-delY)
+    print pointEnd
+    
+    if index + 1 == len(classLabels) or predStrengths[index + 1] != lastPre:
+      print 'wori', pointEnd
+      area += (pointStart[1] + pointEnd[1]) * (pointStart[0] - pointEnd[0]) / 2
+      ax.plot([pointStart[0],pointEnd[0]],[pointStart[1],pointEnd[1]])
+      pointStart = pointEnd
+      
+  ax.plot([0, 1], [0, 1], 'b--')
+  plt.xlabel('False Positive Rate'); plt.ylabel('True Positive Rate')
+  plt.title('ROC curve')
+  ax.axis([0, 1, 0, 1])
+  plt.show()
+  print "the Area Under the Curve is: ", area
+
+
+# testlst = [0.1,0.1,0.1,0.1,0.1,0.4,0.5,0.6]
+# classLabels = [1,2,1,1,1,1,2,1]
+# plotROC2(testlst, classLabels, 1)
+
+
+plotROC2('D:/worktmp/people/sort.txt','2')
+
