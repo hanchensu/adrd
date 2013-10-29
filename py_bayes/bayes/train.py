@@ -3,36 +3,27 @@ Created on Oct 24, 2013
 
 @author: hanchensu
 '''
-
+from bayes.util import line2Record
+from numpy import *
 import math
+import string
+
 cntFeas = {}
 cntClass = {}
 
 DEFAULT = '0'
 MAX_IDX = 6998 + 5
 
-NUM_ALL = 8
+NUM_ALL = 9
 NUM_TEST = 5
 
 FEA_THRESHOLD = 0.1
 
+FEA_USED_NUM = 500
+
 testSet = []
 
-def line2Record(line, classIdx):
-  res = []
-  feas = {}
-  for word in line.split():
-    kv = word.split(':')
-    if(len(kv) != 2): 
-      continue
-    if(kv[0] == classIdx):
-      res.append(kv[1])
-    else:  
-      feas[kv[0]] = kv[1]
-  res.append(feas)
-  return res
   
-
 def train(trainFile, classIdx, sparse):
   count = 0
   for line in open(trainFile):
@@ -100,38 +91,68 @@ def cnt(col, clas, value):
 
 
 def test(classifyFile, testres, lamda):
+
+  feaId = []
+  info = []
+  for line in open("D:/worktmp/people/sortGain.txt"):
+    feaId.append(line.split()[0])
+    info.append(string.atof(line.split()[1]))
+  
+  feasUsed = feaId[0:FEA_USED_NUM]
+  
   
   count = 0
-  outputFile = open(testres,'w+')
+  outputFile = open(testres, 'w+')
   for line in testSet:
     p1_log = 0;
     p2_log = 0;
+    changed = False
     count += 1
     print count, len(testSet)
-       
+  
     record = line2Record(line, '1')
     real = record[0]
     vector = record[1]
     cols = vector.keys()
-    for i in range(2, MAX_IDX + 1):
-      idx = '%d' % i
+    
+    for i in feasUsed:
+      idx = i
       if idx in cols:
+        
         c1 = cnt(idx, '1', vector[idx]) / float(cntClass['1'])
         c2 = cnt(idx, '2', vector[idx]) / float(cntClass['2'])
-        if (c1 < FEA_THRESHOLD and c2 < FEA_THRESHOLD): 
+        if (c1 > 0 and c1 < FEA_THRESHOLD and c2 > 0 and c2 < FEA_THRESHOLD): 
           continue
         p1_log += math.log((cnt(idx, '1', vector[idx]) + lamda)) - math.log(cntClass['1'] + lamda * distinctNums(idx, True))
         p2_log += math.log((cnt(idx, '2', vector[idx]) + lamda)) - math.log(cntClass['2'] + lamda * distinctNums(idx, True))
-    p1_log += math.log((cntClass['1'] + lamda)) - math.log(sum(cntClass.values()) + len(cntClass) * lamda)
-    p2_log += math.log((cntClass['2'] + lamda)) - math.log(sum(cntClass.values()) + len(cntClass) * lamda)
+        changed = True
+    p1 = 0.0
+    if changed == False:
+      continue
+#       p1 = cntClass['1'] / sum(cntClass.values())
+    else:
+      p1_log += math.log((cntClass['1'] + lamda)) - math.log(sum(cntClass.values()) + len(cntClass) * lamda)
+      p2_log += math.log((cntClass['2'] + lamda)) - math.log(sum(cntClass.values()) + len(cntClass) * lamda)
+      p1 = 1 / (math.exp(p2_log - p1_log) + 1)
     
-    p1=1/(math.exp(p2_log-p1_log)+1)
-    
-    outputFile.write(str(p1)+'\t'+real+'\n')
+    outputFile.write(str(p1) + '\t' + real + '\n')
   
+
   
 train('D:/worktmp/people/lab-data.txt', '1', 0)
-test('D:/worktmp/people/lab-data.txt','D:/worktmp/people/testres.txt', 1)
+test('D:/worktmp/people/lab-data.txt', 'D:/worktmp/people/fea'+str(FEA_USED_NUM)+'res.txt', 1)
+
+
+predStrengths = []
+classLabels = []
+for line in open('D:/worktmp/people/fea'+str(FEA_USED_NUM)+'res.txt'):
+  predStrengths.append(string.atof(line.split()[0]))
+  classLabels.append(line.split()[1])
+ 
+sortedFile = open('D:/worktmp/people/sort_fea'+str(FEA_USED_NUM)+'.txt','w+')
+sortedIndicies = array(predStrengths).argsort()
+for index in sortedIndicies:
+  sortedFile.write('%.3f' % predStrengths[index] +'\t' + classLabels[index]+'\n') 
 
 # outputFile = open('D:/worktmp/people/testres.txt','w')
 # outputFile.write(str(0.1)+'\t'+'shc')

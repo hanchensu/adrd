@@ -61,7 +61,7 @@ def plotROC2(sortedTestFile, posLabel):
   
   count = 0
   for index in range(0, len(classLabels)):
-    print count; count += 1
+#     print count; count += 1
     
     if classLabels[index] == posLabel:
       delX = 0; delY = yStep;
@@ -82,16 +82,7 @@ def plotROC2(sortedTestFile, posLabel):
   ax.axis([0, 1, 0, 1])
   plt.show()
 
-# predStrengths = []
-# classLabels = []
-# for line in open("D:/worktmp/people/testres.txt"):
-#   predStrengths.append(string.atof(line.split()[0]))
-#   classLabels.append(line.split()[1])
-# 
-# sortedFile = open("D:/worktmp/people/sort2.txt",'w+')
-# sortedIndicies = array(predStrengths).argsort()
-# for index in sortedIndicies:
-#   sortedFile.write('%.3f' % predStrengths[index] +'\t' + classLabels[index]+'\n') 
+
 
 
 # testlst = [0.1,0.1,0.1,0.1,0.1,0.4,0.5,0.6]
@@ -99,10 +90,9 @@ def plotROC2(sortedTestFile, posLabel):
 # plotROC2(testlst, classLabels, 1)
 
 
-
 predStrengths = []
 classLabels = []
-for line in open("D:/worktmp/people/sort2.txt"):
+for line in open("D:/worktmp/people/sort_fea500.txt"):
   predStrengths.append(line.split()[0])
   classLabels.append(line.split()[1])
   
@@ -111,18 +101,17 @@ print numPosClas, len(classLabels) - numPosClas
 
 m = 0;f = 0
 count = 0
-for line in open("D:/worktmp/people/sort2.txt"):
+for line in open("D:/worktmp/people/sort_fea500.txt"):
   count += 1;
-  if count >= 10000: break
+  if count >= 500: break
   if line.split()[1] == '2':
     f += 1
   else:
     m += 1
-  
-  
+
 print numPosClas / float(len(classLabels))
 print f/float(f+m)
 
 
-# plotROC2('D:/worktmp/people/sort2.txt','1')
+plotROC2('D:/worktmp/people/sort_fea500.txt','1')
 
