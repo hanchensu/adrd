@@ -58,7 +58,7 @@ if __name__ == '__main__':
     feas.append(i)
   feas.reverse()
   
-  outFile = open("D:/worktmp/people/sortGain.txt", 'w+')
+  outFile = open("D:/worktmp/people/sortGain.txt", 'w')
   for i in feas:
     outFile.write(str(feaId[i]) + '\t' + str(info[i]) + '\n')
   

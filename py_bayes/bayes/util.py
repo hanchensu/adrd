@@ -18,6 +18,8 @@ def line2Record(line, classIdx):
   res.append(feas)
   return res
 
+
+
 def getLabel(line, classIdx):
   for word in line.split():
     kv = word.split(':')

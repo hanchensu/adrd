@@ -101,10 +101,10 @@ print numPosClas, len(classLabels) - numPosClas
 
 m = 0;f = 0
 count = 0
-for line in open("D:/worktmp/people/sort_fea500.txt"):
+for line in open("D:/worktmp/people/sort_1000_res.txt"):
   count += 1;
   if count >= 500: break
-  if line.split()[1] == '2':
+  if line.split()[1] == '1':
     f += 1
   else:
     m += 1
@@ -113,5 +113,5 @@ print numPosClas / float(len(classLabels))
 print f/float(f+m)
 
 
-plotROC2('D:/worktmp/people/sort_fea500.txt','1')
+plotROC2('D:/worktmp/people/sort_1000_res.txt','0')
 
