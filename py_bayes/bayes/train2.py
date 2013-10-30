@@ -3,6 +3,7 @@ Created on Oct 24, 2013
 
 @author: hanchensu
 '''
+#普通贝叶斯方式计算
 from bayes.util import line2Record
 from numpy import *
 import math
