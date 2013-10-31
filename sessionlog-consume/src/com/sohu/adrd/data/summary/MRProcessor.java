@@ -24,7 +24,6 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.hive.ql.io.RCFileInputFormat;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.zebra.mapreduce.TableInputFormat;
 import org.apache.hadoop.mapreduce.Job;
@@ -68,7 +67,7 @@ public abstract class MRProcessor implements Tool {
 		setJars();
 	
 		Job job = new Job(_conf, this.getClass().getSimpleName());
-		RCFileOutputFormat.setColumnNumber(_conf, 2);
+//		RCFileOutputFormat.setColumnNumber(_conf, 2);
 		
 		job.setJarByClass(this.getClass());
 
@@ -106,17 +105,7 @@ public abstract class MRProcessor implements Tool {
 				FileInputFormat.addInputPaths(job, expand);
 			}
 		}
-		else
-		{
-			//MultipleInputs.addInputPath();
-			MapReduceInputFormatWrapper.setInputFormat(RCFileInputFormat.class, job);
-			
-			for(String sub:_input.split(",")) {
-				String expand = pathExpand(sub);
-				System.out.println("Add Input Path: "+expand);
-				FileInputFormat.addInputPaths(job, expand);
-			}
-		}
+		
 		
 		if (_output_seq) 
 		{
