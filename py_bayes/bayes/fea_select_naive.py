@@ -5,7 +5,7 @@ Created on Oct 29, 2013
 '''
 
 from math import log
-from bayes.util import *
+from util import *
 from numpy import *
 
 cntFeas = {}
@@ -16,24 +16,24 @@ DEFAULT = '0'
 MAX_IDX = 6998 + 5
 NUM_ALL = 9
 NUM_TEST = 5
-FEA_THRESHOLD = 0.1
-FEA_USED_NUM = 500
 
-def train(trainFile, classIdx, sparse):
+
+def train(trainFile, classIdx):
   count = 0
   for line in open(trainFile):
     count += 1
     print count
     
-    if count % NUM_ALL == NUM_TEST:
-      testSet.append(line)
-      continue
+#     if count % NUM_ALL == NUM_TEST:
+#       testSet.append(line)
+#       continue
     
     record = line2Record(line, classIdx)
     clas = record[0]
     cntClass[clas] = cntClass.get(clas, 0) + 1
     for key, value in record[1].items():
       cntFeas[key] = cntFeas.get(key, {})
+      
       cntFeas[key][clas] = cntFeas[key].get(clas, {})
       cntFeas[key][clas][value] = cntFeas[key][clas].get(value, 0) + 1
 
@@ -63,6 +63,8 @@ def cnt(col, clas, value):
 
 
 def sortFeas():
+  FEA_THRESHOLD = 0.1
+  FEA_USED_NUM = 500
   feaId=[]
   feaGap=[]
   for i in range(2,MAX_IDX+1):
@@ -79,4 +81,4 @@ def sortFeas():
       outFile.write(str(feaId[i])+'\t'+str(feaGap[i])+'\n')
     
 train('D:/worktmp/people/lab-data.txt', '1', 0)
-sortFeas()
+# sortFeas()
