@@ -102,4 +102,4 @@ def reachCTR(sortedTestFile, posLabel):
   ax.axis([0, 1, 0, 1])
   plt.show()
 
-reachCTR('D:/worktmp/people/auc_test_3.txt','1')
+reachCTR('C:/Users/hanchensu/git/adrd/py_bayes/bayes/sortedTestRes','F')
