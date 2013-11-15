@@ -18,7 +18,7 @@ import org.apache.hadoop.util.GenericOptionsParser;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
-public class BayesTrain implements Tool{
+public class BayesTrainNoLine implements Tool{
 	
 	protected Configuration _conf = new Configuration();
 	
@@ -39,13 +39,8 @@ public class BayesTrain implements Tool{
 
 		public void map(Object key, Text value, Context context)
 				throws IOException, InterruptedException {
-			int NUM_ALL = Integer.parseInt(context.getConfiguration().get("num.divide").split("_")[0]);
-			int NUM_TEST = Integer.parseInt(context.getConfiguration().get("num.divide").split("_")[1]);
-			int lineno = Integer.parseInt(value.toString().split("#", 2)[0]);
 			
-			if (lineno % NUM_ALL == NUM_TEST)
-				return;
-			String line = value.toString().split("#", 2)[1];
+			String line = value.toString();
 			String[] splits = line.split("\\p{Blank}+");
 			String gender = splits[0];
 			gender = "0".equals(gender) ? "M" : "F";
@@ -82,9 +77,9 @@ public class BayesTrain implements Tool{
 
 	public int run(String[] args) throws Exception {
 
-		Job job = new Job(_conf, "Bayes Train");
+		Job job = new Job(_conf, "Bayes Train No Line Number");
 
-		job.setJarByClass(BayesTrain.class);
+		job.setJarByClass(BayesTrainNoLine.class);
 		job.setMapperClass(TrainMapper.class);
 		job.setReducerClass(TrainReducer.class);
 		job.setOutputKeyClass(Text.class);
@@ -99,7 +94,7 @@ public class BayesTrain implements Tool{
 	
 	
 	public static void main(String[] args) throws Exception {
-		int ret = ToolRunner.run(new BayesTrain(), args);
+		int ret = ToolRunner.run(new BayesTrainNoLine(), args);
 		if (ret != 0) {
 			System.err.println("Job Failed!");
 			System.exit(ret);
