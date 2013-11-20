@@ -108,14 +108,16 @@ public class PredictOnline implements Tool {
 			String line = value.toString();
 			String[] splits = line.split("\\p{Blank}+");
 			String userid = splits[0];
-
-
+			
+			
+			if(splits[1].trim().length()<3) return;
 			for (String seg : splits[1].trim().substring(1,splits[1].length()-1).trim().split(",")) {
+				if (seg.length() < 3) continue; 
 				seg = seg.trim().substring(1,seg.length()-1);
 				String[] kv = seg.split(",");
-				if (kv.length != 2)
+				if (kv.length != 3)
 					continue;
-				String pageid = kv[0].trim();
+				String pageid = kv[1].trim();
 				if (strengthF.containsKey(pageid)) {
 					double strength = strengthF.get(pageid);
 					femaleRates.add(strength);
@@ -237,7 +239,7 @@ public class PredictOnline implements Tool {
 	}
 
 	public static void main(String[] args) throws Exception {
-		int ret = ToolRunner.run(new BayesTestNoLine(), args);
+		int ret = ToolRunner.run(new PredictOnline(), args);
 		if (ret != 0) {
 			System.err.println("Job Failed!");
 			System.exit(ret);
