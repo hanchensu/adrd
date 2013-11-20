@@ -1,11 +1,14 @@
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -14,71 +17,128 @@ import javax.sound.sampled.Line;
 
 
 public class zTest {
+	
+	
+	
+	public static void readStrength(Map<String, Double> strengthMap,
+			String filename, int uvThreshold) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(
+				new FileInputStream(filename)));
+		int userM = 0, userF = 0;
+		String str;
+		while ((str = br.readLine()) != null) {
+			String[] splits = str.split("\\p{Blank}+");
+			if(splits.length < 5) continue;
+			int uvF = Integer.parseInt(splits[3]);
+			int uvM = Integer.parseInt(splits[4]);
+			userM += uvM;
+			userF += uvF;
+			if (uvF + uvM < uvThreshold || uvF == 0 || uvM == 0)
+				continue;
+			double rate = ((double) uvF) / uvM;
+			strengthMap.put(splits[0], rate);
+		}
+		br.close();
+		
+		for(String pageid:strengthMap.keySet()) {
+			
+			strengthMap.put(pageid, strengthMap.get(pageid) / (((double) userF) / userM));
+		}
+		
+		System.out.println(userF+"\t"+userM+"\t"+(((double) userF) / (userF+userM)));
+
+	}
+	
+	static Map<String, Double> strengthAll = null;
+	static Map<String, Double> strengthM = null;
+	static Map<String, Double> strengthF = null;
+
 	public static void main(String[] args) throws IOException {
-//		Map<String, Double> mfCnt = new HashMap<String, Double>();
-//		
-//		BufferedReader br = new BufferedReader(new FileReader(new File("./sorted")));
-//		String str;
-//		while ((str = br.readLine()) != null) {
-//			String[] splits = str.split("\\p{Blank}+");
-//			String pageId = splits[0];
-//			double rate = 1;
-//			Double mNum = 0.0, fNum = 0.0;
-//			for (String seg : splits[1].split(",")) {
-//				String[] kv = seg.split(":");
-//				if (kv.length != 2) continue;
-//				if("M".equals(kv[0])) mNum = Double.parseDouble(kv[1]);
-//				else fNum = Double.parseDouble(kv[1]);
-//				
-//			}
-//			
-//			rate = mNum / fNum;
-////			if(mNum > 0 && fNum>0 && mNum + fNum >= THRESHOLD) {
-//				mfCnt.put(pageId, rate);
-////			}
-//		}
-//		br.close();
-//		Double mfRate = mfCnt.get("All");
-//		for(String pageId : mfCnt.keySet()) {
-//			if(!"All".equals(pageId)) {
-//				mfCnt.put(pageId, mfCnt.get(pageId) / mfRate);
-//			}
-//		}
-//		double x = 47431, y = 25468;
-//		System.out.println(mfCnt.get("56")+" "+(x/y) / ((double) 1378718/456591));
-//		
-//		br = new BufferedReader(new FileReader(new File("./sorted")));
-//
-//		String line = "0       11520:1 56:1    12231:1";
-//		String[] splits = line.split("\\p{Blank}+");
-//		String gender = splits[0];
-//		gender = "0".equals(gender) ? "M" : "F";
-//		Double rate = mfCnt.get("All");
-//		int changed = 0;
-//		for (String seg : splits) {
-//			String[] kv = seg.split(":");
-//			if (kv.length != 2)
-//				continue;
-//			if (mfCnt.containsKey(kv[0])) {
-//				changed++;
-//				rate *= mfCnt.get(kv[0]);
-//			}
-//		}
-//		Double frate = 1.0 / (rate + 1.0);
-//		System.out.println(frate.toString()+" "+gender);
+		
 		List<Double> femaleRates = new ArrayList<Double>();
-		femaleRates.add(1.0);
-		femaleRates.add(3.0);
-		femaleRates.add(2.0);
-		Collections.sort(femaleRates,new Comparator<Double>(){
-			   public int compare(Double b1, Double b2) {
-			          if( b2 > b1) return 1;
-			          if (b2 == b1 ) return 0;
-			          return -1;
-			   }
+		List<Double> maleRates = new ArrayList<Double>();
+		List<Double> totalRates = new ArrayList<Double>();
+		
+		if (strengthAll == null) {
+			strengthAll=new HashMap<String, Double>();
+			strengthM=new HashMap<String, Double>();
+			strengthF=new HashMap<String, Double>();
+			readStrength(strengthAll,"./total",100);
+			for(String pageid:strengthAll.keySet()) {
+				double rate = strengthAll.get(pageid);
+				if(rate > 1) {femaleRates.add(rate);strengthF.put(pageid, rate);} 
+				else {maleRates.add(1.0/rate);strengthM.put(pageid, 1.0/rate);} 
+			}
+			
+			
+			List<Map.Entry<String, Double>> fStreSorted = new LinkedList<Map.Entry<String, Double>>(strengthF.entrySet());
+			
+			Collections.sort(fStreSorted, new Comparator<Map.Entry<String, Double>>() {   
+	            public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2) {   
+	            	double b1 = o1.getValue();
+	            	double b2 = o2.getValue();
+	            	if (b2 > b1)
+						return 1;
+					if (b2 == b1)
+						return 0;
+					return -1;  
+	            }   
+	        });  
+			
+			
+			List<Map.Entry<String, Double>> mStreSorted = new LinkedList<Map.Entry<String, Double>>(strengthM.entrySet());
+			
+			Collections.sort(mStreSorted, new Comparator<Map.Entry<String, Double>>() {   
+	            public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2) {   
+	            	double b1 = o1.getValue();
+	            	double b2 = o2.getValue();
+	            	if (b2 > b1)
+						return 1;
+					if (b2 == b1)
+						return 0;
+					return -1;  
+	            }   
+	        });  
+			
+			
+			
+			Collections.sort(femaleRates, new Comparator<Double>() {
+				public int compare(Double b1, Double b2) {
+					if (b2 > b1)
+						return 1;
+					if (b2 == b1)
+						return 0;
+					return -1;
+				}
 			});
-		for(Double x: femaleRates) {
-			System.out.println(x);
+
+			Collections.sort(maleRates, new Comparator<Double>() {
+				public int compare(Double b1, Double b2) {
+					if (b2 > b1)
+						return 1;
+					if (b2 == b1)
+						return 0;
+					return -1;
+				}
+			});
+
+			Collections.sort(totalRates, new Comparator<Double>() {
+				public int compare(Double b1, Double b2) {
+					if (b2 > b1)
+						return 1;
+					if (b2 == b1)
+						return 0;
+					return -1;
+				}
+			});
+			
+			
+			for(int i = 0; i < 10; i++) {
+				System.out.println("M: "+mStreSorted.get(i).getKey()+"\t"+mStreSorted.get(i).getValue());
+				System.out.println("F: "+fStreSorted.get(i).getKey()+"\t"+fStreSorted.get(i).getValue());
+			}
+			
+			
 		}
 	}
 
