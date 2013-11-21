@@ -31,7 +31,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
-public class PredictOnline implements Tool {
+public class PredictTest implements Tool {
 
 	protected Configuration _conf = new Configuration();
 
@@ -103,123 +103,35 @@ public class PredictOnline implements Tool {
 			
 			
 			
-			List<Double> femaleRates = new ArrayList<Double>();
-			List<Double> maleRates = new ArrayList<Double>();
-			List<Double> totalRates = new ArrayList<Double>();
-
+			
 			String line = value.toString();
 			String[] splits = line.split("\\p{Blank}+");
 			String userid = splits[0];
+			String pages="";
+			
 			
 			String regex = "\\(([^,]+),(\\d+),(\\d+)\\)";
 			Pattern pattern = Pattern.compile(regex);
 			Matcher match = pattern.matcher(splits[1]);
 			while (match.find()) {
 			    String pageid = match.group(2);
-			    if (strengthF.containsKey(pageid)) {
-					double strength = strengthF.get(pageid);
-					femaleRates.add(strength);
-					totalRates.add(strength);
-				}
-				if (strengthM.containsKey(pageid)) {
-					double strength = strengthM.get(pageid);
-					maleRates.add(strength);
-					totalRates.add(strength);
-				}
+			    pages+=pageid+",";
+				
 			    
 			}
 			
-			Collections.sort(femaleRates, new Comparator<Double>() {
-				public int compare(Double b1, Double b2) {
-					if (b2 > b1)
-						return 1;
-					if (b2 == b1)
-						return 0;
-					return -1;
-				}
-			});
+			context.write(new Text(userid+"______________________"), new Text(line+"_____________________________"+pages));
 
-			Collections.sort(maleRates, new Comparator<Double>() {
-				public int compare(Double b1, Double b2) {
-					if (b2 > b1)
-						return 1;
-					if (b2 == b1)
-						return 0;
-					return -1;
-				}
-			});
-
-			Collections.sort(totalRates, new Comparator<Double>() {
-				public int compare(Double b1, Double b2) {
-					if (b2 > b1)
-						return 1;
-					if (b2 == b1)
-						return 0;
-					return -1;
-				}
-			});
-
-			String calStrengthMethod = context.getConfiguration().get(
-					"cal.method");
-
-			double strength = 1.0;
-			if ("topTotal".equals(calStrengthMethod)) {
-				if (totalRates.size() >= topTotal) {
-					for (int i = 0; i < topTotal; i++) {
-						strength *= totalRates.get(i);
-					}
-					context.write(new Text(userid), new Text(Double.toString(strength)));
-				}
-
-			} else if ("thresholdTotal".equals(calStrengthMethod)) {
-				boolean changed = false;
-				for (double pageStrength : totalRates) {
-					if (pageStrength < thresholdTotal)
-						break;
-					strength *= pageStrength;
-					changed = true;
-				}
-				if (changed) {
-					context.write(new Text(userid), new Text(Double.toString(strength)));
-				}
-			} else if ("topMF".equals(calStrengthMethod)) {
-				if (femaleRates.size() >= topF && maleRates.size() >= topM) {
-					for (int i = 0; i < topF; i++) {
-						strength *= femaleRates.get(i);
-					}
-					for (int i = 0; i < topM; i++) {
-						strength /= maleRates.get(i);
-					}
-					context.write(new Text(userid), new Text(Double.toString(strength)));
-				}
-
-			} else if ("thresholdMF".equals(calStrengthMethod)) {
-				boolean changed = false;
-				for (double pageStrength : femaleRates) {
-					if (pageStrength < thresholdF)
-						break;
-					strength *= pageStrength;
-					changed = true;
-				}
-				for (double pageStrength : maleRates) {
-					if (pageStrength < thresholdM)
-						break;
-					strength /= pageStrength;
-					changed = true;
-				}
-				if (changed) {
-					context.write(new Text(userid), new Text(Double.toString(strength)));
-				}
-			}
+			
 		}
 	}
 
 	@Override
 	public int run(String[] args) throws Exception {
 
-		Job job = new Job(_conf, "[Demographic] Predict");
+		Job job = new Job(_conf, "Predict Test");
 
-		job.setJarByClass(PredictOnline.class);
+		job.setJarByClass(PredictTest.class);
 		job.setMapperClass(PredictMapper.class);
 
 		job.setMapOutputKeyClass(Text.class);
@@ -238,7 +150,7 @@ public class PredictOnline implements Tool {
 	}
 
 	public static void main(String[] args) throws Exception {
-		int ret = ToolRunner.run(new PredictOnline(), args);
+		int ret = ToolRunner.run(new PredictTest(), args);
 		if (ret != 0) {
 			System.err.println("Job Failed!");
 			System.exit(ret);
