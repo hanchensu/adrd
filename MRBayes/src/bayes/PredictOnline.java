@@ -1,35 +1,22 @@
 package bayes;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.FSDataInputStream;
-import org.apache.hadoop.fs.FSInputStream;
-import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
-import org.apache.hadoop.mapreduce.Reducer;
-import org.apache.hadoop.mapreduce.Reducer.Context;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PredictOnline implements Tool {
 
@@ -46,6 +33,7 @@ public class PredictOnline implements Tool {
 
 	}
 
+	
 	public static void readStrength(Map<String, Double> strengthMap,
 			String filename, int uvThreshold) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -111,7 +99,8 @@ public class PredictOnline implements Tool {
 			String[] splits = line.split("\\p{Blank}+");
 			String userid = splits[0];
 			
-			String regex = "\\(([^,]+),(\\d+),(\\d+)\\)";
+//			String regex = "\\(([^,]+),(\\d+),(\\d+)\\)";
+			String regex = "\\((\\d+),(\\d+)\\)";
 			Pattern pattern = Pattern.compile(regex);
 			Matcher match = pattern.matcher(splits[1]);
 			while (match.find()) {
@@ -133,7 +122,7 @@ public class PredictOnline implements Tool {
 				public int compare(Double b1, Double b2) {
 					if (b2 > b1)
 						return 1;
-					if (b2 == b1)
+					if (b2.equals(b1))
 						return 0;
 					return -1;
 				}
@@ -168,7 +157,8 @@ public class PredictOnline implements Tool {
 					for (int i = 0; i < topTotal; i++) {
 						strength *= totalRates.get(i);
 					}
-					context.write(new Text(userid), new Text(Double.toString(strength)));
+					writeTag(context,userid,strength);
+//					context.write(new Text(userid), new Text(Double.toString(strength)));
 				}
 
 			} else if ("thresholdTotal".equals(calStrengthMethod)) {
@@ -180,7 +170,7 @@ public class PredictOnline implements Tool {
 					changed = true;
 				}
 				if (changed) {
-					context.write(new Text(userid), new Text(Double.toString(strength)));
+//					context.write(new Text(userid), new Text(Double.toString(strength)));
 				}
 			} else if ("topMF".equals(calStrengthMethod)) {
 				if (femaleRates.size() >= topF && maleRates.size() >= topM) {
@@ -190,7 +180,7 @@ public class PredictOnline implements Tool {
 					for (int i = 0; i < topM; i++) {
 						strength /= maleRates.get(i);
 					}
-					context.write(new Text(userid), new Text(Double.toString(strength)));
+//					context.write(new Text(userid), new Text(Double.toString(strength)));
 				}
 
 			} else if ("thresholdMF".equals(calStrengthMethod)) {
@@ -208,16 +198,29 @@ public class PredictOnline implements Tool {
 					changed = true;
 				}
 				if (changed) {
-					context.write(new Text(userid), new Text(Double.toString(strength)));
+//					context.write(new Text(userid), new Text(Double.toString(strength)));
 				}
 			}
+		}
+
+		private void writeTag(Context context, String userid, double strength) {			
+			// TODO Auto-generated method stub
+			final double thresholdTag1 = Double.parseDouble(context.getConfiguration().get("rate.thresholdTag1", "300"));
+			final double thresholdTag2 = Double.parseDouble(context.getConfiguration().get("rate.thresholdTag2", "800"));
+			if(strength >= thresholdTag1) {
+				context.write(key, value);
+			}
+			if(strength >= thresholdTag2) {
+				context.write(key, value);
+			}
+			
 		}
 	}
 
 	@Override
 	public int run(String[] args) throws Exception {
 
-		Job job = new Job(_conf, "[Demographic] Predict");
+		Job job = new Job(_conf, "[Demographic] Bayes Predict");
 
 		job.setJarByClass(PredictOnline.class);
 		job.setMapperClass(PredictMapper.class);
@@ -226,12 +229,12 @@ public class PredictOnline implements Tool {
 		job.setMapOutputValueClass(Text.class);
 		job.setNumReduceTasks(0);
 
-		System.out.println(_conf.get("bayes.testinput"));
-		System.out.println(_conf.get("bayes.testoutput"));
+		System.out.println(_conf.get("dir.input"));
+		System.out.println(_conf.get("dir.output"));
 
-		FileInputFormat.addInputPaths(job, _conf.get("bayes.testinput"));
+		FileInputFormat.addInputPaths(job, _conf.get("dir.input"));
 		FileOutputFormat.setOutputPath(job,
-				new Path(_conf.get("bayes.testoutput")));
+				new Path(_conf.get("dir.output")));
 
 		// System.out.println(job.waitForCompletion(true) ? 0 : 1);
 		return job.waitForCompletion(true) ? 0 : 1;
